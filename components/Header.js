@@ -1,16 +1,15 @@
-import { Link, Flex, Stack, Button, Spacer } from '@chakra-ui/react'
+import { Image, Link, Flex, Stack, Button, Spacer } from '@chakra-ui/react'
 
-import Image from 'next/image'
+// import Image from 'next/image'
 
 function Header() {
   return (
     <Flex as="header" p={5}>
       <Link href="/">
         <Image
+          width="200px"
           src="/images/logo/logotip/logotip_fonstransparent.png"
           alt="Corporative logo image"
-          width={200}
-          height={75}
         />
       </Link>
       <Spacer />
