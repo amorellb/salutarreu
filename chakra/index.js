@@ -7,7 +7,13 @@ const overrides = {
     body: 'AkzidenzGroteskBQ-Reg, sans-serif'
   },
   colors: {
-    brand: {}
+    brand: {
+      300: '#82DEB8',
+      400: '#66CAA5',
+      500: '#4DB68B',
+      600: '#347361',
+      700: '#225347'
+    }
   },
   components: {
     // componentes de chakra aquí
