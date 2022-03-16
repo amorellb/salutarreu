@@ -4,7 +4,8 @@ import {
   Button,
   Text,
   VStack,
-  useBreakpointValue
+  useBreakpointValue,
+  Heading
 } from '@chakra-ui/react'
 
 export default function WithBackgroundImage() {
@@ -23,7 +24,7 @@ export default function WithBackgroundImage() {
         bgGradient={'linear(to-r, blackAlpha.600, transparent)'}
       >
         <Stack maxW={'5xl'} align={'flex-center'} spacing={9}>
-          <Text
+          <Heading
             as="i"
             color={'teal.300'}
             fontWeight={800}
@@ -33,7 +34,7 @@ export default function WithBackgroundImage() {
             mb="7"
           >
             ¡BIENVENIDO A SALUT ARREU!
-          </Text>
+          </Heading>
           <Stack
             color={'white'}
             fontWeight={700}
