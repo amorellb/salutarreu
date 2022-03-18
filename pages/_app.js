@@ -9,7 +9,7 @@ import Fonts from '../components/Fonts'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ChakraProvider {...theme}>
+    <ChakraProvider theme={theme}>
       <Fonts />
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
