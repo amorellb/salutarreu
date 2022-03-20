@@ -26,7 +26,7 @@ export default function WithBackgroundImage() {
         <Stack maxW={'5xl'} align={'flex-center'} spacing={9}>
           <Heading
             as="i"
-            color={'teal.300'}
+            color={'brand.400'}
             fontWeight={800}
             lineHeight={1.2}
             textAlign="center"
@@ -50,12 +50,12 @@ export default function WithBackgroundImage() {
             </Text>
           </Stack>
           <Stack direction={'row'} justify="center">
-            <Button variant={'solid'} colorScheme="teal" isFullWidth>
+            <Button variant={'solid'} colorScheme={'brand'} isFullWidth>
               Registrarse
             </Button>
             <Button
               bg={'white'}
-              colorScheme="teal"
+              colorScheme={'brand'}
               variant="outline"
               isFullWidth
             >

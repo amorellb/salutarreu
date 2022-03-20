@@ -66,7 +66,7 @@ function Header() {
             fontSize={'sm'}
             fontWeight={400}
             variant={'outline'}
-            colorScheme="teal"
+            colorScheme={'brand'}
             href={'/sign-in'}
           >
             Iniciar sesión
@@ -76,7 +76,7 @@ function Header() {
             fontSize={'sm'}
             fontWeight={600}
             variant={'solid'}
-            colorScheme="teal"
+            colorScheme={'brand'}
             href={'/sign-up'}
           >
             Registrarse
