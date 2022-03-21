@@ -44,7 +44,7 @@ export default function WithBackgroundImage() {
             mb="10"
           >
             <Text>No solo es ponerse en forma, es un estilo de vida.</Text>
-            <Text as="ins"> Un estilo de vida saludable.</Text>
+            <Text as="i"> Un estilo de vida saludable.</Text>
             <Text>
               Acercate a nuestro centro y déjate guiar por nuestro entrenador.
             </Text>
