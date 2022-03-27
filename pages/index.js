@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import Presentation from '../components/Presentation'
+import Welcome from '../components/landing/Welcome'
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <Presentation />
+        <Welcome />
       </main>
 
       <footer className={styles.footer}>
