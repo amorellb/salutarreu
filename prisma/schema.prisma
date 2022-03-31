@@ -18,6 +18,7 @@ model User {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   role      Role      @default(USER)
   name      String
+  lastName  String
   birthDate DateTime
   email     String    @unique
   password  String
@@ -28,8 +29,9 @@ model User {
   avatar    String
   workouts  Workout[]
   tests     Test[]
-  createdAt DateTime  @default(now())
   Booking   Booking[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Workout {
@@ -41,6 +43,7 @@ model Workout {
   user        User     @relation(fields: [userId], references: [id])
   userId      String   @db.ObjectId
   createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 enum TestType {
@@ -58,11 +61,14 @@ model Test {
   user      User     @relation(fields: [userId], references: [id])
   userId    String   @db.ObjectId
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Booking {
-  id     String   @id @default(auto()) @map("_id") @db.ObjectId
-  date   DateTime
-  user   User     @relation(fields: [userId], references: [id])
-  userId String   @db.ObjectId
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  date      DateTime
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
