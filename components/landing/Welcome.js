@@ -24,10 +24,11 @@ export default function WithBackgroundImage() {
         bgGradient={'linear(to-r, blackAlpha.600, transparent)'}
       >
         <Stack maxW={'5xl'} align={'flex-center'} spacing={9}>
-          <Heading as='i'
-            bgGradient='linear(to-l, black, brand.400,brand.600, brand.300, brand.500,brand.300,brand.400, brand.600, brand.500, brand.400, brand.300,brand.600, black)'
-            bgClip='text'
-            fontWeight='900'
+          <Heading
+            as="i"
+            bgGradient="linear(to-l, black, brand.400,brand.600, brand.300, brand.500,brand.300,brand.400, brand.600, brand.500, brand.400, brand.300,brand.600, black)"
+            bgClip="text"
+            fontWeight="900"
             lineHeight={1.2}
             textAlign="center"
             fontSize={useBreakpointValue({ base: '5xl', md: '8xl' })}
