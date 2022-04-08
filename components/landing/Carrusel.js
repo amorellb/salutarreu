@@ -110,20 +110,19 @@ export default function CaptionCarousel() {
             key={index}
             height={'xl'}
             position="relative"
-            backgroundPosition="center center"
+            backgroundPosition="center"
             backgroundRepeat="no-repeat"
             backgroundSize="cover"
             backgroundImage={`url(${card.image})`}
-            
             >
             {/* This is the block you need to change, to customize the caption */}
             <Container size="container.lg" height="600px" position="relative">
               <Stack
                 spacing={3}
-                w={'full'}
+                w={'700px'}
                 maxW={'100%'}
                 position="absolute"
-                top="80%"
+                top="70%"
                 transform="translate(0, -50%)">
                 <Heading 
                 fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
