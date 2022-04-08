@@ -2,6 +2,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Welcome from '../components/landing/Welcome'
+import Carrusel from '../components/landing/Carrusel'
+import Testimonials from '../components/landing/Testimonials'
 
 export default function Home() {
   return (
@@ -14,6 +16,8 @@ export default function Home() {
 
       <main className={styles.main}>
         <Welcome />
+        <Carrusel />
+        <Testimonials />
       </main>
 
       <footer className={styles.footer}>
