@@ -28,7 +28,7 @@ export default function CaptionCarousel() {
   const [slider, setSlider] = React.useState('');
   // These are the breakpoints which changes the position of the
   // buttons as the screen size changes
-  const top = useBreakpointValue({ base: '85%', md: '50%', xl:'85%' });
+  const top = useBreakpointValue({ base: '85%', md: '50%', xl:'80%' });
   const side = useBreakpointValue({ base: '20%', md: '40px', xl:'20%' });
 
   const cards = [
@@ -58,7 +58,7 @@ export default function CaptionCarousel() {
   return (
     <Box
       position={'relative'}
-      height={{ base: '700px', lg: '550px' }}
+      height={{ base: '700px', lg: '600px' }}
       width={'100%'}
       overflow={'hidden'}
       margin='100px'>
