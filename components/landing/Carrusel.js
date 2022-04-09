@@ -28,7 +28,7 @@ export default function CaptionCarousel() {
   const [slider, setSlider] = React.useState('');
   // These are the breakpoints which changes the position of the
   // buttons as the screen size changes
-  const top = useBreakpointValue({ base: '85%', md: '50%', xl:'65%' });
+  const top = useBreakpointValue({ base: '85%', md: '50%', xl:'85%' });
   const side = useBreakpointValue({ base: '20%', md: '40px', xl:'20%' });
 
   const cards = [
@@ -58,7 +58,7 @@ export default function CaptionCarousel() {
   return (
     <Box
       position={'relative'}
-      height={{ base: '700px', md: '900px' }}
+      height={{ base: '700px', lg: '550px' }}
       width={'100%'}
       overflow={'hidden'}
       margin='100px'>
@@ -108,7 +108,7 @@ export default function CaptionCarousel() {
         {cards.map((card, index) => (
           <Box
             key={index}
-            height={'xl'}
+            height={{base:'xl', xl:'md' }}
             position="relative"
             backgroundPosition={{ base: "right", md: "left" }}
             backgroundRepeat="no-repeat"
@@ -124,7 +124,7 @@ export default function CaptionCarousel() {
                 maxWidth={'100%'}
                 position="absolute"
                 top={{ base: "70%", md: '50%', lg: '60%' }}
-                transform={{ base: "translate(0, -60%)", md: "translate(5%, 20%)", lg: "translate(-10%, -10%)", xl:"translate(55%, -80%)" }}
+                transform={{ base: "translate(0, -60%)", md: "translate(5%, 20%)", lg: "translate(-10%, -10%)", xl:"translate(25%, -80%)" }}
               >
                 <Heading
                   as={'h2'}
@@ -149,7 +149,7 @@ export default function CaptionCarousel() {
                   </Text>
                 </Heading>
                 <Text
-                  width={{ base: '400px', md: '480px', lg: '650px', xl:'550px' }}
+                  width={{ base: '400px', md: '480px', lg: '650px', xl:'750px' }}
                   fontSize={{ base: 'md', lg: 'lg' }}
                   color="brand.600"
                   fontWeight={'bold'}
