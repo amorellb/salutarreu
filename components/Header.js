@@ -13,10 +13,9 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 
 import DesktopNav from './navigation/DesktopNav'
 import MobileNav from './navigation/MobileNav'
-import { signIn, useSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 
 function Header() {
-  const { data: session } = useSession()
   const { isOpen, onToggle } = useDisclosure()
 
   return (
