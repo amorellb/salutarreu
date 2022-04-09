@@ -13,6 +13,7 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 
 import DesktopNav from './navigation/DesktopNav'
 import MobileNav from './navigation/MobileNav'
+import { signIn } from 'next-auth/react'
 
 function Header() {
   const { isOpen, onToggle } = useDisclosure()
@@ -67,7 +68,10 @@ function Header() {
             fontWeight={400}
             variant={'outline'}
             colorScheme={'brand'}
-            href={'/sign-in'}
+            /* href={'/sign-in'} */
+            onClick={() => {
+              signIn()
+            }}
           >
             Iniciar sesión
           </Button>
