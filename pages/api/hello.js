@@ -1,5 +1,13 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-export default function handler(req, res) {
-  res.status(200).json({ name: 'John Doe' })
+import prisma from '../../lib/prisma'
+
+export default async function handler(req, res) {
+  const users = await prisma.user.create({
+    data: {
+      name: 'John Doe',
+      email: 'jonhdoe@gmail.com'
+    }
+  })
+  res.json(users)
 }
