@@ -18,7 +18,7 @@ export default function Home() {
       <main className={styles.main}>
         <Welcome />
         <Container maxW={'7xl'} pt={16} as={Stack} spacing={12}>
-          <Stack spacing={0} align={'start'} marginStart={'4%'}>
+          <Stack spacing={0} align={'start'} >
             <Heading
               lineHeight={1.1}
               fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '6xl' }}
