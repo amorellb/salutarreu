@@ -150,11 +150,10 @@ export default function CaptionCarousel() {
                 <Text
                   width={{ base: '400px', md: '480px', lg: '650px', xl:'750px' }}
                   fontSize={{ base: 'md', lg: 'lg' }}
-                  color="brand.600"
-                  fontWeight={'bold'}
+                  color="brand.700"
                   p={'10px'}
                   borderRadius={'10px'}
-                  backgroundColor={'whiteAlpha.300'}
+                  backgroundColor={'whiteAlpha.600'}
                   textAlign={'justify'}
                   paddingLeft={5}
                 >
