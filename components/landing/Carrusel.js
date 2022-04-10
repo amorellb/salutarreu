@@ -37,21 +37,21 @@ export default function CaptionCarousel() {
       text:
         "Los ejercicios de fuerza mejoran la densidad ósea, disminuyendo así el posible riesgo de osteoporosis o fracturas y protegiendo a la vez nuestras articulaciones. Además, logramos prevenir lesiones, ya que músculos, tendones y ligamentos tienen menos riesgo de dañarse, pudiendo resistir trabajos con mayor intensidad..",
       image:
-        'https://github.com/amorellb/salutarreu/blob/37-landing-page-components/public/images/landing/10.png?raw=true',
+        'https://github.com/amorellb/salutarreu/blob/dev/public/images/landing/10.png?raw=true'
     },
     {
       title: 'Entrenamiento funcional',
       text:
         "Este tipo de entrenamiento se basa en la realización de ejercicios que tienen como fin mejorar nuestro bienestar general de manera que se mejore nuestra capacidad para realizar cualquier tarea que implique movimiento de manera mucho más efectiva, menos dolorosa, con mayor resistencia y más flexibilidad, entre otras..",
       image:
-        'https://github.com/amorellb/salutarreu/blob/37-landing-page-components/public/images/landing/11.png?raw=true',
+        'https://github.com/amorellb/salutarreu/blob/dev/public/images/landing/11.png?raw=true',
     },
     {
       title: 'Entrenamiento cardiovascular',
       text:
         "Los ejercicios de entrenamiento cardio, son los que aumentan nuestro ritmo cardíaco, incrementan nuestra capacidad de resistencia, y mejoran nuestra condición física. Ayuda a controlar la presión arterial y fortalece el sistema inmunológico. Baja la presión arterial y la frecuencia cardiaca en reposo. ",
       image:
-        'https://github.com/amorellb/salutarreu/blob/37-landing-page-components/public/images/landing/12.png?raw=true',
+        'https://github.com/amorellb/salutarreu/blob/dev/public/images/landing/12.png?raw=true',
     },
   ];
 
