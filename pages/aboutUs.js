@@ -79,7 +79,7 @@ export default function AboutUs() {
             <FormControl isRequired>
               <FormLabel
                 as="label"
-                for="contact-name"
+                htmlFor="contact-name"
                 marginTop={'15px'}
                 color={'brand.500'}
                 fontSize={'1.2rem'}
@@ -97,7 +97,7 @@ export default function AboutUs() {
             <FormControl isRequired>
               <FormLabel
                 as="label"
-                for="contact-email"
+                htmlFor="contact-email"
                 color={'brand.500'}
                 fontSize={'1.2rem'}
                 fontStyle={'italic'}
@@ -114,7 +114,7 @@ export default function AboutUs() {
             <FormControl isRequired>
               <FormLabel
                 as="label"
-                for="contact-message"
+                htmlFor="contact-message"
                 color={'brand.500'}
                 fontSize={'1.2rem'}
                 fontStyle={'italic'}
