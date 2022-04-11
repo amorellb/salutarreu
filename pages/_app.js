@@ -19,7 +19,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <Component {...pageProps} />
         <Footer/>
       </ChakraProvider>
-
     </SessionProvider>
   )
 }
