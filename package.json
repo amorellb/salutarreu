@@ -16,9 +16,11 @@
     "@prisma/client": "^3.10.0",
     "framer-motion": "^6.2.8",
     "next": "12.1.0",
+    "next-auth": "^4.3.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-icons": "^4.3.1"
+    "react-icons": "^4.3.1",
+    "react-slick": "^0.28.1"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
