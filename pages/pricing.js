@@ -12,6 +12,7 @@ import {
 function PriceWrapper(props) {
     return (
         <Box
+            width={{sm:'350px', md:'280px', lg:'300px'}}
             shadow="md"
             borderWidth="1px"
             borderRadius={'xl'}
@@ -40,20 +41,20 @@ export default function ThreeTierPricing() {
                 </Text>
             </VStack>
 
-            <Stack spacing={8} mb="55px" border={2}>
+            <Stack spacing={8} mb="55px">
                 <Box>
                     <Box px={12}>
-                        <Heading as="h2" fontWeight="500" fontSize="4xl" marginLeft={20} color={'brand.600'}>
+                        <Heading as="h2" fontWeight="500" fontSize={{base:"4xl", sm:"3xl"}} marginLeft={20} color={'brand.600'}>
                             Sesiones individuales
                         </Heading>
                     </Box>
-                    <VStack>
+                    <VStack px={10}>
                         <Stack
                             direction={{ base: 'column', lg: 'row' }}
                             textAlign="center"
                             justify="center"
                             spacing={{ base: 4, lg: 10 }}
-                            py={10}>
+                            p={10}>
 
                             <PriceWrapper>
                                 <Box py={4} px={12}>
@@ -124,13 +125,13 @@ export default function ThreeTierPricing() {
                             Sesiones en pareja
                         </Heading>
                     </Box>
-                    <VStack>
+                    <VStack px={10}>
                         <Stack
                             direction={{ base: 'column', lg: 'row' }}
                             textAlign="center"
                             justify="center"
                             spacing={{ base: 4, lg: 10 }}
-                            py={10}>
+                            p={10}>
 
                             <PriceWrapper>
                                 <Box py={4} px={12}>
@@ -211,13 +212,13 @@ export default function ThreeTierPricing() {
                             Sesiones 3+
                         </Heading>
                     </Box>
-                    <VStack>
+                    <VStack px={10}>
                         <Stack
                             direction={{ base: 'column', lg: 'row' }}
                             textAlign="center"
                             justify="center"
                             spacing={{ base: 4, lg: 10 }}
-                            py={10}>
+                            p={10}>
 
                             <PriceWrapper>
                                 <Box py={4} px={12}>
@@ -298,13 +299,13 @@ export default function ThreeTierPricing() {
                             Abono por sesiones
                         </Heading>
                     </Box>
-                    <VStack>
+                    <VStack px={10}>
                         <Stack
                             direction={{ base: 'column', lg: 'row' }}
                             textAlign="center"
                             justify="center"
                             spacing={{ base: 4, lg: 10 }}
-                            py={10}>
+                            p={10}>
 
                             <PriceWrapper>
                                 <Box py={4} px={12}>
