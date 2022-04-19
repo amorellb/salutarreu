@@ -146,13 +146,13 @@ export default function CaptionCarousel() {
                   </Text>
                 </Heading>
                 <Text
-                  width={{ base: '240px', sm: '400px', md: '480px', lg: '650px', xl: '750px' }}
+                  width={{ base: '250px', sm: '400px', md: '480px', lg: '650px', xl: '750px' }}
                   fontSize={{ base: 'xs', sm: 'sm', md: 'md', lg: 'lg' }}
                   color="brand.700"
                   borderRadius={'10px'}
                   backgroundColor={'whiteAlpha.600'}
-                  textAlign={'start'}
-
+                  
+                  textAlign={'justify'}
                 >
                   {card.text}
                 </Text>
