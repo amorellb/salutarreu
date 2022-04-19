@@ -28,21 +28,21 @@ export default function CaptionCarousel() {
   const [slider, setSlider] = React.useState('');
   // These are the breakpoints which changes the position of the
   // buttons as the screen size changes
-  const top = useBreakpointValue({ base: '85%', md: '50%', xl:'80%' });
-  const side = useBreakpointValue({ base: '20%', md: '40px', xl:'20%' });
+  const top = useBreakpointValue({ base: '85%', md: '50%', xl: '80%' });
+  const side = useBreakpointValue({ base: '20%', md: '40px', xl: '20%' });
 
   const cards = [
     {
       title: 'Entrenamiento de fuerza',
       text:
-        "Los ejercicios de fuerza mejoran la densidad ósea, disminuyendo así el posible riesgo de osteoporosis o fracturas y protegiendo a la vez nuestras articulaciones. Además, logramos prevenir lesiones, ya que músculos, tendones y ligamentos tienen menos riesgo de dañarse, pudiendo resistir trabajos con mayor intensidad..",
+        "Los ejercicios de fuerza mejoran la densidad ósea, disminuyendo así el posible riesgo de osteoporosis o fracturas y protegiendo a la vez nuestras articulaciones. Además, logramos prevenir lesiones, ya que músculos, tendones y ligamentos tienen menos riesgo de dañarse, pudiendo resistir trabajos con mayor intensidad.",
       image:
         'https://github.com/amorellb/salutarreu/blob/main/public/images/landing/10.png?raw=true'
     },
     {
       title: 'Entrenamiento funcional',
       text:
-        "Este tipo de entrenamiento se basa en la realización de ejercicios que tienen como fin mejorar nuestro bienestar general de manera que se mejore nuestra capacidad para realizar cualquier tarea que implique movimiento de manera mucho más efectiva, menos dolorosa, con mayor resistencia y más flexibilidad, entre otras..",
+        "Este tipo de entrenamiento se basa en la realización de ejercicios que tienen como fin mejorar nuestro bienestar general de manera que se mejore nuestra capacidad para realizar cualquier tarea que implique movimiento de manera mucho más efectiva, menos dolorosa, con mayor resistencia y más flexibilidad, entre otras.",
       image:
         'https://github.com/amorellb/salutarreu/blob/main/public/images/landing/11.png?raw=true',
     },
@@ -107,15 +107,13 @@ export default function CaptionCarousel() {
         {cards.map((card, index) => (
           <Box
             key={index}
-            height={{base:'xl', xl:'md' }}
+            height={{ base: 'xl', xl: 'md' }}
             position="relative"
             backgroundPosition={{ base: "right", md: "left" }}
             backgroundRepeat="no-repeat"
-            backgroundSize={{ sm: "cover", md: "cover", lg: "contain" }}
+            backgroundSize={{ base: "contain", sm: "cover", md: "cover", lg: "contain" }}
             backgroundImage={`url(${card.image})`}
-
           >
-            {/* This is the block you need to change, to customize the caption */}
             <Container size="container.xl" height="600px" position="relative">
               <Stack
                 spacing={5}
@@ -123,7 +121,7 @@ export default function CaptionCarousel() {
                 maxWidth={'100%'}
                 position="absolute"
                 top={{ base: "70%", md: '50%', lg: '60%' }}
-                transform={{ base: "translate(0, -60%)", md: "translate(5%, 20%)", lg: "translate(-10%, -10%)", xl:"translate(25%, -80%)" }}
+                transform={{ base: "translate(0, -70%)", md: "translate(5%, 20%)", lg: "translate(-10%, -10%)", xl: "translate(25%, -80%)" }}
               >
                 <Heading
                   as={'h2'}
@@ -148,14 +146,13 @@ export default function CaptionCarousel() {
                   </Text>
                 </Heading>
                 <Text
-                  width={{ base: '400px', md: '480px', lg: '650px', xl:'750px' }}
-                  fontSize={{ base: 'md', lg: 'lg' }}
+                  width={{ base: '240px', sm: '400px', md: '480px', lg: '650px', xl: '750px' }}
+                  fontSize={{ base: 'xs', sm: 'sm', md: 'md', lg: 'lg' }}
                   color="brand.700"
-                  p={'10px'}
                   borderRadius={'10px'}
                   backgroundColor={'whiteAlpha.600'}
-                  textAlign={'justify'}
-                  paddingLeft={5}
+                  textAlign={'start'}
+
                 >
                   {card.text}
                 </Text>
