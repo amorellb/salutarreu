@@ -12,7 +12,7 @@ import {
 function PriceWrapper(props) {
     return (
         <Box
-            width={{sm:'350px', md:'280px', lg:'300px'}}
+            width={{ sm: '350px', md: '280px', lg: '300px' }}
             shadow="md"
             borderWidth="1px"
             borderRadius={'xl'}
@@ -44,7 +44,7 @@ export default function ThreeTierPricing() {
             <Stack spacing={8} mb="55px">
                 <Box>
                     <Box px={12}>
-                        <Heading as="h2" fontWeight="500" fontSize={{base:"4xl", sm:"3xl"}} marginLeft={20} color={'brand.600'}>
+                        <Heading as="h2" fontWeight="500" fontSize="4xl" color={'brand.600'}>
                             Sesiones individuales
                         </Heading>
                     </Box>
@@ -121,7 +121,7 @@ export default function ThreeTierPricing() {
             <Stack spacing={8} mb="55px">
                 <Box>
                     <Box px={12}>
-                        <Heading as="h2" fontWeight="500" fontSize="4xl" marginLeft={20} color={'brand.600'}>
+                        <Heading as="h2" fontWeight="500" fontSize="4xl" color={'brand.600'}>
                             Sesiones en pareja
                         </Heading>
                     </Box>
@@ -208,7 +208,7 @@ export default function ThreeTierPricing() {
             <Stack spacing={8} mb="55px">
                 <Box>
                     <Box px={12}>
-                        <Heading as="h2" fontWeight="500" fontSize="4xl" marginLeft={20} color={'brand.600'}>
+                        <Heading as="h2" fontWeight="500" fontSize="4xl" color={'brand.600'}>
                             Sesiones 3+
                         </Heading>
                     </Box>
@@ -295,7 +295,7 @@ export default function ThreeTierPricing() {
             <Stack spacing={8} mb="55px">
                 <Box>
                     <Box px={12}>
-                        <Heading as="h2" fontWeight="500" fontSize="4xl" marginLeft={20} color={'brand.600'}>
+                        <Heading as="h2" fontWeight="500" fontSize="4xl" color={'brand.600'}>
                             Abono por sesiones
                         </Heading>
                     </Box>
