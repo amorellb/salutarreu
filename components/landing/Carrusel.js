@@ -113,9 +113,7 @@ export default function CaptionCarousel() {
             backgroundRepeat="no-repeat"
             backgroundSize={{ base: "contain", sm: "cover", md: "cover", lg: "contain" }}
             backgroundImage={`url(${card.image})`}
-
           >
-            {/* This is the block you need to change, to customize the caption */}
             <Container size="container.xl" height="600px" position="relative">
               <Stack
                 spacing={5}
