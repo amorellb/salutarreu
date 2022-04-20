@@ -9,7 +9,8 @@ import {
   Drawer,
   DrawerContent,
   Text,
-  useDisclosure
+  useDisclosure,
+  Avatar
 } from '@chakra-ui/react'
 import {
   FiDatabase,
@@ -67,9 +68,22 @@ const SidebarContent = ({ onClose, ...rest }) => {
       h="full"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontWeight="bold">
-          Nombre usuario?
+      <Flex h="200px" flexDirection={'column'} alignItems="center" mx="8" justifyContent="center">
+        <Avatar size='xl' name='Christian Nwamba' src='https://bit.ly/code-beast'
+          _before={{
+            content: '""',
+            width: 'full',
+            height: 'full',
+            rounded: 'full',
+            transform: 'scale(1.125)',
+            bgGradient: 'linear(to-bl, brand.300,brand.600)',
+            position: 'absolute',
+            zIndex: -1,
+            top: 0,
+            left: 0,
+          }} />
+        <Text fontSize="xl" fontWeight="bold" mt={4}>
+          Christian Nwamba
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
