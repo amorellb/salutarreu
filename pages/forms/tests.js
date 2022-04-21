@@ -13,12 +13,13 @@ import {
   NumberDecrementStepper,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale, setDefaultLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import es from 'date-fns/locale/es';
+registerLocale('es', es)
+setDefaultLocale('es')
 
-
-function WorkoutForm() {
-
+function TestsForm() {
   const [startDate, setStartDate] = useState(new Date());
 
   return (
@@ -33,7 +34,7 @@ function WorkoutForm() {
           fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '6xl' }}
           bgGradient='linear(to-r,brand.600, brand.500, brand.400, brand.300)'
           bgClip='text'
-          textAlign={'center'}>
+        >
           Valoración cliente
         </Heading>
         <Box as={'form'} mt={10}>
@@ -55,7 +56,7 @@ function WorkoutForm() {
             <FormLabel color={'brand.500'} fontSize='lg' marginTop={'15px'}>
               Fecha de la valoración
             </FormLabel>
-            <DatePicker selected={startDate} onChange={(Date) => setStartDate(Date)} />
+            <DatePicker selected={startDate} onChange={(Date) => setStartDate(Date)} locale="es" dateFormat={'dd-MM-yyy'} />
           </FormControl>
           <FormControl isRequired mb={10}>
             <FormLabel color={'brand.500'} fontSize='lg' marginTop={'15px'}>
@@ -66,7 +67,7 @@ function WorkoutForm() {
               size='sm'
               borderColor={'gray.100'}
               bgColor='white'>
-              <NumberInputField _focus={{borderColor:'brand.300'}} borderRadius={'10px'} />
+              <NumberInputField _focus={{ borderColor: 'brand.300' }} borderRadius={'10px'} />
               <NumberInputStepper>
                 <NumberIncrementStepper />
                 <NumberDecrementStepper />
@@ -88,4 +89,4 @@ function WorkoutForm() {
   )
 }
 
-export default WorkoutForm
+export default TestsForm
