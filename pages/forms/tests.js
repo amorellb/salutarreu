@@ -22,6 +22,27 @@ setDefaultLocale('es')
 function TestsForm() {
   const [startDate, setStartDate] = useState(new Date());
 
+  const endpoint = 'http://localhost:3000/api/tests'
+
+  const createTest = async (e) => {
+    e.preventDefault()
+    fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(
+        {
+          date: new Date().toISOString(),
+          name: "fms",
+          result: 13,
+          type: "MOBILITY"
+        }
+      )
+    })
+
+  }
+
   return (
     <Box>
       <Stack
@@ -37,13 +58,8 @@ function TestsForm() {
         >
           Valoración cliente
         </Heading>
-        <Box as={'form'} mt={10}>
-          <FormControl isRequired>
-            <FormLabel color={'brand.500'} fontSize='lg'>
-              Email
-            </FormLabel>
-            <Input placeholder="nombre@mail.com" />
-          </FormControl>
+        <Box as={'form'} mt={10} onSubmit={createTest}>
+
           <FormControl isRequired>
             <FormLabel color={'brand.500'} fontSize='lg' marginTop={'15px'}>
               Test
@@ -56,7 +72,7 @@ function TestsForm() {
             <FormLabel color={'brand.500'} fontSize='lg' marginTop={'15px'}>
               Fecha de la valoración
             </FormLabel>
-            <DatePicker selected={startDate} onChange={(Date) => setStartDate(Date)} locale="es" dateFormat={'dd-MM-yyy'} />
+            <DatePicker id='dateInput' selected={startDate} onChange={(Date) => setStartDate(Date)} locale="es" dateFormat={'dd-MM-yyy'} />
           </FormControl>
           <FormControl isRequired mb={10}>
             <FormLabel color={'brand.500'} fontSize='lg' marginTop={'15px'}>
