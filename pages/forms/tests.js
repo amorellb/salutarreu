@@ -78,7 +78,7 @@ function TestsForm() {
             <FormLabel color={'brand.500'} fontSize='lg' marginTop={'15px'}>
               Puntuación
             </FormLabel>
-            <NumberInput defaultValue={15} min={0} max={200}
+            <NumberInput defaultValue={0} min={0} max={3}
               step={5}
               size='sm'
               borderColor={'gray.100'}
