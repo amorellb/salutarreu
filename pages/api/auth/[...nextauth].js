@@ -28,6 +28,13 @@ export default nextAuth({
         })
       }
       return true
+    },
+    async session({ session }) {
+      const usuario = await prisma.user.findUnique({
+        where: { email: session?.user.email }
+      })
+      session.user = usuario
+      return session
     }
   }
 })

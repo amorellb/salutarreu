@@ -21,6 +21,9 @@ const overrides = {
       300: '#66696D'
     }
   },
+  sizes: {
+    header: '90px' // TODO: cambiar
+  },
   components: {
     Input
     // componentes de chakra aquí

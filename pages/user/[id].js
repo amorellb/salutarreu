@@ -1,117 +1,160 @@
-/* import { EditIcon } from '@chakra-ui/icons' */
-import { Box, Button, Heading, /* List, ListIcon, ListItem, */ Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
-import Sidebar from '../../components/user/Sidebar'
+/* eslint-disable array-callback-return */
+import {
+  Box,
+  Flex,
+  IconButton,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+  useColorModeValue,
+  useDisclosure,
+  useMediaQuery
+} from '@chakra-ui/react'
+import SimpleSidebar, { SidebarContent } from '../../components/user/Sidebar'
+import {
+  FiDatabase,
+  FiSettings,
+  FiCalendar,
+  FiUsers,
+  FiMenu
+} from 'react-icons/fi'
+import UserList from '../../components/user/UserList'
+import UserCalendar from '../../components/user/UserCalendar'
+import UserInfo from '../../components/user/UserInfo'
+import UserSettings from '../../components/user/UserSettings'
+import { getSession, useSession } from 'next-auth/react'
 
-function UserPage() {
+function UserPage({ user }) {
+  const { data: session } = useSession()
+  const linkItems = [
+    {
+      name: 'Usuarios',
+      icon: FiUsers,
+      viewForTrainer: true,
+      view: <UserList />
+    },
+    {
+      name: 'Calendario',
+      icon: FiCalendar,
+      view: <UserCalendar />
+    },
+    {
+      name: 'Datos personales',
+      icon: FiDatabase,
+      view: <UserInfo />
+    },
+    {
+      name: 'Ajustes',
+      icon: FiSettings,
+      view: <UserSettings />
+    }
+  ]
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [isLessThan768px] = useMediaQuery('(min-width: 768px)')
   return (
-
     <Box as="main">
-      <Sidebar />
-        <Box as="section">
-          <Text> Si el usuario es entrenador</Text>
-          <Heading
-            as={'h2'}
-            lineHeight={1.1}
-            fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '6xl' }}
-            bgGradient="linear(to-r,brand.600, brand.500, brand.400, brand.300)"
-            bgClip="text"
-          >
-            Listado de usuarios
-          </Heading>
-
-          <TableContainer my={10}>
-            <Table variant='simple'>
-              <Thead>
-                <Tr>
-                  <Th>USUARIO</Th>
-                  <Th>INFORMACIÓN</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                <Tr>
-                  <Td>Usuario1</Td>
-                  <Td>
-                    <Button variant={'solid'} colorScheme={'brand'} size='xs' me={1}>
-                      Perfil
-                    </Button>
-                    <Button variant={'solid'} colorScheme={'brand'} size='xs' me={1}>
-                      Tests
-                    </Button>
-                    <Button variant={'solid'} colorScheme={'brand'} size='xs' me={1}>
-                      Progreso
-                    </Button>
-                    <Button variant={'solid'} colorScheme={'brand'} size='xs' me={1}>
-                      Entrenos
-                    </Button>
-                  </Td>
-                </Tr>
-                <Tr>
-                  <Td>Usuario2</Td>
-                  <Td></Td>
-                </Tr>
-                <Tr>
-                  <Td>Usuario3</Td>
-                  <Td></Td>
-                </Tr>
-              </Tbody>
-            </Table>
-          </TableContainer>
-        </Box>
-
-        <Box as="section">
-          <Heading
-            as={'h2'}
-            lineHeight={1.1}
-            fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '6xl' }}
-            bgGradient="linear(to-r,brand.600, brand.500, brand.400, brand.300)"
-            bgClip="text"
-          >
-            Entrenamientos
-          </Heading>
-          Calendario de sesiones
-
-          <Text mt={10}> Si el usuario no es entrenador</Text>
-          Datos personales
-
-          {/* <List spacing={3} flexDirection={'column'}>
-            <Button>
-              <ListItem>
-                <ListIcon as={EditIcon} color='green.500' />
-                Nombre
-              </ListItem>
-            </Button>
-            <Button>
-              <ListItem>
-                <ListIcon as={EditIcon} color='green.500' />
-                Apellidos
-              </ListItem>
-            </Button>
-            <Button>
-              <ListItem>
-                <ListIcon as={EditIcon} color='green.500' />
-                Fecha Nacimiento
-              </ListItem>
-            </Button>
-            <Button>
-              <ListItem>
-                <ListIcon as={EditIcon} color='green.500' />
-                Email
-              </ListItem>
-            </Button>
-            <Button>
-              <ListItem>
-                <ListIcon as={EditIcon} color='green.500' />
-                Contraseña
-              </ListItem>
-            </Button>
-          </List> */}
-
-          Calendario de sus Entrenos
-
-          Gráficos progreso
-        </Box>
+      <Tabs
+        display={'flex'}
+        flexDirection={{ base: 'column', md: 'row' }}
+        variant="unstyled"
+      >
+        <TabList>
+          {isLessThan768px ? (
+            <SidebarContent linkItems={linkItems} user={user}></SidebarContent>
+          ) : (
+            <SimpleSidebar
+              isOpen={isOpen}
+              onClose={onClose}
+              linkItems={linkItems}
+              user={user}
+            />
+          )}
+        </TabList>
+        <MobileNav
+          onOpen={onOpen}
+          user={user}
+          display={{ base: 'flex', md: 'none' }}
+        />
+        <TabPanels minHeight="calc(100vh - var(--chakra-sizes-header))">
+          {linkItems.map(({ name, view, viewForTrainer }) => {
+            // hay un problema si se usa ternarias por el indice de la posición de las tabs.
+            if (viewForTrainer) {
+              if (
+                session?.user?.role === 'TRAINER' &&
+                user?.id === session?.user?.id
+              ) {
+                return (
+                  <TabPanel key={name} aria-labelledby={name}>
+                    {view}
+                  </TabPanel>
+                )
+              }
+            } else {
+              return (
+                <TabPanel key={name} aria-labelledby={name}>
+                  {view}
+                </TabPanel>
+              )
+            }
+          })}
+        </TabPanels>
+      </Tabs>
     </Box>
   )
 }
 
+const MobileNav = ({ onOpen, user, ...rest }) => {
+  return (
+    <Flex
+      px="5"
+      w={'full'}
+      height="20"
+      alignItems="center"
+      bg={useColorModeValue('white', 'gray.900')}
+      borderBottomWidth="1px"
+      borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
+      {...rest}
+    >
+      <IconButton
+        variant="outline"
+        onClick={onOpen}
+        aria-label="open menu"
+        icon={<FiMenu />}
+      />
+
+      <Text
+        fontSize="2xl"
+        fontFamily="monospace"
+        fontWeight="bold"
+        flex={1}
+        textAlign="center"
+      >
+        {user?.name}
+      </Text>
+    </Flex>
+  )
+}
+export async function getServerSideProps(context) {
+  const session = await getSession(context)
+  const { id } = context.query
+  const res = await fetch(`http:/localhost:3000/api/user/${id}`)
+  const { user } = await res.json()
+
+  if (
+    !user ||
+    (session?.user?.id !== user.id && session?.user?.role !== 'TRAINER')
+  ) {
+    return {
+      notFound: true
+    }
+  }
+
+  return {
+    props: {
+      user: user
+    }
+  }
+}
 export default UserPage

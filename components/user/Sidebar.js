@@ -1,76 +1,51 @@
 import {
-  IconButton,
-  Box,
-  CloseButton,
-  Flex,
   Icon,
   useColorModeValue,
-  Link,
   Drawer,
   DrawerContent,
   Text,
-  useDisclosure,
-  Avatar
+  Avatar,
+  Tab,
+  VStack,
+  DrawerCloseButton
 } from '@chakra-ui/react'
-import {
-  FiDatabase,
-  FiSettings,
-  FiCalendar,
-  FiUsers,
-  FiMenu
-} from 'react-icons/fi'
 
-const LinkItems = [
-  { name: 'Usuarios', icon: FiUsers },
-  { name: 'Calendario', icon: FiCalendar },
-  { name: 'Datos personales', icon: FiDatabase },
-  { name: 'Ajustes', icon: FiSettings }
-]
-
-export default function SimpleSidebar({ children }) {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+export default function SimpleSidebar({ isOpen, onClose, linkItems, user }) {
   return (
-    <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
-      <SidebarContent
-        onClose={() => onClose}
-        display={{ base: 'none', md: 'block' }}
-      />
-      <Drawer
-        autoFocus={false}
-        isOpen={isOpen}
-        placement="left"
-        onClose={onClose}
-        returnFocusOnClose={false}
-        onOverlayClick={onClose}
-        size="full"
-      >
-        <DrawerContent>
-          <SidebarContent onClose={onClose} />
-        </DrawerContent>
-      </Drawer>
-      {/* mobilenav */}
-      <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
-        {children}
-      </Box>
-    </Box>
+    <Drawer
+      autoFocus={false}
+      isOpen={isOpen}
+      placement="left"
+      onClose={onClose}
+      returnFocusOnClose={false}
+      onOverlayClick={onClose}
+      size="full"
+    >
+      <DrawerContent>
+        <DrawerCloseButton />
+        <SidebarContent onClose={onClose} linkItems={linkItems} user={user} />
+      </DrawerContent>
+    </Drawer>
   )
 }
 
-const SidebarContent = ({ onClose, ...rest }) => {
+export const SidebarContent = ({ onClose, linkItems, user, ...rest }) => {
   return (
-    <Box
+    <VStack
+      flexDirection="column"
       bg={useColorModeValue('white', 'gray.900')}
       borderRight="1px"
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
-      w={{ base: 'full', md: 60 }}
-      pos="fixed"
       h="full"
+      p={'1.5rem 1rem'}
       {...rest}
     >
-      <Flex h="200px" flexDirection={'column'} alignItems="center" mx="8" justifyContent="center">
-        <Avatar size='xl' name='Christian Nwamba' src='https://bit.ly/code-beast'
-          _before={{
+      <VStack alignItems="center" justifyContent="center">
+        <Avatar
+          size="xl"
+          name={user?.name}
+          src={user?.avatar}
+          /* _before={{ NOTA: veo que es un efecto por la parte de arriba del avatar, pero no se ve en ciertas ocaciones, lo comento por si alguien quiere hacerlo
             content: '""',
             width: 'full',
             height: 'full',
@@ -80,81 +55,71 @@ const SidebarContent = ({ onClose, ...rest }) => {
             position: 'absolute',
             zIndex: -1,
             top: 0,
-            left: 0,
-          }} />
-        <Text fontSize="xl" fontWeight="bold" mt={4}>
-          Christian Nwamba
+            left: 0
+          }} */
+        />
+        <Text fontSize="xl" fontWeight="bold" mt={4} w="max-content">
+          {user?.name}
         </Text>
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
-      </Flex>
-      {LinkItems.map(link => (
-        <NavItem key={link.name} icon={link.icon}>
-          {link.name}
-        </NavItem>
-      ))}
-    </Box>
+      </VStack>
+      <VStack alignItems={'flex-start'} flexDirection="column">
+        {linkItems.map(({ name, icon, viewForTrainer }) => {
+          return viewForTrainer ? (
+            user?.role === 'TRAINER' && (
+              <NavItem key={name} id={name} icon={icon}>
+                {name}
+              </NavItem>
+            )
+          ) : (
+            <NavItem key={name} id={name} icon={icon}>
+              {name}
+            </NavItem>
+          )
+        })}
+      </VStack>
+    </VStack>
   )
 }
 
-const NavItem = ({ icon, children, ...rest }) => {
+const NavItem = ({ icon, children, name, ...rest }) => {
   return (
-    <Link
-      href="#"
-      style={{ textDecoration: 'none' }}
+    <Tab
+      role="tab"
+      display={'flex'}
+      align="center"
+      borderRadius="lg"
+      wordBreak={'revert'}
+      cursor="pointer"
+      px="1.5rem"
+      my="0.25rem"
+      whiteSpace={'nowrap'}
+      aria-labelledby={name}
+      sx={{
+        '&:hover': {
+          bg: 'gray.100'
+        },
+        "&[aria-selected='true']:hover": {
+          bg: 'brand.500'
+        }
+      }}
+      _selected={{
+        bg: 'brand.500',
+        color: 'white'
+      }}
       _focus={{ boxShadow: 'none' }}
-    >
-      <Flex
-        align="center"
-        p="4"
-        mx="4"
-        borderRadius="lg"
-        role="group"
-        cursor="pointer"
-        _hover={{
-          bg: 'brand.500',
-          color: 'white'
-        }}
-        {...rest}
-      >
-        {icon && (
-          <Icon
-            mr="4"
-            fontSize="16"
-            _groupHover={{
-              color: 'white'
-            }}
-            as={icon}
-          />
-        )}
-        {children}
-      </Flex>
-    </Link>
-  )
-}
-
-const MobileNav = ({ onOpen, ...rest }) => {
-  return (
-    <Flex
-      ml={{ base: 0, md: 60 }}
-      px={{ base: 4, md: 24 }}
-      height="20"
-      alignItems="center"
-      bg={useColorModeValue('white', 'gray.900')}
-      borderBottomWidth="1px"
-      borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
-      justifyContent="flex-start"
       {...rest}
     >
-      <IconButton
-        variant="outline"
-        onClick={onOpen}
-        aria-label="open menu"
-        icon={<FiMenu />}
-      />
-
-      <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
-        Nombre usuario?
-      </Text>
-    </Flex>
+      {icon && (
+        <Icon
+          mr="4"
+          fontSize="16"
+          _groupHover={{
+            color: 'white'
+          }}
+          as={icon}
+        />
+      )}
+      {children}
+    </Tab>
   )
 }
