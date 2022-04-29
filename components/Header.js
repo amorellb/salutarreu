@@ -19,24 +19,22 @@ import AvatarMenu from './navigation/AvatarMenu'
 
 
 function Header() {
+
   const { isOpen, onToggle } = useDisclosure()
 
-const {data: session, status}= useSession()
-
-
-
+  const {data: session, status}= useSession()
 
   return (
-    <Box as="header">
-      <Flex
-        minH={'60px'}
-        py={{ base: 2 }}
-        px={{ base: 4 }}
-        borderBottom={1}
-        borderStyle={'solid'}
-        borderColor={'gray.200'}
-        align={'center'}
-      >
+    <Box
+      as="header"
+      height={'header'}
+      borderColor={'gray.200'}
+      borderBottom={1}
+      borderStyle={'solid'}
+      display="flex"
+      alignItems="center"
+    >
+      <Flex py={{ base: 2 }} px={{ base: 4 }} align={'center'} flex={1}>
         <Flex
           flex={{ base: 1, md: 'auto' }}
           ml={{ base: -2 }}
