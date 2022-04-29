@@ -1,5 +1,5 @@
 import { ChakraProvider } from '@chakra-ui/react'
-import { SessionProvider } from 'next-auth/react'
+import { SessionProvider, useSession } from 'next-auth/react'
 import '../styles/globals.css'
 import theme from '../chakra/index'
 import Head from 'next/head'
@@ -8,8 +8,11 @@ import Header from '../components/Header'
 import Fonts from '../components/Fonts'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+  
+
   return (
     <SessionProvider session={session}>
+
       <ChakraProvider theme={theme}>
         <Fonts />
         <Head>
@@ -22,5 +25,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     </SessionProvider>
   )
 }
+ 
+
 
 export default MyApp

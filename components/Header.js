@@ -3,7 +3,6 @@ import {
   Link,
   Flex,
   Stack,
-  Button,
   Box,
   useDisclosure,
   IconButton,
@@ -13,10 +12,19 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 
 import DesktopNav from './navigation/DesktopNav'
 import MobileNav from './navigation/MobileNav'
-import { signIn } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
+import ButtonsLogin from './navigation/ButtonsLogin'
+import AvatarMenu from './navigation/AvatarMenu'
+
+
 
 function Header() {
   const { isOpen, onToggle } = useDisclosure()
+
+const {data: session, status}= useSession()
+
+
+
 
   return (
     <Box as="header">
@@ -62,29 +70,11 @@ function Header() {
           direction={'row'}
           spacing={6}
         >
-          <Button
-            as={'a'}
-            fontSize={'sm'}
-            fontWeight={400}
-            variant={'outline'}
-            colorScheme={'brand'}
-            /* href={'/sign-in'} */
-            onClick={() => {
-              signIn()
-            }}
-          >
-            Iniciar sesión
-          </Button>
-          <Button
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize={'sm'}
-            fontWeight={600}
-            variant={'solid'}
-            colorScheme={'brand'}
-            href={'/sign-up'}
-          >
-            Registrarse
-          </Button>
+     
+       
+     
+         {status ==="authenticated"? <AvatarMenu user={session}/> : <ButtonsLogin/>}
+
         </Stack>
       </Flex>
 
