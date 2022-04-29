@@ -1,5 +1,5 @@
 import { ChakraProvider } from '@chakra-ui/react'
-import { SessionProvider, useSession } from 'next-auth/react'
+import { SessionProvider } from 'next-auth/react'
 import '../styles/globals.css'
 import theme from '../chakra/index'
 import Head from 'next/head'
