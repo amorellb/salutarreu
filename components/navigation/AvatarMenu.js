@@ -21,12 +21,12 @@ function AvatarMenu(props) {
           cursor={'pointer'}
           minW={0}
         >
-          <Avatar size={'lg'} src={props.user.user.image} />
+          <Avatar size={'lg'} src={props.user.user.avatar} />
         </MenuButton>
         <MenuList alignItems={'center'}>
           <br />
           <Center>
-            <Avatar size={'2xl'} src={props.user.user.image} />
+            <Avatar size={'2xl'} src={props.user.user.avatar} />
           </Center>
           <br />
           <Center>
