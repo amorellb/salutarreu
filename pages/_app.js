@@ -8,11 +8,8 @@ import Header from '../components/Header'
 import Fonts from '../components/Fonts'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
-  
-
   return (
     <SessionProvider session={session}>
-
       <ChakraProvider theme={theme}>
         <Fonts />
         <Head>
@@ -20,12 +17,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         </Head>
         <Header />
         <Component {...pageProps} />
-        <Footer/>
+        <Footer />
       </ChakraProvider>
     </SessionProvider>
   )
 }
- 
-
 
 export default MyApp
