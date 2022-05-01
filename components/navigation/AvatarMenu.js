@@ -9,8 +9,14 @@ import {
   Center
 } from '@chakra-ui/react'
 import { signOut } from 'next-auth/react'
+import  Router  from 'next/router'
+
 
 function AvatarMenu(props) {
+   const enterUserPage = () => {
+    Router.push(`/user/${props.user.user.id}`)
+}
+
   return (
     <>
       <Menu>
@@ -34,7 +40,7 @@ function AvatarMenu(props) {
           </Center>
           <br />
           <MenuDivider />
-          <MenuItem>Account Settings</MenuItem>
+          <MenuItem onClick={enterUserPage}>Account Settings</MenuItem>
           <MenuItem onClick={() => signOut()}>Logout</MenuItem>
         </MenuList>
       </Menu>
