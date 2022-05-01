@@ -25,7 +25,7 @@ import UserCalendar from '../../components/user/UserCalendar'
 import UserInfo from '../../components/user/UserInfo'
 import UserSettings from '../../components/user/UserSettings'
 import { getSession, useSession } from 'next-auth/react'
-
+import { URL } from '../../constants/URL'
 function UserPage({ user }) {
   const { data: session } = useSession()
   const linkItems = [
@@ -139,7 +139,7 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
 export async function getServerSideProps(context) {
   const session = await getSession(context)
   const { id } = context.query
-  const res = await fetch(`http:/localhost:3000/api/user/${id}`)
+  const res = await fetch(`${URL}/api/user/${id}`)
   const { user } = await res.json()
 
   if (
