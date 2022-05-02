@@ -15,9 +15,10 @@ export const getTest = async id => {
 }
 
 // CREATE
-export const createTest = async (date, name, result) => {
+export const createTest = async (user, date, name, result) => {
   const test = await prisma.test.create({
     data: {
+      userId: user,
       date: date,
       name: name,
       result: result,

@@ -20,8 +20,8 @@ import {
           }
         }
         case 'POST': {
-          const { date, email, name, result } = req.body
-          const test = await createTest(date, email, name, result)
+          const { user, date, email, name, result } = req.body
+          const test = await createTest(user, date, email, name, result)
           return res.json(test)
         }
         case 'PUT': {
