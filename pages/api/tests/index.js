@@ -4,7 +4,7 @@ import {
     getAllTests,
     getTest,
     updateTest
-  } from '../../prisma/tests'
+  } from '../../../prisma/tests'
  
   
   export default async function handle (req, res) {
