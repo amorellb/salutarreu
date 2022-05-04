@@ -1,36 +1,44 @@
-/* import { getProviders, getSession } from 'next-auth/react' */
+import { getSession, signIn } from 'next-auth/react'
 import {
-  Box,
+  Alert,
+  AlertIcon,
   Button,
   Container,
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Input
+  Heading,
+  Input,
+  VStack
 } from '@chakra-ui/react'
 import { Formik } from 'formik'
 import { validateLogIn } from '../validations/validateSignIn'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 export default function SignIn() {
+  const [errorLogin, setErrorLogin] = useState(false)
+  const router = useRouter()
   return (
     <Container>
       <Formik
         initialValues={{
-          email: 'kevinpuchaicela@gmail.com',
-          password:
-            '$2a$10$9SaRL118JraU/J0WDpizo.y.fMjo5MtnlEa6Oipeq60CJYog711Hu'
+          email: '',
+          password: ''
         }}
         validationSchema={validateLogIn()}
-        onSubmit={async ({email, password}) => {
-          /* const user = await fetch('/api/auth/sign-in', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(values)
+        onSubmit={async ({ email, password }) => {
+          const { error } = await signIn('credentials', {
+            email,
+            password,
+            callbackUrl: '/',
+            redirect: false
           })
-          const session = await getSession({ req: user })
-          console.log(session) */
+          if (error) {
+            setErrorLogin(error)
+          } else {
+            router.push('/')
+          }
         }}
       >
         {({
@@ -39,48 +47,58 @@ export default function SignIn() {
           handleBlur,
           values,
           errors,
-          touched
+          touched,
+          isSubmitting
         }) => (
-          <Box as="form" onSubmit={handleSubmit}>
-            {console.log({ errors, touched })}
-            <FormControl isRequired isInvalid={errors.email && touched.email}>
-              <FormLabel htmlFor="email">Email</FormLabel>
-              <Input
-                id="email"
-                name="email"
-                value={values.email}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              <FormErrorMessage>{errors.email}</FormErrorMessage>
-            </FormControl>
-            <FormControl
-              isRequired
-              isInvalid={errors.password && touched.password}
-            >
-              <FormLabel>Contraseña</FormLabel>
-              <Input
-                type="password"
-                name="password"
-                value={values.password}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              {errors.password && touched.password && (
-                <FormErrorMessage>{errors.password}</FormErrorMessage>
+          <VStack
+            minHeight="calc(100vh - var(--chakra-sizes-header))"
+            justifyContent={'center'}
+          >
+            <Heading>Iniciar Sesión</Heading>
+            <VStack as="form" onSubmit={handleSubmit} py="4" w="full">
+              {errorLogin && (
+                <Alert status="error">
+                  <AlertIcon />
+                  {errorLogin}
+                </Alert>
               )}
-            </FormControl>
-            <Button type="submit">Iniciar Sesión</Button>
-          </Box>
+              <FormControl isInvalid={errors.email && touched.email}>
+                <FormLabel htmlFor="email">Email</FormLabel>
+                <Input
+                  id="email"
+                  name="email"
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                <FormErrorMessage>{errors.email}</FormErrorMessage>
+              </FormControl>
+              <FormControl isInvalid={errors.password && touched.password}>
+                <FormLabel>Contraseña</FormLabel>
+                <Input
+                  type="password"
+                  name="password"
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                {errors.password && touched.password && (
+                  <FormErrorMessage>{errors.password}</FormErrorMessage>
+                )}
+              </FormControl>
+              <Button type="submit" isLoading={isSubmitting} w="full">
+                Iniciar Sesión
+              </Button>
+            </VStack>
+          </VStack>
         )}
       </Formik>
     </Container>
   )
 }
 
-/* export async function getServerSideProps(context) {
+export async function getServerSideProps(context) {
   const session = await getSession(context)
-  const providers = await getProviders()
   if (session) {
     return {
       redirect: {
@@ -89,6 +107,6 @@ export default function SignIn() {
     }
   }
   return {
-    props: { providers }
+    props: {}
   }
-} */
+}

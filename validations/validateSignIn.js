@@ -1,10 +1,8 @@
-import { object, string } from "yup";
+import { object, string } from 'yup'
 export const validateLogIn = () =>
   object().shape({
     email: string()
-      .required("Introduce el correo")
-      .email("Introduce un correo válido"),
-    password: string()
-      .required("Introduce la contraseña")
-      .min(8, "Mínimo 8 caracteres"),
-  });
+      .required('Introduce el correo')
+      .email('Introduce un correo válido'),
+    password: string().required('Introduce la contraseña')
+  })
