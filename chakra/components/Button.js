@@ -3,7 +3,10 @@ const Button = {
     bgColor: 'brand.500',
     color: 'white',
     _hover: {
-      bgColor: 'brand.600'
+      bgColor: 'brand.600',
+      _disabled: {
+        background: 'brand.500'
+      },
     }
   },
   variants: {
