@@ -1,5 +1,7 @@
 import { extendTheme } from '@chakra-ui/react'
 import Input from '../chakra/components/Input'
+import Form from '../chakra/components/FormControl'
+import Button from '../chakra/components/Button'
 
 const overrides = {
   // Aquí se importará o se pondrá directamente el "customize" de chakra (colors, breakpoints, fonts, etc)
@@ -22,11 +24,12 @@ const overrides = {
     }
   },
   sizes: {
-    header: '90px' // TODO: cambiar
+    header: '90px'
   },
   components: {
-    Input
-    // componentes de chakra aquí
+    Input,
+    Form,
+    Button
   }
 }
 

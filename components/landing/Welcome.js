@@ -5,7 +5,10 @@ import {
   Text,
   VStack,
   useBreakpointValue,
-  Heading
+  Heading,
+  SimpleGrid,
+  Container,
+  Link
 } from '@chakra-ui/react'
 
 export default function WithBackgroundImage() {
@@ -53,19 +56,31 @@ export default function WithBackgroundImage() {
               Acercate a nuestro centro y déjate guiar por nuestro entrenador.
             </Text>
           </Stack>
-          <Stack direction={'row'} justify="center">
-            <Button variant={'solid'} colorScheme={'brand'} isFullWidth>
-              Registrarse
-            </Button>
-            <Button
-              bg={'white'}
-              colorScheme={'brand'}
-              variant="outline"
-              isFullWidth
-            >
-              Iniciar Sesión
-            </Button>
-          </Stack>
+          <Container as={SimpleGrid} maxW={'5xl'} columns={{ base: 1, md: 2 }}>
+            <Link href={'/contacto'} style={{ textDecoration: 'none' }}>
+              <Button
+                fontSize={'sm'}
+                fontWeight={400}
+                variant={'solid'}
+                colorScheme={'brand.400'}
+                isFullWidth
+              >
+                Contactar
+              </Button>
+            </Link>
+            <Link href={'/sign-in'} style={{ textDecoration: 'none' }}>
+              <Button
+                bg={'white'}
+                fontSize={'sm'}
+                fontWeight={400}
+                variant={'outline'}
+                colorScheme={'brand'}
+                isFullWidth
+              >
+                Iniciar sesión
+              </Button>
+            </Link>
+          </Container>
         </Stack>
       </VStack>
     </Flex>
