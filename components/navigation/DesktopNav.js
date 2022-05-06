@@ -1,4 +1,5 @@
-import { Box, Link, Stack } from '@chakra-ui/react'
+import { Box, Stack } from '@chakra-ui/react'
+import Link from 'next/link'
 
 import { NAV_ITEMS } from './navItems'
 
@@ -6,16 +7,16 @@ function DesktopNav() {
   return (
     <Stack as={'nav'} direction={'row'} spacing={4}>
       {NAV_ITEMS.map(navItem => (
-        <Box key={navItem.label}>
-          <Link
-            href={navItem.href ?? '#'}
+        <Link key={navItem.label} href={navItem.href} passHref>
+          <Box
+            cursor={'pointer'}
             fontSize={'md'}
             fontWeight={500}
             _hover={{ textDecoration: 'none' }}
           >
             {navItem.label}
-          </Link>
-        </Box>
+          </Box>
+        </Link>
       ))}
     </Stack>
   )
