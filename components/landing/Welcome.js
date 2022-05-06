@@ -56,12 +56,8 @@ export default function WithBackgroundImage() {
               Acercate a nuestro centro y déjate guiar por nuestro entrenador.
             </Text>
           </Stack>
-          <Container
-            as={SimpleGrid}
-            maxW={'5xl'}
-            columns={{ base: 1, md: 2 }}
-          >
-            <Link href={'/contacto'} passHref style={{ textDecoration: 'none' }}>
+          <Container as={SimpleGrid} maxW={'5xl'} columns={{ base: 1, md: 2 }}>
+            <Link href={'/contacto'} style={{ textDecoration: 'none' }}>
               <Button
                 fontSize={'sm'}
                 fontWeight={400}
@@ -72,7 +68,7 @@ export default function WithBackgroundImage() {
                 Contactar
               </Button>
             </Link>
-            <Link href={'/sign-in'} passHref style={{ textDecoration: 'none' }}>
+            <Link href={'/sign-in'} style={{ textDecoration: 'none' }}>
               <Button
                 bg={'white'}
                 fontSize={'sm'}
