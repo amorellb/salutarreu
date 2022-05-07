@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import { Table } from "react-chakra-pagination";
 import {
@@ -12,45 +11,32 @@ import {
 } from "@chakra-ui/react";
 import { FiTrash2, FiUser } from "react-icons/fi";
 
-const users = [
-  {
-    id: 1,
-    name: "Carlin Gwinn",
-    email: "cgwinn0@buzzfeed.com",
-    phone: "(684) 9842794",
-    birthday: "04/11/2009",
-    avatar_url:
-      "https://robohash.org/assumendanihilodio.png?size=50x50&set=set1"
-  },
-  {
-    id: 2,
-    name: "Yetta Snape",
-    email: "ysnape1@princeton.edu",
-    phone: "(645) 8617506",
-    birthday: "06/08/1989",
-    avatar_url:
-      "https://robohash.org/liberorationequasi.png?size=50x50&set=set1"
-  },
-];
-
-export default function UserList(user) {
+export default function UserList({ users }) {
+  console.log(users);
   const [page, setPage] = React.useState(1);
 
-  // Formatter for each user
   const tableData = users.map((user) => ({
     name: (
       <Flex align="center">
-        <Avatar name={user.name} src={user.avatar_url} size="sm" mr="4" />
+        <Avatar name={user.name} src={user.avatar} size="sm" mr="4" />
         <Text>{user.name}</Text>
       </Flex>
     ),
     email: user.email,
-    phone: user.phone,
-    birthday: user.birthday,
-    action: (
+    perfilButton: (
       <Button
         colorScheme="gray"
-        onClick={() => console.log("remove user!")}
+        onClick={() => console.log("perfil user!")}
+        size="sm"
+      >
+        <Icon as={FiUser} fontSize="20" />
+      </Button>
+    ),
+    deleteButton: (
+      <Button
+        
+        backgroundColor={'red'}
+        onClick={() => console.log("delete user!")}
         size="sm"
       >
         <Icon as={FiTrash2} fontSize="20" />
@@ -58,47 +44,42 @@ export default function UserList(user) {
     )
   }));
 
-  // Accessor to get a data in user object
   const tableColumns = [
+    
     {
-      Header: "Name",
-      accessor: "name" 
+      Header: "Nombre",
+      accessor: "name"
     },
     {
       Header: "Email",
-      accessor: "email" 
-    },
-    {
-      Header: "Phone",
-      accessor: "phone" 
-    },
-    {
-      Header: "Birthday",
-      accessor: "birthday" 
+      accessor: "email"
     },
     {
       Header: "",
-      accessor: "action" 
+      accessor: "perfilButton"
+    }
+    ,
+    {
+      Header: "",
+      accessor: "deleteButton"
     }
   ];
 
   return (
     <Box p="12">
-      <Heading size="sm" as="h3">
-        List of Users
+      <Heading size="md" as="h2">
+        Lista de usuarios
       </Heading>
 
-      <Box mt="6">
+      <Box mt="6" >
         <Table
           colorScheme="blue"
-          // Fallback component when list is empty
           emptyData={{
             icon: FiUser,
             text: "Nobody is registered here."
           }}
           totalRegisters={users.length}
           page={page}
-          // Listen change page event and control the current page using state
           onPageChange={(page) => setPage(page)}
           columns={tableColumns}
           data={tableData}
