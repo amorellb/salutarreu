@@ -1,4 +1,6 @@
 /* eslint-disable array-callback-return */
+import { getSession, useSession } from 'next-auth/react'
+
 import {
   Box,
   Flex,
@@ -12,20 +14,21 @@ import {
   useDisclosure,
   useMediaQuery
 } from '@chakra-ui/react'
-import SimpleSidebar, { SidebarContent } from '../../components/user/Sidebar'
 import {
   FiDatabase,
-  FiSettings,
+  // FiSettings,
   FiCalendar,
   FiUsers,
   FiMenu
 } from 'react-icons/fi'
+
+import SimpleSidebar, { SidebarContent } from '../../components/user/Sidebar'
 import UserList from '../../components/user/UserList'
 import UserCalendar from '../../components/user/UserCalendar'
 import UserInfo from '../../components/user/UserInfo'
-import UserSettings from '../../components/user/UserSettings'
-import { getSession, useSession } from 'next-auth/react'
+// import UserSettings from '../../components/user/UserSettings'
 import { URL } from '../../constants/URL'
+
 function UserPage({ user }) {
   const { data: session } = useSession()
   const linkItems = [
@@ -43,13 +46,13 @@ function UserPage({ user }) {
     {
       name: 'Datos personales',
       icon: FiDatabase,
-      view: <UserInfo />
-    },
-    {
+      view: <UserInfo user={user} />
+    }
+    /* {
       name: 'Ajustes',
       icon: FiSettings,
       view: <UserSettings />
-    }
+    } */
   ]
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [isLessThan768px] = useMediaQuery('(min-width: 768px)')
