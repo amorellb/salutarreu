@@ -17,7 +17,7 @@ export default function UserList({ users }) {
   const [page, setPage] = React.useState(1);
   const [isLessThan900px] = useMediaQuery('(min-width: 900px)')
 
-  const goToUserPerfil = (id) => {
+  const goToUserProfile = (id) => {
     Router.push(`/user/${id}`)
   }
 
@@ -41,7 +41,7 @@ export default function UserList({ users }) {
       <Flex>
         <Button
           colorScheme="gray"
-          onClick={() => goToUserPerfil(user.id)}
+          onClick={() => goToUserProfile(user.id)}
           size="sm"
           marginRight={2}
         >
