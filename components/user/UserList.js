@@ -11,10 +11,19 @@ import {
   useMediaQuery
 } from "@chakra-ui/react";
 import { FiTrash2, FiUser } from "react-icons/fi";
+import Router from "next/router";
 
 export default function UserList({ users }) {
   const [page, setPage] = React.useState(1);
   const [isLessThan900px] = useMediaQuery('(min-width: 900px)')
+
+  const goToUserPerfil = (id) => {
+    Router.push(`/user/${id}`)
+  }
+
+  const deleteUser = (id) => {
+
+  }
 
   const tableData = users.map((user) => ({
     name: (
@@ -32,7 +41,7 @@ export default function UserList({ users }) {
       <Flex>
         <Button
           colorScheme="gray"
-          onClick={() => console.log("perfil user!")}
+          onClick={() => goToUserPerfil(user.id)}
           size="sm"
           marginRight={2}
         >
@@ -40,7 +49,7 @@ export default function UserList({ users }) {
         </Button>
         <Button
           backgroundColor={'red'}
-          onClick={() => console.log("delete user!")}
+          onClick={() => deleteUser(user.id)}
           size="sm"
           _hover={{ bgColor: 'red.800' }}
         >
