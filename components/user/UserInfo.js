@@ -1,12 +1,10 @@
 import { useState } from 'react'
-import { useRouter } from 'next/router'
-import { signIn } from 'next-auth/react'
-
 import { Formik } from 'formik'
 
 import {
-  Alert,
-  AlertIcon,
+  // Alert,
+  // AlertIcon,
+  Box,
   Button,
   Container,
   FormControl,
@@ -31,9 +29,6 @@ import {
 export default function UserInfo(props) {
   const { user } = props
 
-  const [errorLogin, setErrorLogin] = useState(false)
-  const router = useRouter()
-
   const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
 
@@ -44,24 +39,21 @@ export default function UserInfo(props) {
           name: user.name ? user.name : '',
           email: user.email ? user.email : '',
           password: '',
-          avatar: ''
+          avatar: user.avatar ? user.avatar : ''
         }}
         validationSchema={validateProfileData()}
         onSubmit={async ({ name, email, password, avatar }) => {
-          // TODO: Es correcto que se haga la validación de contraseña con esta función?
-          const { error } = await signIn('credentials', {
-            name,
-            email,
-            password,
-            avatar,
-            callbackUrl: '/',
-            redirect: false
-          })
-          if (error) {
-            setErrorLogin(error)
-          } else {
-            router.push('/')
-          }
+          password = password || user.password
+          const res = await fetch(`/api/user/${user.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name,
+              email,
+              password,
+              avatar
+            })
+          }).then(res => res.json())
         }}
       >
         {({
@@ -85,12 +77,12 @@ export default function UserInfo(props) {
             </Heading>
 
             <VStack as="form" onSubmit={handleSubmit} py="4" w="full">
-              {errorLogin && (
+              {/* {errorLogin && (
                 <Alert status="error">
                   <AlertIcon />
                   {errorLogin}
                 </Alert>
-              )}
+              )} */}
               <FormControl
                 isInvalid={errors.name && touched.name}
                 paddingBottom={4}
@@ -137,9 +129,9 @@ export default function UserInfo(props) {
                     placeholder={'************'}
                   />
                   <InputRightElement me={'1rem'} mt=".27rem">
-                    <Button h="1.75rem" size="sm" onClick={handleClick}>
+                    <Box h="1.75rem" onClick={handleClick}>
                       {show ? <ViewOffIcon /> : <ViewIcon />}
-                    </Button>
+                    </Box>
                   </InputRightElement>
                 </InputGroup>
                 <small>
@@ -195,22 +187,19 @@ export default function UserInfo(props) {
           birthDate: user.birthDate ? user.birthDate : ''
         }}
         validationSchema={validateUserData()}
-        // TODO: Se cruzan los errores de validadción de contraseña entre los dos formularios
         onSubmit={async ({ dni, phone, address, zipCode, birthDate }) => {
-          const { error } = await signIn('credentials', {
-            dni,
-            phone,
-            address,
-            zipCode,
-            birthDate,
-            callbackUrl: `/user/${user.id}`,
-            redirect: false
-          })
-          if (error) {
-            setErrorLogin(error)
-          } else {
-            router.push('/')
-          }
+          const birth = new Date(birthDate)
+          const res = await fetch(`/api/user/${user.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              DNI: dni,
+              phone,
+              address,
+              zipCode,
+              birthDate: birth
+            })
+          }).then(res => res.json())
         }}
       >
         {({
@@ -234,13 +223,12 @@ export default function UserInfo(props) {
             </Heading>
 
             <VStack as="form" onSubmit={handleSubmit} py="4" w="full">
-              {/* TODO: Se pueden eliminar las líneas 234 a 239? */}
-              {errorLogin && (
+              {/* {errorLogin && (
                 <Alert status="error">
                   <AlertIcon />
                   {errorLogin}
                 </Alert>
-              )}
+              )} */}
               <FormControl
                 isInvalid={errors.dni && touched.dni}
                 paddingBottom={4}
@@ -354,18 +342,3 @@ export default function UserInfo(props) {
     </Container>
   )
 }
-
-// export async function getServerSideProps(context) {
-//   const session = await getSession(context)
-
-//   if (session) {
-//     return {
-//       redirect: {
-//         destination: '/'
-//       }
-//     }
-//   }
-//   return {
-//     props: {}
-//   }
-// }
