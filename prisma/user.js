@@ -2,8 +2,8 @@ import prisma from '../lib/prisma'
 import { ObjectId } from 'mongodb'
 export const getAllUsers = async () => {
   return await prisma.user.findMany({
-    orderBy:[
-      {name:'asc'}
+    orderBy: [
+      { name: 'asc' }
     ]
   })
 }

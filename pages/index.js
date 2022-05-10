@@ -7,6 +7,8 @@ import { Container, Heading, Image, Stack, Text } from '@chakra-ui/react'
 
 
 export default function Home() {
+
+
   return (
     <div className={styles.container}>
       <Head>
@@ -17,26 +19,19 @@ export default function Home() {
       <main className={styles.main}>
         <Welcome />
         <Container maxW={'7xl'} pt={16} as={Stack} spacing={12}>
-        <Image
-          src='https://github.com/amorellb/salutarreu/blob/main/public/images/lines/2.png?raw=true'
-          alt='imagen lineas'
-          position={'absolute'}
-          zIndex={-1}
-          top={100}
-          right={-600}
-          w={'100%'}
-          opacity={'60%'}
-        />
-        <Image
-          src='https://github.com/amorellb/salutarreu/blob/main/public/images/lines/2.png?raw=true'
-          alt='imagen lineas'
-          position={'absolute'}
-          zIndex={-1}
-          left={0}
-          top={1025}
-          w={'100%'}
-          opacity={'60%'}
-        />
+
+          <Image
+            src='https://github.com/amorellb/salutarreu/blob/main/public/images/lines/3.png?raw=true'
+            alt='imagen lineas'
+            position={'absolute'}
+            zIndex={-1}
+            left={0}
+            top={0}
+            w={'100%'}
+            h={'100%'}
+            opacity={'15%'}
+          />
+
           <Stack spacing={0} align={'start'}>
             <Heading
               lineHeight={1.1}
