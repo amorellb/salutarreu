@@ -21,9 +21,9 @@ export default function UserList({ users }) {
     Router.push(`/user/${id}`)
   }
 
-  const deleteUser = (id) => {
+  /* const deleteUser = (id) => {
 
-  }
+  } */
 
   const tableData = users.map((user) => ({
     name: (
@@ -47,14 +47,14 @@ export default function UserList({ users }) {
         >
           <Icon as={FiUser} fontSize="20" />
         </Button>
-        <Button
+        {/* <Button
           backgroundColor={'red'}
           onClick={() => deleteUser(user.id)}
           size="sm"
           _hover={{ bgColor: 'red.800' }}
         >
           <Icon as={FiTrash2} fontSize="20" />
-        </Button>
+        </Button> */}
       </Flex>
     ),
   }));
