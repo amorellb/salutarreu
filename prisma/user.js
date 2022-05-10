@@ -15,8 +15,7 @@ export const getUserById = async id => {
   })
 }
 
-export const editUserData = async (id, data) => {
-  console.log({ ...data })
+export const updateUserData = async (id, data) => {
   if (!ObjectId.isValid(id)) {
     return null
   }

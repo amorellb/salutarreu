@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { Formik } from 'formik'
 
 import {
-  // Alert,
-  // AlertIcon,
+  Alert,
+  AlertIcon,
   Box,
   Button,
   Container,
@@ -29,6 +29,11 @@ import {
 export default function UserInfo(props) {
   const { user } = props
 
+  const [successUpdateProfile, setSuccessUpdateProfile] = useState(false)
+  const [successUpdatePersonal, setSuccessUpdatePersonal] = useState(false)
+  const [errorUpdateProfile, setErrorUpdateProfile] = useState(false)
+  const [errorUpdatePersonal, setErrorUpdatePersonal] = useState(false)
+
   const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
 
@@ -44,16 +49,32 @@ export default function UserInfo(props) {
         validationSchema={validateProfileData()}
         onSubmit={async ({ name, email, password, avatar }) => {
           password = password || user.password
-          const res = await fetch(`/api/user/${user.id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              name,
-              email,
-              password,
-              avatar
+          try {
+            const res = await fetch(`/api/user/${user.id}`, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                name,
+                email,
+                password,
+                avatar
+              })
             })
-          }).then(res => res.json())
+            if (res.status === 200) {
+              console.log(
+                'Los datos del perfil se han actualizado correctamente'
+              )
+              setSuccessUpdateProfile(
+                'Los datos del perfil se han actualizado correctamente'
+              )
+            } else {
+              console.log('Ops! Algo ha ido mal 💀')
+              setErrorUpdateProfile('Ops! Algo ha ido mal 💀')
+            }
+          } catch (error) {
+            console.error(error)
+            throw new Error(error)
+          }
         }}
       >
         {({
@@ -77,12 +98,18 @@ export default function UserInfo(props) {
             </Heading>
 
             <VStack as="form" onSubmit={handleSubmit} py="4" w="full">
-              {/* {errorLogin && (
+              {errorUpdateProfile && (
                 <Alert status="error">
                   <AlertIcon />
-                  {errorLogin}
+                  {errorUpdateProfile}
                 </Alert>
-              )} */}
+              )}
+              {successUpdateProfile && (
+                <Alert status="success">
+                  <AlertIcon />
+                  {successUpdateProfile}
+                </Alert>
+              )}
               <FormControl
                 isInvalid={errors.name && touched.name}
                 paddingBottom={4}
@@ -150,7 +177,7 @@ export default function UserInfo(props) {
                 <FormLabel htmlFor="avatar">Foto de perfil</FormLabel>
                 <Input
                   id="avatar"
-                  type="file"
+                  type="string"
                   name="avatar"
                   value={values.avatar}
                   onChange={handleChange}
@@ -189,17 +216,33 @@ export default function UserInfo(props) {
         validationSchema={validateUserData()}
         onSubmit={async ({ dni, phone, address, zipCode, birthDate }) => {
           const birth = new Date(birthDate)
-          const res = await fetch(`/api/user/${user.id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              DNI: dni,
-              phone,
-              address,
-              zipCode,
-              birthDate: birth
+          try {
+            const res = await fetch(`/api/user/${user.id}`, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                DNI: dni,
+                phone,
+                address,
+                zipCode,
+                birthDate: birth
+              })
             })
-          }).then(res => res.json())
+            if (res.status === 200) {
+              console.log(
+                'Los datos personales se han actualizado correctamente'
+              )
+              setSuccessUpdatePersonal(
+                'Los datos personales se han actualizado correctamente'
+              )
+            } else {
+              console.log('Ops! Algo ha ido mal 💀')
+              setErrorUpdatePersonal('Ops! Algo ha ido mal 💀')
+            }
+          } catch (error) {
+            console.error(error)
+            throw new Error(error)
+          }
         }}
       >
         {({
@@ -223,12 +266,18 @@ export default function UserInfo(props) {
             </Heading>
 
             <VStack as="form" onSubmit={handleSubmit} py="4" w="full">
-              {/* {errorLogin && (
+              {errorUpdatePersonal && (
                 <Alert status="error">
                   <AlertIcon />
-                  {errorLogin}
+                  {errorUpdatePersonal}
                 </Alert>
-              )} */}
+              )}
+              {successUpdatePersonal && (
+                <Alert status="success">
+                  <AlertIcon />
+                  {successUpdatePersonal}
+                </Alert>
+              )}
               <FormControl
                 isInvalid={errors.dni && touched.dni}
                 paddingBottom={4}
