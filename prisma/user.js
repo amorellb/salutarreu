@@ -1,7 +1,11 @@
 import prisma from '../lib/prisma'
 import { ObjectId } from 'mongodb'
 export const getAllUsers = async () => {
-  return await prisma.user.findMany()
+  return await prisma.user.findMany({
+    orderBy: [
+      { name: 'asc' }
+    ]
+  })
 }
 
 export const getUserById = async id => {

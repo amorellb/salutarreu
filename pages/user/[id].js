@@ -26,14 +26,14 @@ import UserInfo from '../../components/user/UserInfo'
 import UserSettings from '../../components/user/UserSettings'
 import { getSession, useSession } from 'next-auth/react'
 import { URL } from '../../constants/URL'
-function UserPage({ user }) {
+function UserPage({ user, users }) {
   const { data: session } = useSession()
   const linkItems = [
     {
       name: 'Usuarios',
       icon: FiUsers,
       viewForTrainer: true,
-      view: <UserList />
+      view: <UserList users={users} />
     },
     {
       name: 'Calendario',
@@ -139,8 +139,14 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
 export async function getServerSideProps(context) {
   const session = await getSession(context)
   const { id } = context.query
-  const res = await fetch(`${URL}/api/user/${id}`)
-  const { user } = await res.json()
+  const [userRes, usersRes] = await Promise.all([
+    fetch(`${URL}/api/user/${id}`),
+    fetch(`${URL}/api/user`)
+  ]);
+  const [{ user }, users] = await Promise.all([
+    userRes.json(),
+    usersRes.json()
+  ])
 
   if (
     !user ||
@@ -153,7 +159,8 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      user: user
+      user: user,
+      users: users
     }
   }
 }
