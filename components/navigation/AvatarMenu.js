@@ -14,7 +14,7 @@ import  Router  from 'next/router'
 
 function AvatarMenu(props) {
    const enterUserPage = () => {
-    Router.push(`/user/${props.user.user.id}`)
+    Router.push(`/user/${props.user.id}`)
 }
 
   return (
@@ -27,16 +27,16 @@ function AvatarMenu(props) {
           cursor={'pointer'}
           minW={0}
         >
-          <Avatar size={'lg'} src={props.user.user.avatar} />
+          <Avatar size={'lg'} src={props.user.avatar} />
         </MenuButton>
         <MenuList alignItems={'center'}>
           <br />
           <Center>
-            <Avatar size={'2xl'} src={props.user.user.avatar} />
+            <Avatar size={'2xl'} src={props.user.avatar} />
           </Center>
           <br />
           <Center>
-            <p>{props.user.user.name}</p>
+            <p>{props.user.name}</p>
           </Center>
           <br />
           <MenuDivider />

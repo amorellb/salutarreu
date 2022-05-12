@@ -1,6 +1,7 @@
 /* eslint-disable array-callback-return */
 import {
   Box,
+  Button,
   Flex,
   IconButton,
   TabList,
@@ -13,20 +14,21 @@ import {
   useMediaQuery
 } from '@chakra-ui/react'
 import SimpleSidebar, { SidebarContent } from '../../components/user/Sidebar'
-import {
-  FiDatabase,
-  FiSettings,
-  FiCalendar,
-  FiUsers,
-  FiMenu
-} from 'react-icons/fi'
+import { FiDatabase, FiCalendar, FiUsers, FiMenu } from 'react-icons/fi'
+
+import { FaRunning } from 'react-icons/fa'
+
+import { AiOutlinePlus } from 'react-icons/ai'
+
 import UserList from '../../components/user/UserList'
 import UserCalendar from '../../components/user/UserCalendar'
 import UserInfo from '../../components/user/UserInfo'
-import UserSettings from '../../components/user/UserSettings'
+import UserTests from '../../components/user/UserTests'
 import { getSession, useSession } from 'next-auth/react'
 import { URL } from '../../constants/URL'
+
 function UserPage({ user, users }) {
+
   const { data: session } = useSession()
   const linkItems = [
     {
@@ -46,9 +48,15 @@ function UserPage({ user, users }) {
       view: <UserInfo />
     },
     {
-      name: 'Ajustes',
-      icon: FiSettings,
-      view: <UserSettings />
+      name: 'Mi progreso',
+      icon: FaRunning,
+      view: <UserTests />
+    },
+    {
+      name: 'Crear test',
+      icon: AiOutlinePlus,
+      view: <TestsForm />,
+      modal:"onOpen"
     }
   ]
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -78,7 +86,7 @@ function UserPage({ user, users }) {
           display={{ base: 'flex', md: 'none' }}
         />
         <TabPanels minHeight="calc(100vh - var(--chakra-sizes-header))">
-          {linkItems.map(({ name, view, viewForTrainer }) => {
+          {linkItems.map(({ name, view, viewForTrainer, modal, }) => {
             // hay un problema si se usa ternarias por el indice de la posición de las tabs.
             if (viewForTrainer) {
               if (
@@ -96,11 +104,15 @@ function UserPage({ user, users }) {
                 <TabPanel key={name} aria-labelledby={name}>
                   {view}
                 </TabPanel>
+                
+
               )
             }
           })}
         </TabPanels>
+
       </Tabs>
+      <Button> hola</Button>
     </Box>
   )
 }
@@ -139,6 +151,7 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
 export async function getServerSideProps(context) {
   const session = await getSession(context)
   const { id } = context.query
+
   const [userRes, usersRes] = await Promise.all([
     fetch(`${URL}/api/user/${id}`),
     fetch(`${URL}/api/user`)
@@ -147,6 +160,7 @@ export async function getServerSideProps(context) {
     userRes.json(),
     usersRes.json()
   ])
+
 
   if (
     !user ||
@@ -159,8 +173,10 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
+
       user: user,
       users: users
+
     }
   }
 }

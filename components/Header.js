@@ -71,7 +71,7 @@ function Header() {
      
        
      
-         {status ==="authenticated"? <AvatarMenu user={session}/> : <ButtonsLogin/>}
+         {status ==="authenticated"? <AvatarMenu user={session.user}/> : <ButtonsLogin/>}
 
         </Stack>
       </Flex>
