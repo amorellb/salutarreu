@@ -51,7 +51,7 @@ export default function CaptionCarousel() {
       text:
         "Los ejercicios de entrenamiento cardio, son los que aumentan nuestro ritmo cardíaco, incrementan nuestra capacidad de resistencia, y mejoran nuestra condición física. Ayuda a controlar la presión arterial y fortalece el sistema inmunológico. Baja la presión arterial y la frecuencia cardiaca en reposo. ",
       image:
-        'https://github.com/amorellb/salutarreu/blob/main/public/images/landing/12.png?raw=true',
+        'https://github.com/amorellb/salutarreu/blob/main/public/images/landing/13.png?raw=true',
     },
   ];
 

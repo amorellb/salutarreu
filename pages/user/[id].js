@@ -26,16 +26,16 @@ import UserInfo from '../../components/user/UserInfo'
 import UserTests from '../../components/user/UserTests'
 import { getSession, useSession } from 'next-auth/react'
 import { URL } from '../../constants/URL'
-import TestsForm from '../../components/user/tests/TestsForm'
 
-function UserPage({ user }) {
+function UserPage({ user, users }) {
+
   const { data: session } = useSession()
   const linkItems = [
     {
       name: 'Usuarios',
       icon: FiUsers,
       viewForTrainer: true,
-      view: <UserList />
+      view: <UserList users={users} />
     },
     {
       name: 'Calendario',
@@ -151,12 +151,16 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
 export async function getServerSideProps(context) {
   const session = await getSession(context)
   const { id } = context.query
-  const res = await fetch(`${URL}/api/user/${id}`)
-  // const resTests = await fetch(`${URL}/api/tests`)
 
-  // const { tests } = await resTests.json()
-  const { user } = await res.json()
-  // console.log(resTests)
+  const [userRes, usersRes] = await Promise.all([
+    fetch(`${URL}/api/user/${id}`),
+    fetch(`${URL}/api/user`)
+  ]);
+  const [{ user }, users] = await Promise.all([
+    userRes.json(),
+    usersRes.json()
+  ])
+
 
   if (
     !user ||
@@ -169,8 +173,10 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      user: user
-      // tests: tests
+
+      user: user,
+      users: users
+
     }
   }
 }
