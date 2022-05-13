@@ -24,6 +24,7 @@ import UserList from '../../components/user/UserList'
 import UserCalendar from '../../components/user/UserCalendar'
 import UserInfo from '../../components/user/UserInfo'
 import UserTests from '../../components/user/UserTests'
+import TestsForm from '../../components/user/tests/TestsForm'
 import { getSession, useSession } from 'next-auth/react'
 import { URL } from '../../constants/URL'
 
