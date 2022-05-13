@@ -33,9 +33,9 @@ export default function UserInfo(props) {
     month: '2-digit',
     year: 'numeric'
   }
-  const birthDateESFormatted = new Intl.DateTimeFormat('es-ES', options).format(
-    new Date(user.birthDate)
-  )
+  const birthDateESFormatted = user.birthDate
+    ? new Intl.DateTimeFormat('es-ES', options).format(new Date(user.birthDate))
+    : ''
 
   const [successUpdateProfile, setSuccessUpdateProfile] = useState(false)
   const [successUpdatePersonal, setSuccessUpdatePersonal] = useState(false)
