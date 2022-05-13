@@ -10,19 +10,16 @@ import {
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 
-import DesktopNav from './navigation/DesktopNav'
-import MobileNav from './navigation/MobileNav'
 import { useSession } from 'next-auth/react'
+
 import ButtonsLogin from './navigation/ButtonsLogin'
 import AvatarMenu from './navigation/AvatarMenu'
-
-
+import DesktopNav from './navigation/DesktopNav'
+import MobileNav from './navigation/MobileNav'
 
 function Header() {
-
   const { isOpen, onToggle } = useDisclosure()
-
-  const {data: session, status}= useSession()
+  const { data: session, status } = useSession()
 
   return (
     <Box
@@ -68,11 +65,11 @@ function Header() {
           direction={'row'}
           spacing={6}
         >
-     
-       
-     
-         {status ==="authenticated"? <AvatarMenu user={session}/> : <ButtonsLogin/>}
-
+          {status === 'authenticated' ? (
+            <AvatarMenu user={session.user} />
+          ) : (
+            <ButtonsLogin />
+          )}
         </Stack>
       </Flex>
 

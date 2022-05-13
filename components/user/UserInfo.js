@@ -28,6 +28,14 @@ import {
 
 export default function UserInfo(props) {
   const { user } = props
+  const options = {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  }
+  const birthDateESFormatted = new Intl.DateTimeFormat('es-ES', options).format(
+    new Date(user.birthDate)
+  )
 
   const [successUpdateProfile, setSuccessUpdateProfile] = useState(false)
   const [successUpdatePersonal, setSuccessUpdatePersonal] = useState(false)
@@ -61,14 +69,10 @@ export default function UserInfo(props) {
               })
             })
             if (res.status === 200) {
-              console.log(
-                'Los datos del perfil se han actualizado correctamente'
-              )
               setSuccessUpdateProfile(
                 'Los datos del perfil se han actualizado correctamente'
               )
             } else {
-              console.log('Ops! Algo ha ido mal 💀')
               setErrorUpdateProfile('Ops! Algo ha ido mal 💀')
             }
           } catch (error) {
@@ -163,7 +167,7 @@ export default function UserInfo(props) {
                 </InputGroup>
                 <small>
                   <Text>
-                    Déjalo en blanco para mantener tu contraseña actual.
+                    Dejar en blanco para mantener la contraseña actual.
                   </Text>
                 </small>
                 {errors.password && touched.password && (
@@ -211,11 +215,15 @@ export default function UserInfo(props) {
           phone: user.phone ? user.phone : '',
           address: user.address ? user.address : '',
           zipCode: user.zipCode ? user.zipCode : '',
-          birthDate: user.birthDate ? user.birthDate : ''
+          birthDate: birthDateESFormatted || ''
         }}
         validationSchema={validateUserData()}
         onSubmit={async ({ dni, phone, address, zipCode, birthDate }) => {
-          const birth = new Date(birthDate)
+          const birthDateArray = birthDate.split('/')
+          const month = birthDateArray[0]
+          birthDateArray[0] = birthDateArray[1]
+          birthDateArray[1] = month
+          const birthDateUSFormatted = birthDateArray.join('/')
           try {
             const res = await fetch(`/api/user/${user.id}`, {
               method: 'PUT',
@@ -225,18 +233,14 @@ export default function UserInfo(props) {
                 phone,
                 address,
                 zipCode,
-                birthDate: birth
+                birthDate: new Date(birthDateUSFormatted)
               })
             })
             if (res.status === 200) {
-              console.log(
-                'Los datos personales se han actualizado correctamente'
-              )
               setSuccessUpdatePersonal(
                 'Los datos personales se han actualizado correctamente'
               )
             } else {
-              console.log('Ops! Algo ha ido mal 💀')
               setErrorUpdatePersonal('Ops! Algo ha ido mal 💀')
             }
           } catch (error) {
@@ -361,12 +365,15 @@ export default function UserInfo(props) {
                 <FormLabel htmlFor="birthDate">Fecha de nacimiento</FormLabel>
                 <Input
                   id="birthDate"
-                  type="date"
+                  type="text"
                   name="birthDate"
                   value={values.birthDate}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
+                <small>
+                  <Text>Formato de fecha: dd/mm/aaaa</Text>
+                </small>
                 {errors.birthDate && touched.birthDate && (
                   <FormErrorMessage>{errors.birthDate}</FormErrorMessage>
                 )}
