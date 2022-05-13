@@ -1,52 +1,56 @@
-
+import { ObjectId } from 'mongodb'
 import prisma from '../lib/prisma'
 
 // READ
 export const getAllTests = async () => {
-  const tests = await prisma.test.findMany({})
-  return tests
+  return await prisma.test.findMany()
 }
 
 export const getTest = async id => {
-  const test = await prisma.test.findUnique({
+  if (!ObjectId.isValid(id)) {
+    return null
+  }
+  return await prisma.test.findUnique({
     where: { id }
   })
-  return test
 }
 
 // CREATE
-export const createTest = async (user, date, name, result) => {
+export const createTest = async ({ userId, date, name, result, type }) => {
+  if (!ObjectId.isValid(userId)) {
+    return null
+  }
   const test = await prisma.test.create({
     data: {
-      userId: user,
-      date: date,
-      name: name,
-      result: result,
-      type: 'MOBILITY'
+      userId,
+      date,
+      name,
+      result,
+      type
     }
   })
   return test
 }
 
 // UPDATE
-export const updateTest = async (id, updateData) => {
-  const test = await prisma.test.update({
-    where: {
-      id
-    },
-    data: {
-      ...updateData
-    }
+export const updateTest = async ({ testId, date, name, result, type }) => {
+  if (!ObjectId.isValid(testId)) {
+    return null
+  }
+  return await prisma.test.update({
+    where: { id: testId },
+    data: { date, name, result, type }
   })
-  return test
 }
 
 // DELETE
 export const deleteTest = async id => {
-  const test = await prisma.test.delete({
+  if (!ObjectId.isValid(id)) {
+    return null
+  }
+  return await prisma.test.delete({
     where: {
       id
     }
   })
-  return test
 }
