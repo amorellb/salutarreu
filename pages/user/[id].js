@@ -3,6 +3,7 @@ import { getSession, useSession } from 'next-auth/react'
 
 import {
   Box,
+  Button,
   Flex,
   IconButton,
   TabList,
@@ -14,29 +15,27 @@ import {
   useDisclosure,
   useMediaQuery
 } from '@chakra-ui/react'
-import {
-  FiDatabase,
-  // FiSettings,
-  FiCalendar,
-  FiUsers,
-  FiMenu
-} from 'react-icons/fi'
+
+import { FiDatabase, FiCalendar, FiUsers, FiMenu } from 'react-icons/fi'
+import { FaRunning } from 'react-icons/fa'
+import { AiOutlinePlus } from 'react-icons/ai'
 
 import SimpleSidebar, { SidebarContent } from '../../components/user/Sidebar'
 import UserList from '../../components/user/UserList'
 import UserCalendar from '../../components/user/UserCalendar'
 import UserInfo from '../../components/user/UserInfo'
-// import UserSettings from '../../components/user/UserSettings'
+import UserTests from '../../components/user/UserTests'
+import TestsForm from '../../components/user/tests/TestsForm'
 import { URL } from '../../constants/URL'
 
-function UserPage({ user }) {
+function UserPage({ user, users }) {
   const { data: session } = useSession()
   const linkItems = [
     {
       name: 'Usuarios',
       icon: FiUsers,
       viewForTrainer: true,
-      view: <UserList />
+      view: <UserList users={users} />
     },
     {
       name: 'Calendario',
@@ -47,12 +46,18 @@ function UserPage({ user }) {
       name: 'Datos personales',
       icon: FiDatabase,
       view: <UserInfo user={user} />
+    },
+    {
+      name: 'Mi progreso',
+      icon: FaRunning,
+      view: <UserTests />
+    },
+    {
+      name: 'Crear test',
+      icon: AiOutlinePlus,
+      view: <TestsForm />,
+      modal:"onOpen"
     }
-    /* {
-      name: 'Ajustes',
-      icon: FiSettings,
-      view: <UserSettings />
-    } */
   ]
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [isLessThan768px] = useMediaQuery('(min-width: 768px)')
@@ -81,7 +86,7 @@ function UserPage({ user }) {
           display={{ base: 'flex', md: 'none' }}
         />
         <TabPanels minHeight="calc(100vh - var(--chakra-sizes-header))">
-          {linkItems.map(({ name, view, viewForTrainer }) => {
+          {linkItems.map(({ name, view, viewForTrainer, modal, }) => {
             // hay un problema si se usa ternarias por el indice de la posición de las tabs.
             if (viewForTrainer) {
               if (
@@ -99,11 +104,15 @@ function UserPage({ user }) {
                 <TabPanel key={name} aria-labelledby={name}>
                   {view}
                 </TabPanel>
+                
+
               )
             }
           })}
         </TabPanels>
+
       </Tabs>
+      <Button> hola</Button>
     </Box>
   )
 }
@@ -142,8 +151,16 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
 export async function getServerSideProps(context) {
   const session = await getSession(context)
   const { id } = context.query
-  const res = await fetch(`${URL}/api/user/${id}`)
-  const { user } = await res.json()
+
+  const [userRes, usersRes] = await Promise.all([
+    fetch(`${URL}/api/user/${id}`),
+    fetch(`${URL}/api/user`)
+  ]);
+  const [{ user }, users] = await Promise.all([
+    userRes.json(),
+    usersRes.json()
+  ])
+
 
   if (
     !user ||
@@ -156,7 +173,10 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      user: user
+
+      user: user,
+      users: users
+
     }
   }
 }

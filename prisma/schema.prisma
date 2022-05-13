@@ -16,21 +16,21 @@ enum Role {
 
 model User {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  role      Role?      @default(USER)
+  role      Role?     @default(USER)
   name      String?
   birthDate DateTime?
-  email     String?    @unique
+  email     String?   @unique
   password  String?
   phone     String?   @unique
   address   String?
   zipCode   Int?
-  DNI       String?    @unique
+  DNI       String?   @unique
   avatar    String?
   workouts  Workout[]
   tests     Test[]
   Booking   Booking[]
   createdAt DateTime  @default(now())
-  updatedAt DateTime?  @updatedAt
+  updatedAt DateTime? @updatedAt
 }
 
 model Workout {
@@ -56,7 +56,7 @@ model Test {
   type      TestType
   date      DateTime
   name      String
-  result    Int
+  result    Int?     
   user      User     @relation(fields: [userId], references: [id])
   userId    String   @db.ObjectId
   createdAt DateTime @default(now())
