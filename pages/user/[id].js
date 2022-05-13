@@ -1,4 +1,6 @@
 /* eslint-disable array-callback-return */
+import { getSession, useSession } from 'next-auth/react'
+
 import {
   Box,
   Button,
@@ -13,23 +15,20 @@ import {
   useDisclosure,
   useMediaQuery
 } from '@chakra-ui/react'
-import SimpleSidebar, { SidebarContent } from '../../components/user/Sidebar'
+
 import { FiDatabase, FiCalendar, FiUsers, FiMenu } from 'react-icons/fi'
-
 import { FaRunning } from 'react-icons/fa'
-
 import { AiOutlinePlus } from 'react-icons/ai'
 
+import SimpleSidebar, { SidebarContent } from '../../components/user/Sidebar'
 import UserList from '../../components/user/UserList'
 import UserCalendar from '../../components/user/UserCalendar'
 import UserInfo from '../../components/user/UserInfo'
 import UserTests from '../../components/user/UserTests'
 import TestsForm from '../../components/user/tests/TestsForm'
-import { getSession, useSession } from 'next-auth/react'
 import { URL } from '../../constants/URL'
 
 function UserPage({ user, users }) {
-
   const { data: session } = useSession()
   const linkItems = [
     {
@@ -46,7 +45,7 @@ function UserPage({ user, users }) {
     {
       name: 'Datos personales',
       icon: FiDatabase,
-      view: <UserInfo />
+      view: <UserInfo user={user} />
     },
     {
       name: 'Mi progreso',

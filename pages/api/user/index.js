@@ -1,4 +1,4 @@
-import { getAllUsers} from '../../../prisma/user'
+import { getAllUsers } from '../../../prisma/user'
 
 export default async function handler(req, res) {
   try {
