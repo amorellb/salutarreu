@@ -1,7 +1,6 @@
 import {
   Box,
   chakra,
-  Container,
   Link,
   Stack,
   Text,
@@ -48,11 +47,12 @@ const SocialButton = ({ children, label, href }) => {
 export default function SmallCentered() {
   return (
     <Box
+      as="footer"
       bg={useColorModeValue('gray.50', 'gray.900')}
       color={useColorModeValue('gray.700', 'gray.200')}
     >
-      <Container
-        as={Stack}
+      <Stack
+        as={'section'}
         maxW={'6xl'}
         py={4}
         spacing={4}
@@ -66,20 +66,20 @@ export default function SmallCentered() {
           <Link href={'aboutUs'}>Nosotros</Link>
           <Link href={'#'}>Preguntas frecuentes</Link>
         </Stack>
-      </Container>
+      </Stack>
 
       <Box
         borderTopWidth={1}
         borderStyle={'solid'}
         borderColor={useColorModeValue('gray.200', 'gray.700')}
       >
-        <Container
-          as={Stack}
+        <Stack
+          as={'section'}
           maxW={'6xl'}
           py={4}
           direction={{ base: 'column', md: 'row' }}
           spacing={4}
-          justify={{ base: 'center', md: 'space-between' }}
+          justify={{ base: 'center', md: 'space-around' }}
           align={{ base: 'center', md: 'center' }}
         >
           <Text>© 2022 Salut Arreu. All rights reserved</Text>
@@ -94,7 +94,7 @@ export default function SmallCentered() {
               <FaInstagram />
             </SocialButton>
           </Stack>
-        </Container>
+        </Stack>
       </Box>
     </Box>
   )
