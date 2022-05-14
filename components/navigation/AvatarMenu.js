@@ -28,8 +28,7 @@ function AvatarMenu(props) {
           cursor={'pointer'}
           minW={0}
         >
-          <Avatar size={'lg'} src={user?.avatar} />
-
+          <Avatar size="md" src={user?.avatar} />
         </MenuButton>
         <MenuList alignItems={'center'}>
           <br />
