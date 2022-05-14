@@ -9,22 +9,13 @@ import {
   VisuallyHidden,
   Input,
   IconButton,
-  useColorModeValue,
-  Image
+  useColorModeValue
 } from '@chakra-ui/react'
 
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
 import { BiMailSend } from 'react-icons/bi'
 
-const Logo = () => {
-  return (
-    <Image
-      width="300px"
-      src="/images/logo/logotip/logotip_fonstransparent.png"
-      alt="Corporative logo image"
-    />
-  )
-}
+import Logo from '../Logo'
 
 const SocialButton = ({ children, label, href }) => {
   return (
@@ -61,18 +52,21 @@ const ListHeader = ({ children }) => {
 export default function LargeWithNewsletter() {
   return (
     <Box
+      as="footer"
       bg={useColorModeValue('gray.50', 'gray.900')}
       color={useColorModeValue('gray.700', 'gray.200')}
     >
       <Container as={Stack} maxW={'6xl'} py={10}>
         <SimpleGrid
-          templateColumns={{ sm: '1fr 1fr', md: '2fr 1fr 1fr 2fr' }}
-          spacing={8}
+          templateColumns={{ sm: '1fr 1fr', md: '2fr 2fr 2fr 2fr' }}
+          justifyItems="center"
         >
-          <Stack spacing={6}>
-            <Box>
-              <Logo color={useColorModeValue('gray.700', 'white')} />
-            </Box>
+          <Stack as={'section'} spacing={6}>
+            <Logo
+              imageFile="/images/logo/logotip/logotip_fonstransparent.png"
+              width={'300px'}
+              color={useColorModeValue('gray.700', 'white')}
+            />
             <Text fontSize={'sm'}>© 2022 Salut Arreu. All rights reserved</Text>
             <Stack direction={'row'} spacing={6}>
               <SocialButton label={'Twitter'} href={'#'}>
@@ -86,19 +80,19 @@ export default function LargeWithNewsletter() {
               </SocialButton>
             </Stack>
           </Stack>
-          <Stack align={'flex-start'}>
+          <Stack as={'section'} align={'flex-start'}>
             <ListHeader>Compañia</ListHeader>
             <Link href={'/'}>Inicio</Link>
             <Link href={'/pricing'}>Sessiones</Link>
             <Link href={'aboutUs'}>Nosotros</Link>
           </Stack>
-          <Stack align={'flex-start'}>
+          <Stack as={'section'} align={'flex-start'}>
             <ListHeader>Soporte</ListHeader>
             <Link href={'#'}>Preguntas frecuentes</Link>
             <Link href={'#'}>Terminos de servicio</Link>
             <Link href={'#'}>Politicas de privacidad</Link>
           </Stack>
-          <Stack align={'flex-start'}>
+          <Stack as={'section'} align={'flex-start'}>
             <ListHeader>No te pierdas ninguna noticia!</ListHeader>
             <Stack direction={'row'}>
               <Input
