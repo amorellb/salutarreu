@@ -5,20 +5,11 @@ import {
   Stack,
   Text,
   useColorModeValue,
-  VisuallyHidden,
-  Image
+  VisuallyHidden
 } from '@chakra-ui/react'
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
 
-const Logo = () => {
-  return (
-    <Image
-      width="150px"
-      src="/images/logo/imagotip/imagotip_fonstransparent.png"
-      alt="Corporative logo image"
-    />
-  )
-}
+import Logo from '../Logo'
 
 const SocialButton = ({ children, label, href }) => {
   return (
@@ -59,7 +50,10 @@ export default function SmallCentered() {
         justify={'center'}
         align={'center'}
       >
-        <Logo />
+        <Logo
+          imageFile={'/images/logo/imagotip/imagotip_fonstransparent.png'}
+          width={'150px'}
+        />
         <Stack direction={'row'} spacing={6}>
           <Link href={'/'}>Inicio</Link>
           <Link href={'/pricing'}>Sessiones</Link>

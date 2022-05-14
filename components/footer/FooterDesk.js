@@ -9,22 +9,13 @@ import {
   VisuallyHidden,
   Input,
   IconButton,
-  useColorModeValue,
-  Image
+  useColorModeValue
 } from '@chakra-ui/react'
 
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
 import { BiMailSend } from 'react-icons/bi'
 
-const Logo = () => {
-  return (
-    <Image
-      width="300px"
-      src="/images/logo/logotip/logotip_fonstransparent.png"
-      alt="Corporative logo image"
-    />
-  )
-}
+import Logo from '../Logo'
 
 const SocialButton = ({ children, label, href }) => {
   return (
@@ -71,7 +62,11 @@ export default function LargeWithNewsletter() {
           justifyItems="center"
         >
           <Stack as={'section'} spacing={6}>
-            <Logo color={useColorModeValue('gray.700', 'white')} />
+            <Logo
+              imageFile="/images/logo/logotip/logotip_fonstransparent.png"
+              width={'300px'}
+              color={useColorModeValue('gray.700', 'white')}
+            />
             <Text fontSize={'sm'}>© 2022 Salut Arreu. All rights reserved</Text>
             <Stack direction={'row'} spacing={6}>
               <SocialButton label={'Twitter'} href={'#'}>
