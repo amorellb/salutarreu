@@ -3,7 +3,6 @@ import { getSession, useSession } from 'next-auth/react'
 
 import {
   Box,
-  Button,
   Flex,
   IconButton,
   TabList,
@@ -56,7 +55,7 @@ function UserPage({ user, users }) {
       name: 'Crear test',
       icon: AiOutlinePlus,
       view: <TestsForm />,
-      modal:"onOpen"
+      modal: 'onOpen'
     }
   ]
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -86,7 +85,7 @@ function UserPage({ user, users }) {
           display={{ base: 'flex', md: 'none' }}
         />
         <TabPanels minHeight="calc(100vh - var(--chakra-sizes-header))">
-          {linkItems.map(({ name, view, viewForTrainer, modal, }) => {
+          {linkItems.map(({ name, view, viewForTrainer, modal }) => {
             // hay un problema si se usa ternarias por el indice de la posición de las tabs.
             if (viewForTrainer) {
               if (
@@ -104,15 +103,11 @@ function UserPage({ user, users }) {
                 <TabPanel key={name} aria-labelledby={name}>
                   {view}
                 </TabPanel>
-                
-
               )
             }
           })}
         </TabPanels>
-
       </Tabs>
-      <Button> hola</Button>
     </Box>
   )
 }
@@ -155,12 +150,8 @@ export async function getServerSideProps(context) {
   const [userRes, usersRes] = await Promise.all([
     fetch(`${URL}/api/user/${id}`),
     fetch(`${URL}/api/user`)
-  ]);
-  const [{ user }, users] = await Promise.all([
-    userRes.json(),
-    usersRes.json()
   ])
-
+  const [{ user }, users] = await Promise.all([userRes.json(), usersRes.json()])
 
   if (
     !user ||
@@ -173,10 +164,8 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-
       user: user,
       users: users
-
     }
   }
 }
