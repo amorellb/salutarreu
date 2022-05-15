@@ -25,9 +25,10 @@ function Header() {
     <Box
       as="header"
       height={'content-fit'}
-      boxShadow={'xl'}
+      boxShadow={'md'}
       alignItems="center"
       justifyContent={'space-between'}
+      
     >
       <Flex py={{ base: 2 }} px={{ base: 4 }} align={'center'} flex={1}>
         <Flex

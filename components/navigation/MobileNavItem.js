@@ -10,7 +10,7 @@ function MobileNavItem({ label, href }) {
         <Flex
           _hover={{ textDecoration: 'none' }}
         >
-          <Text fontWeight={600} color={'brand.700'}>{label}</Text>
+          <Text fontWeight={600} color={'brand.700'} cursor={'pointer'}>{label}</Text>
         </Flex>
       </Link>
     </Stack>
