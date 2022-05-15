@@ -5,15 +5,12 @@ function MobileNavItem({ label, href }) {
   const { onToggle } = useDisclosure()
 
   return (
-    <Stack spacing={4} onClick={onToggle}>
+    <Stack spacing={4} onClick={onToggle} >
       <Link href={href} passHref>
         <Flex
-          py={2}
-          justify={'space-between'}
-          align={'center'}
           _hover={{ textDecoration: 'none' }}
         >
-          <Text fontWeight={600}>{label}</Text>
+          <Text fontWeight={600} color={'brand.700'}>{label}</Text>
         </Flex>
       </Link>
     </Stack>

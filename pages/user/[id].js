@@ -93,14 +93,14 @@ function UserPage({ user, users }) {
                 user?.id === session?.user?.id
               ) {
                 return (
-                  <TabPanel key={name} aria-labelledby={name}>
+                  <TabPanel key={name} aria-labelledby={name} p={'0px'}>
                     {view}
                   </TabPanel>
                 )
               }
             } else {
               return (
-                <TabPanel key={name} aria-labelledby={name}>
+                <TabPanel key={name} aria-labelledby={name} p={'0px'}>
                   {view}
                 </TabPanel>
               )

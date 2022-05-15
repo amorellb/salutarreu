@@ -24,12 +24,10 @@ function Header() {
   return (
     <Box
       as="header"
-      height={'header'}
-      borderColor={'gray.200'}
-      borderBottom={1}
-      borderStyle={'solid'}
-      display="flex"
+      height={'content-fit'}
+      boxShadow={'xl'}
       alignItems="center"
+      justifyContent={'space-between'}
     >
       <Flex py={{ base: 2 }} px={{ base: 4 }} align={'center'} flex={1}>
         <Flex
@@ -57,13 +55,11 @@ function Header() {
             <DesktopNav />
           </Flex>
         </Flex>
-
         <Stack
           flex={{ base: 1, md: 0 }}
           justify={'flex-end'}
           direction={'row'}
-          spacing={6}
-        >
+          spacing={6}>
           {status === 'authenticated' ? (
             <AvatarMenu user={session.user} />
           ) : (
@@ -71,11 +67,12 @@ function Header() {
           )}
         </Stack>
       </Flex>
-
-      <Collapse in={isOpen} animateOpacity>
+      <Collapse in={isOpen} animateOpacity >
         <MobileNav />
       </Collapse>
+
     </Box>
+
   )
 }
 
