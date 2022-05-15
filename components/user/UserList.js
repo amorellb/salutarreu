@@ -48,25 +48,22 @@ export default function UserList({ users }) {
 
   const tableDataSmall = users.map((user) => ({
     name: (
-      <Box align="center">
+      <Box align="center" p={0}>
         <Avatar name={user.name} src={user.avatar} size="md" mb={2} />
         <Text fontSize={'small'}>{(user.name).toUpperCase()}</Text>
         <Text fontSize={'small'}>{user.email}</Text>
       </Box>
     ),
     perfilButton: (
-      <Box
-        sx={{ paddingLeft: '0px' }}
+      <Button
+        colorScheme="gray"
+        onClick={() => goToUserProfile(user.id)}
+        size="sm"
+        marginRight={2}
       >
-        <Button
-          colorScheme="gray"
-          onClick={() => goToUserProfile(user.id)}
-          size="sm"
-          marginRight={2}
-        >
-          <Icon as={FiUser} fontSize="20" />
-        </Button>
-      </Box>
+        <Icon as={FiUser} fontSize="20" />
+      </Button>
+
     ),
   }));
 
@@ -82,9 +79,19 @@ export default function UserList({ users }) {
     {
       Header: "",
       accessor: "perfilButton"
-    },
-
+    }
   ];
+
+  const tableColumnsMobile = [
+    {
+      Header: "",
+      accessor: "name"
+    },
+    {
+      Header: "",
+      accessor: "perfilButton"
+    }
+  ]
 
   return (
     <Box py="10" overflow={'auto'}>
@@ -113,7 +120,7 @@ export default function UserList({ users }) {
             data={tableData} />
         </Box>
       ) : (
-        <Box mt="6">
+        <Box mt="6" p={'0px'}>
           <Table
             emptyData={{
               icon: FiUser,
@@ -122,7 +129,7 @@ export default function UserList({ users }) {
             totalRegisters={users.length}
             page={page}
             onPageChange={(page) => setPage(page)}
-            columns={tableColumns}
+            columns={tableColumnsMobile}
             data={tableDataSmall}
           />
         </Box>
