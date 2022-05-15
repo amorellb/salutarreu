@@ -45,21 +45,31 @@ export default function SmallCentered() {
       <Stack
         as={'section'}
         maxW={'6xl'}
-        py={4}
+        p={4}
         spacing={4}
         justify={'center'}
         align={'center'}
+        
+        color={'brand.600'}
       >
         <Logo
           imageFile={'/images/logo/imagotip/imagotip_fonstransparent.png'}
           width={'150px'}
         />
-        <Stack direction={'row'} spacing={6}>
+        <Stack direction={'row'} spacing={6} fontSize={'1rem'}>
           <Link href={'/'}>Inicio</Link>
           <Link href={'/pricing'}>Sessiones</Link>
           <Link href={'aboutUs'}>Nosotros</Link>
-          <Link href={'#'}>Preguntas frecuentes</Link>
         </Stack>
+        <Stack direction={'row'} spacing={6} fontSize={'1rem'}>
+          <Link href={'#'}>Preguntas frecuentes</Link>
+          <Link href={'#'}>Terminos de Servicio</Link>
+          
+        </Stack>
+        <Stack direction={'row'} spacing={6} fontSize={'1rem'}>
+          <Link href={'#'}>Políticas de Privacidad</Link>
+        </Stack>
+        
       </Stack>
 
       <Box
