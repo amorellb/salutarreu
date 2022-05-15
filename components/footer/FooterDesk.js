@@ -85,7 +85,7 @@ export default function LargeWithNewsletter() {
             </Stack>
           </Box>
         </Box>
-        <Box as={'section'} display={'flex'} flexDir={'row'} justifyContent='space-around' textColor={'brand.600'}>
+        <Box display={'flex'} flexDir={'row'} justifyContent='space-around' textColor={'brand.600'}>
           <Link href={'/'}>Inicio</Link>
           <Link href={'/pricing'}>Sessiones</Link>
           <Link href={'aboutUs'}>Nosotros</Link>
