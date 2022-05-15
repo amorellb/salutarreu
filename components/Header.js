@@ -28,7 +28,10 @@ function Header() {
       boxShadow={'md'}
       alignItems="center"
       justifyContent={'space-between'}
-      
+      position={'fixed'}
+      w={'100%'}
+      backgroundColor={'white'}
+      zIndex={3}
     >
       <Flex py={{ base: 2 }} px={{ base: 4 }} align={'center'} flex={1}>
         <Flex
