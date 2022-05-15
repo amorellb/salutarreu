@@ -25,9 +25,7 @@ function Header() {
     <Box
       as="header"
       height={'content-fit'}
-      borderColor={'gray.200'}
-      borderBottom={1}
-      borderStyle={'solid'}
+      boxShadow={'xl'}
       alignItems="center"
       justifyContent={'space-between'}
     >
