@@ -72,7 +72,7 @@ function Header() {
         </Stack>
       </Flex>
       <Collapse in={isOpen} animateOpacity >
-        <MobileNav />
+        <MobileNav onClose={onToggle} />
       </Collapse>
 
     </Box>
