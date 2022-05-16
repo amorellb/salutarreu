@@ -15,7 +15,7 @@ export default function WithBackgroundImage() {
   return (
     <Flex
       w={'100vw'}
-      h={'100vh'}
+      h={'110vh'}
       backgroundImage={'/images/landing/portada.jpg'}
       backgroundSize={'cover'}
       backgroundPosition={'center center'}

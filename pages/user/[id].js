@@ -67,7 +67,7 @@ function UserPage({ user, users }) {
         flexDirection={{ base: 'column', md: 'row' }}
         variant="unstyled"
       >
-        <TabList>
+        <TabList marginTop={'100px'}>
           {isLessThan768px ? (
             <SidebarContent linkItems={linkItems} user={user}></SidebarContent>
           ) : (

@@ -6,13 +6,15 @@ import {
   Menu,
   Avatar,
   MenuDivider,
-  Center
+  Center,
+  useMediaQuery
 } from '@chakra-ui/react'
 import { signOut } from 'next-auth/react'
 import Router from 'next/router'
 
 function AvatarMenu(props) {
   const { user } = props
+  const [isLessThan900px] = useMediaQuery('(min-width: 900px)')
 
   const enterUserPage = () => {
     Router.push(`/user/${user?.id}`)
@@ -28,7 +30,12 @@ function AvatarMenu(props) {
           cursor={'pointer'}
           minW={0}
         >
-          <Avatar size="md" src={user?.avatar} />
+          {isLessThan900px
+            ?
+            (<Avatar size="lg" src={user?.avatar} />)
+            :
+            (<Avatar size="md" src={user?.avatar} />)}
+          
         </MenuButton>
         <MenuList alignItems={'center'}>
           <br />

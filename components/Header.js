@@ -25,9 +25,13 @@ function Header() {
     <Box
       as="header"
       height={'content-fit'}
-      boxShadow={'xl'}
+      boxShadow={'md'}
       alignItems="center"
       justifyContent={'space-between'}
+      position={'fixed'}
+      w={'100%'}
+      backgroundColor={'white'}
+      zIndex={3}
     >
       <Flex py={{ base: 2 }} px={{ base: 4 }} align={'center'} flex={1}>
         <Flex
@@ -68,7 +72,7 @@ function Header() {
         </Stack>
       </Flex>
       <Collapse in={isOpen} animateOpacity >
-        <MobileNav />
+        <MobileNav onClose={onToggle} />
       </Collapse>
 
     </Box>

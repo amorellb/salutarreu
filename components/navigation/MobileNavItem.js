@@ -1,19 +1,20 @@
-import { Flex, Stack, Text, useDisclosure } from '@chakra-ui/react'
+
+import { Box, Flex, Text } from '@chakra-ui/react'
+
 import Link from 'next/link'
 
-function MobileNavItem({ label, href }) {
-  const { onToggle } = useDisclosure()
+function MobileNavItem({ label, href, onClose }) {
 
   return (
-    <Stack spacing={4} onClick={onToggle} >
+    <Box spacing={4} onClick={onClose} >
       <Link href={href} passHref>
         <Flex
           _hover={{ textDecoration: 'none' }}
         >
-          <Text fontWeight={600} color={'brand.700'}>{label}</Text>
+          <Text fontWeight={600} color={'brand.700'} cursor={'pointer'}>{label}</Text>
         </Flex>
       </Link>
-    </Stack>
+    </Box>
   )
 }
 

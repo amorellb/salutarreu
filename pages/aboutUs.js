@@ -18,7 +18,7 @@ import TrainerValues from '../components/about/TrainerValues'
 export default function AboutUs() {
   return (
     <Box as={'main'}>
-      <Box as="section" textAlign={'center'} my={'5rem'}>
+      <Box as="section" textAlign={'center'} py={'8rem'}>
         <Image
           margin={'auto'}
           width="200px"
