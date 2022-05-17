@@ -57,7 +57,10 @@ export default function WithBackgroundImage() {
             </Text>
           </Stack>
           <Container as={SimpleGrid} maxW={'5xl'} columns={{ base: 1, md: 2 }}>
-            <Link href={'/contacto'} style={{ textDecoration: 'none' }}>
+            <Link
+              href={'/aboutUs#contactar'}
+              style={{ textDecoration: 'none' }}
+            >
               <Button
                 fontSize={'sm'}
                 fontWeight={400}

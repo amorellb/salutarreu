@@ -66,7 +66,7 @@ export default function AboutUs() {
           ))}
         </Flex>
       </Container>
-      <Container as={'section'} my={'5rem'} maxW={'7xl'}>
+      <Container id="contactar" as={'section'} my={'5rem'} maxW={'7xl'}>
         <Heading
           as={'h2'}
           color={'brand.700'}
