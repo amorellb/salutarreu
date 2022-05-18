@@ -5,10 +5,7 @@ import Carrusel from '../components/landing/Carrusel'
 import Testimonials from '../components/landing/Testimonials'
 import { Container, Heading, Image, Stack, Text } from '@chakra-ui/react'
 
-
 export default function Home() {
-
-
   return (
     <div className={styles.container}>
       <Head>
@@ -19,10 +16,9 @@ export default function Home() {
       <main className={styles.main}>
         <Welcome />
         <Container maxW={'7xl'} pt={16} as={Stack} spacing={12}>
-
           <Image
-            src='https://github.com/amorellb/salutarreu/blob/main/public/images/lines/3.png?raw=true'
-            alt='imagen lineas'
+            src="https://github.com/amorellb/salutarreu/blob/main/public/images/lines/3.png?raw=true"
+            alt="imagen lineas"
             position={'absolute'}
             zIndex={-1}
             left={0}
@@ -34,6 +30,7 @@ export default function Home() {
 
           <Stack spacing={0} align={'start'}>
             <Heading
+              as={'h2'}
               lineHeight={1.1}
               fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '6xl' }}
               bgGradient="linear(to-r,brand.600, brand.500, brand.400, brand.300)"

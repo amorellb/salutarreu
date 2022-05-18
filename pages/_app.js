@@ -7,13 +7,17 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import Fonts from '../components/Fonts'
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+export default function SalutArreuApp({
+  Component,
+  pageProps: { session, ...pageProps }
+}) {
   return (
     <SessionProvider session={session}>
       <ChakraProvider theme={theme}>
         <Fonts />
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" href="/favicon.ico" />
         </Head>
         <Header />
         <Component {...pageProps} />
@@ -22,5 +26,3 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     </SessionProvider>
   )
 }
-
-export default MyApp
