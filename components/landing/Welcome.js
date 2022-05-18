@@ -14,6 +14,7 @@ import {
 export default function WithBackgroundImage() {
   return (
     <Flex
+      as={'section'}
       w={'100vw'}
       h={'110vh'}
       backgroundImage={'/images/landing/portada.jpg'}
@@ -56,10 +57,19 @@ export default function WithBackgroundImage() {
               Acercate a nuestro centro y déjate guiar por nuestro entrenador.
             </Text>
           </Stack>
-          <Container as={SimpleGrid} maxW={'5xl'} columns={{ base: 1, md: 2 }}>
-            <Link href={'/contacto'} style={{ textDecoration: 'none' }}>
+          <Container
+            as={SimpleGrid}
+            maxW={'5xl'}
+            columns={{ base: 1, md: 2 }}
+            gap={{ base: 5, lg: 20 }}
+          >
+            <Link
+              href={'/aboutUs#contactar'}
+              style={{ textDecoration: 'none' }}
+              maxW={{ base: '5xl', lg: 'md' }}
+            >
               <Button
-                fontSize={'sm'}
+                fontSize={{ base: 'lg', md: 'xl' }}
                 fontWeight={400}
                 variant={'solid'}
                 colorScheme={'brand.400'}
@@ -68,10 +78,14 @@ export default function WithBackgroundImage() {
                 Contactar
               </Button>
             </Link>
-            <Link href={'/sign-in'} style={{ textDecoration: 'none' }}>
+            <Link
+              href={'/sign-in'}
+              style={{ textDecoration: 'none' }}
+              maxW={{ base: '5xl', lg: 'md' }}
+            >
               <Button
                 bg={'white'}
-                fontSize={'sm'}
+                fontSize={{ base: 'lg', md: 'xl' }}
                 fontWeight={400}
                 variant={'outline'}
                 colorScheme={'brand'}

@@ -30,21 +30,21 @@ export default function SignIn() {
   const avatars = [
     {
       name: 'Antonio Morell',
-      url: 'https://avatars.githubusercontent.com/u/74008183?v=4',
+      url: 'https://avatars.githubusercontent.com/u/74008183?v=4'
     },
     {
       name: 'Magi Payeras',
-      url: 'https://media.discordapp.net/attachments/770716465941970955/957441418585067570/desconocido.jpeg?width=301&height=669',
+      url: 'https://media.discordapp.net/attachments/770716465941970955/957441418585067570/desconocido.jpeg?width=301&height=669'
     },
     {
       name: 'Kevin Puchaicela',
-      url: 'https://avatars.githubusercontent.com/u/47866787?v=4',
+      url: 'https://avatars.githubusercontent.com/u/47866787?v=4'
     },
     {
       name: 'Victoria Pelaez',
-      url: 'https://avatars.githubusercontent.com/u/73317705?s=400&u=636c6e048ef6e1936413e9fe5d5ebe7a7c23bbf1&v=4',
+      url: 'https://avatars.githubusercontent.com/u/73317705?s=400&u=636c6e048ef6e1936413e9fe5d5ebe7a7c23bbf1&v=4'
     }
-  ];
+  ]
 
   return (
     <Container
@@ -52,22 +52,29 @@ export default function SignIn() {
       maxW={'8xl'}
       columns={{ base: 1, md: 2 }}
       spacing={{ base: 10, lg: 32 }}
-      py={{ base: 10, sm: 20, lg: 32 }}>
-      <Stack spacing={{ base: 10, md: 20 }}>
+      py={{ base: 10, sm: 20, lg: 32 }}
+    >
+      <Stack as={'section'} spacing={{ base: 10, md: 20 }}>
         <Heading
           paddingStart={8}
           marginTop={10}
           lineHeight={1.1}
           fontSize={{ base: '3xl', sm: '4xl', md: '4xl', lg: '5xl', xl: '6xl' }}
-          bgGradient='linear(to-r,brand.600, brand.500, brand.400, brand.300)'
-          bgClip='text'>
+          bgGradient="linear(to-r,brand.600, brand.500, brand.400, brand.300)"
+          bgClip="text"
+        >
           Bienvenido a la famlia Salutarreu.
           <br />
           Aquí comienza tu aventura.
         </Heading>
-        <Stack direction={'row'} spacing={4} align={'center'} alignSelf='center'>
+        <Stack
+          direction={'row'}
+          spacing={4}
+          align={'center'}
+          alignSelf="center"
+        >
           <AvatarGroup>
-            {avatars.map((avatar) => (
+            {avatars.map(avatar => (
               <Avatar
                 key={avatar.name}
                 name={avatar.name}
@@ -85,7 +92,7 @@ export default function SignIn() {
                   position: 'absolute',
                   zIndex: -1,
                   top: 0,
-                  left: 0,
+                  left: 0
                 }}
               />
             ))}
@@ -114,20 +121,23 @@ export default function SignIn() {
               position: 'absolute',
               zIndex: -1,
               top: 0,
-              left: 0,
-            }}>
+              left: 0
+            }}
+          >
             YOU
           </Flex>
         </Stack>
       </Stack>
 
       <Stack
+        as={'section'}
         justifyContent={'center'}
         bg={'gray.50'}
         rounded={'xl'}
         p={{ base: 4, sm: 6, md: 8 }}
         spacing={{ base: 8 }}
-        maxW={{ lg: 'lg' }}>
+        maxW={{ lg: 'lg' }}
+      >
         <Formik
           initialValues={{
             email: '',
@@ -162,7 +172,8 @@ export default function SignIn() {
                 color={'brand.600'}
                 lineHeight={1.1}
                 fontSize={{ base: '2xl', sm: '3xl', md: '4xl' }}
-                textAlign={'center'}>
+                textAlign={'center'}
+              >
                 Iniciar Sesión
               </Heading>
 
@@ -185,7 +196,8 @@ export default function SignIn() {
                   />
                   <FormErrorMessage>{errors.email}</FormErrorMessage>
                 </FormControl>
-                <FormControl isInvalid={errors.password && touched.password}
+                <FormControl
+                  isInvalid={errors.password && touched.password}
                   paddingBottom={6}
                 >
                   <FormLabel>Contraseña</FormLabel>
@@ -208,7 +220,7 @@ export default function SignIn() {
                   color="white"
                   _hover={{
                     bgGradient: 'linear(to-r, brand.500,brand.300,brand.500)',
-                    boxShadow: 'xl',
+                    boxShadow: 'xl'
                   }}
                 >
                   Iniciar Sesión

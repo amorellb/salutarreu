@@ -26,17 +26,20 @@ export default function AboutUs() {
           alt="Corporative logo image"
         />
         <Stack>
-          <Heading as={'h1'}>
-            <Text
-              fontSize={{ base: '5xl', lg: '7xl' }}
-              fontStyle={'italic'}
-              bgGradient="linear(to-r, brand.600, brand.400, brand.300)"
-              bgClip="text"
-            >
-              Jaume Gelabert
-            </Text>
-            <Text fontSize={{ base: '2xl', lg: '4xl' }}>Entrenador.</Text>
+          <Heading
+            as={'h1'}
+            pe={'15px'}
+            fontStyle="italic"
+            lineHeight={1.1}
+            fontSize={{ base: '5xl', lg: '7xl' }}
+            bgGradient="linear(to-r,brand.600, brand.500, brand.400, brand.300)"
+            bgClip="text"
+          >
+            Jaume Gelabert
           </Heading>
+          <Text fontWeight={'bold'} fontSize={{ base: '2xl', lg: '4xl' }}>
+            Entrenador.
+          </Text>
           <Text fontSize={'1.5rem'} color={'gray.300'}>
             Guapo, sexy y atlético. ¿Qué más necesitas en un entrenador? ¡Vente
             pacá a ponerte bien chuleta!
@@ -48,9 +51,11 @@ export default function AboutUs() {
       </Container>
       <Container as={'section'} mt={'5rem'} pb={'5rem'} maxW={'7xl'}>
         <Heading
-          as={'h2'}
-          color={'brand.700'}
-          fontSize={{ base: '3xl', sm: '4xl', lg: '6xl' }}
+          as="h2"
+          lineHeight={1.1}
+          fontSize={{ base: '4xl', md: '5xl', lg: '6xl' }}
+          bgGradient="linear(to-r,brand.600, brand.500, brand.400, brand.300)"
+          bgClip="text"
         >
           <Text>Valores</Text>
         </Heading>
@@ -66,11 +71,13 @@ export default function AboutUs() {
           ))}
         </Flex>
       </Container>
-      <Container as={'section'} my={'5rem'} maxW={'7xl'}>
+      <Container id="contactar" as={'section'} my={'5rem'} maxW={'7xl'}>
         <Heading
-          as={'h2'}
-          color={'brand.700'}
-          fontSize={{ base: '3xl', sm: '4xl', lg: '6xl' }}
+          as="h2"
+          lineHeight={1.1}
+          fontSize={{ base: '4xl', md: '5xl', lg: '6xl' }}
+          bgGradient="linear(to-r,brand.600, brand.500, brand.400, brand.300)"
+          bgClip="text"
         >
           <Text>Contáctanos</Text>
         </Heading>
@@ -81,7 +88,7 @@ export default function AboutUs() {
                 as="label"
                 htmlFor="contact-name"
                 marginTop={'15px'}
-                color={'brand.500'}
+                color={'brand.600'}
                 fontSize={'1.2rem'}
                 fontStyle={'italic'}
               >
@@ -98,7 +105,7 @@ export default function AboutUs() {
               <FormLabel
                 as="label"
                 htmlFor="contact-email"
-                color={'brand.500'}
+                color={'brand.600'}
                 fontSize={'1.2rem'}
                 fontStyle={'italic'}
               >
@@ -115,7 +122,7 @@ export default function AboutUs() {
               <FormLabel
                 as="label"
                 htmlFor="contact-message"
-                color={'brand.500'}
+                color={'brand.600'}
                 fontSize={'1.2rem'}
                 fontStyle={'italic'}
               >
@@ -150,20 +157,20 @@ export default function AboutUs() {
 
 const brandValues = [
   {
-    icon: '💪',
+    icon: '🏆',
     title: 'Competitividad',
     message:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt officia, dolore eveniet vel ducimus laborum facere voluptas, quod...'
   },
   {
-    icon: '⚖️',
-    title: 'Balance',
+    icon: '📈',
+    title: 'Mejora',
     message:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt officia, dolore eveniet vel ducimus laborum facere voluptas, quod...'
   },
   {
-    icon: '🤷',
-    title: 'Yoquesé',
+    icon: '💪',
+    title: 'Rendimiento',
     message:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt officia, dolore eveniet vel ducimus laborum facere voluptas, quod...'
   }

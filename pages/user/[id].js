@@ -15,8 +15,8 @@ import {
   useMediaQuery
 } from '@chakra-ui/react'
 
-import { FiDatabase, FiCalendar, FiUsers, FiMenu } from 'react-icons/fi'
-import { FaRunning } from 'react-icons/fa'
+import { FiDatabase, FiCalendar, FiUsers } from 'react-icons/fi'
+import { FaRunning, FaArrowRight } from 'react-icons/fa'
 import { AiOutlinePlus } from 'react-icons/ai'
 
 import SimpleSidebar, { SidebarContent } from '../../components/user/Sidebar'
@@ -125,10 +125,10 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
       {...rest}
     >
       <IconButton
-        variant="outline"
+        variant="ghost"
         onClick={onOpen}
         aria-label="open menu"
-        icon={<FiMenu />}
+        icon={<FaArrowRight />}
       />
 
       <Text
