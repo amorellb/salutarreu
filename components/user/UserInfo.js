@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Formik } from 'formik'
-
 import {
   Alert,
   AlertIcon,
@@ -25,6 +24,7 @@ import {
   validateProfileData,
   validateUserData
 } from '../../validations/validateUserInfo'
+import { signIn } from 'next-auth/react'
 
 export default function UserInfo(props) {
   const { user } = props
@@ -56,6 +56,7 @@ export default function UserInfo(props) {
         }}
         validationSchema={validateProfileData()}
         onSubmit={async ({ name, email, password, avatar }) => {
+          setSuccessUpdateProfile(false)
           password = password || user.password
           try {
             const res = await fetch(`/api/user/${user.id}`, {
@@ -67,11 +68,17 @@ export default function UserInfo(props) {
                 password,
                 avatar
               })
-            })
-            if (res.status === 200) {
+            }).then(res => res.json())
+            console.log(res)
+            if (res) {
               setSuccessUpdateProfile(
                 'Los datos del perfil se han actualizado correctamente'
               )
+              if (user.email !== email) {
+                signIn('change_email_signin', {
+                  email
+                })
+              }
             } else {
               setErrorUpdateProfile('Ops! Algo ha ido mal 💀')
             }

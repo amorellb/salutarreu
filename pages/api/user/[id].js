@@ -11,7 +11,7 @@ export default async function handler(req, res) {
           : res.status(201).json({ user: null })
       }
       case 'PUT': {
-        const userData = updateUserData(req.query.id, req.body)
+        const userData = await updateUserData(req.query.id, req.body)
         return res.json(userData)
       }
       default:

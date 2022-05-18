@@ -28,8 +28,14 @@ import TestsForm from '../../components/user/tests/TestsForm'
 import { URL } from '../../constants/URL'
 
 function UserPage({ user, users }) {
+  console.log(user)
   const { data: session } = useSession()
   const linkItems = [
+    {
+      name: 'Datos personales',
+      icon: FiDatabase,
+      view: <UserInfo user={user} />
+    },
     {
       name: 'Usuarios',
       icon: FiUsers,
@@ -40,11 +46,6 @@ function UserPage({ user, users }) {
       name: 'Calendario',
       icon: FiCalendar,
       view: <UserCalendar />
-    },
-    {
-      name: 'Datos personales',
-      icon: FiDatabase,
-      view: <UserInfo user={user} />
     },
     {
       name: 'Mi progreso',
@@ -94,14 +95,14 @@ function UserPage({ user, users }) {
               ) {
                 return (
                   <TabPanel key={name} aria-labelledby={name}>
-                    {view}
+                    {view || <></>}
                   </TabPanel>
                 )
               }
             } else {
               return (
                 <TabPanel key={name} aria-labelledby={name}>
-                  {view}
+                  {view || <></>}
                 </TabPanel>
               )
             }
@@ -146,7 +147,7 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
 export async function getServerSideProps(context) {
   const session = await getSession(context)
   const { id } = context.query
-
+  console.log('recuperando datos de servidor: ', session)
   const [userRes, usersRes] = await Promise.all([
     fetch(`${URL}/api/user/${id}`),
     fetch(`${URL}/api/user`)
