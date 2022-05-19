@@ -57,6 +57,7 @@ export default function UserInfo(props) {
         validationSchema={validateProfileData()}
         onSubmit={async ({ name, email, password, avatar }) => {
           setSuccessUpdateProfile(false)
+          setErrorUpdateProfile(false)
           password = password || user.password
           try {
             const res = await fetch(`/api/user/${user.id}`, {
@@ -69,21 +70,19 @@ export default function UserInfo(props) {
                 avatar
               })
             }).then(res => res.json())
-            console.log(res)
-            if (res) {
-              setSuccessUpdateProfile(
-                'Los datos del perfil se han actualizado correctamente'
-              )
-              if (user.email !== email) {
-                signIn('change_email_signin', {
-                  email
-                })
-              }
-            } else {
-              setErrorUpdateProfile('Ops! Algo ha ido mal 💀')
+            if (res.code === 'P2002') {
+              setErrorUpdateProfile('Parece que el correo ya está en uso')
+              return
+            }
+            setSuccessUpdateProfile(
+              'Los datos del perfil se han actualizado correctamente'
+            )
+            if (user.email !== email) {
+              signIn('change_email_signin', {
+                email
+              })
             }
           } catch (error) {
-            console.error(error)
             throw new Error(error)
           }
         }}
@@ -226,6 +225,8 @@ export default function UserInfo(props) {
         }}
         validationSchema={validateUserData()}
         onSubmit={async ({ dni, phone, address, zipCode, birthDate }) => {
+          setErrorUpdatePersonal(false)
+          setSuccessUpdatePersonal(false)
           const birthDateArray = birthDate.split('/')
           const month = birthDateArray[0]
           birthDateArray[0] = birthDateArray[1]
@@ -242,16 +243,15 @@ export default function UserInfo(props) {
                 zipCode,
                 birthDate: new Date(birthDateUSFormatted)
               })
-            })
-            if (res.status === 200) {
-              setSuccessUpdatePersonal(
-                'Los datos personales se han actualizado correctamente'
-              )
-            } else {
-              setErrorUpdatePersonal('Ops! Algo ha ido mal 💀')
+            }).then(res => res.json())
+            if (res.code === 'P2002') {
+              setErrorUpdatePersonal('Parece que el DNI ya está en uso')
+              return
             }
+            setSuccessUpdatePersonal(
+              'Los datos personales se han actualizado correctamente'
+            )
           } catch (error) {
-            console.error(error)
             throw new Error(error)
           }
         }}
