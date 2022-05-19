@@ -46,7 +46,7 @@ export default function UserInfo(props) {
   const handleClick = () => setShow(!show)
 
   return (
-    <Container as={SimpleGrid} py={{ base: 10, sm: 20, lg: 32 }}>
+    <Container as={SimpleGrid} >
       <Formik
         initialValues={{
           name: user.name ? user.name : '',

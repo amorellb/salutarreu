@@ -84,7 +84,7 @@ function UserPage({ user, users }) {
           user={user}
           display={{ base: 'flex', md: 'none' }}
         />
-        <TabPanels minHeight="calc(100vh - var(--chakra-sizes-header))">
+        <TabPanels minHeight="calc(100vh - var(--chakra-sizes-header))" py={{ base: '3rem', md: '10rem' }}>
           {linkItems.map(({ name, view, viewForTrainer, modal }) => {
             // hay un problema si se usa ternarias por el indice de la posición de las tabs.
             if (viewForTrainer) {
