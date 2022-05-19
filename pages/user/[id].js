@@ -27,7 +27,7 @@ import UserTests from '../../components/user/UserTests'
 import TestsForm from '../../components/user/tests/TestsForm'
 import { URL } from '../../constants/URL'
 
-function UserPage({ user, users }) {
+export default function UserPage({ user, users }) {
   const { data: session } = useSession()
   const linkItems = [
     {
@@ -86,7 +86,6 @@ function UserPage({ user, users }) {
         />
         <TabPanels minHeight="calc(100vh - var(--chakra-sizes-header))">
           {linkItems.map(({ name, view, viewForTrainer, modal }) => {
-            // hay un problema si se usa ternarias por el indice de la posición de las tabs.
             if (viewForTrainer) {
               if (
                 session?.user?.role === 'TRAINER' &&
@@ -169,4 +168,3 @@ export async function getServerSideProps(context) {
     }
   }
 }
-export default UserPage
