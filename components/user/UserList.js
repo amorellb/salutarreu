@@ -94,20 +94,20 @@ export default function UserList({ users }) {
   ]
 
   return (
-    <Box py="10" overflow={'auto'}>
+    <Box as={'main'} overflow={'auto'}>
       <Heading
-        fontSize={'2xl'}
-        as="h2"
-        bgGradient="linear(to-r, black, brand.400,brand.600, brand.300, brand.500,brand.300,brand.400, brand.600, brand.500, brand.400, brand.300,brand.600, black)"
-        bgClip="text" fontWeight="900"
-        lineHeight={1.2}
-        paddingStart={'50px'}
-        fontStyle={'italic'}>
+        display={'flex'}
+        justifyContent={'center'}
+        as={'h1'}
+        lineHeight={1.1}
+        fontSize={{ base: '5xl', lg: '6xl' }}
+        bgGradient="linear(to-r,brand.700, brand.600, brand.400, brand.300)"
+        bgClip="text">
         Lista de usuarios
       </Heading>
 
       {isLessThan900px ? (
-        <Box mt="6">
+        <Box>
           <Table
             emptyData={{
               icon: FiUser,
@@ -120,7 +120,7 @@ export default function UserList({ users }) {
             data={tableData} />
         </Box>
       ) : (
-        <Box mt="6" p={'0px'}>
+        <Box p={'0px'}>
           <Table
             emptyData={{
               icon: FiUser,

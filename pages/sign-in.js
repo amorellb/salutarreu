@@ -52,7 +52,7 @@ export default function SignIn() {
       maxW={'8xl'}
       columns={{ base: 1, md: 2 }}
       spacing={{ base: 10, lg: 32 }}
-      py={{ base: 10, sm: 20, lg: 32 }}
+      py={'10rem'}
     >
       <Stack as={'section'} spacing={{ base: 10, md: 20 }}>
         <Heading

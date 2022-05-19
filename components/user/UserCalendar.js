@@ -2,7 +2,7 @@ import { Container, Heading } from '@chakra-ui/react'
 
 export default function UserCalendar() {
   return (
-    <Container as={'main'} py={'8rem'}>
+    <Container as={'main'}>
       <Heading
         as="h1"
         lineHeight={1.1}

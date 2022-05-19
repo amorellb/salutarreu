@@ -1,8 +1,8 @@
-import { Box, Heading, useBreakpointValue } from '@chakra-ui/react'
+import { Container, Heading, useBreakpointValue } from '@chakra-ui/react'
 
 export default function error403() {
   return (
-    <Box as="main" my={'270px'}>
+    <Container as="main" py={{ base: '16.5rem', md: '22rem' }}>
       <Heading
         as="h1"
         bgGradient="linear(to-l, black, brand.400,brand.600, brand.300, brand.500,brand.300,brand.400, brand.600, brand.500, brand.400, brand.300,brand.600, black)"
@@ -16,6 +16,6 @@ export default function error403() {
       >
         403 - NO TIENES PERMISO PARA ACCEDER
       </Heading>
-    </Box>
+    </Container>
   )
 }

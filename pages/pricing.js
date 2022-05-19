@@ -25,7 +25,7 @@ function PriceWrapper(props) {
 
 export default function ThreeTierPricing() {
   return (
-    <Box as="main" py={'8rem'}>
+    <Box as="main" py={'10rem'}>
       <VStack spacing={2} textAlign="center" pb={'5rem'}>
         <Heading
           as="h1"
@@ -38,7 +38,7 @@ export default function ThreeTierPricing() {
         >
           Abonos mensuales 2022
         </Heading>
-        <Text fontSize="xl" color={'gray.500'}>
+        <Text fontSize="xl" color={'gray.500'} >
           Elige el plan que más se adapte a ti.
         </Text>
       </VStack>
