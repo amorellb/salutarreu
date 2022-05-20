@@ -17,7 +17,7 @@ import AvatarMenu from './navigation/AvatarMenu'
 import DesktopNav from './navigation/DesktopNav'
 import MobileNav from './navigation/MobileNav'
 
-function Header() {
+export default function Header() {
   const { isOpen, onToggle } = useDisclosure()
   const { data: session, status } = useSession()
 
@@ -33,7 +33,7 @@ function Header() {
       backgroundColor={'white'}
       zIndex={3}
     >
-      <Flex py={{ base: 2 }} px={{ base: 4 }} align={'center'} flex={1}>
+      <Flex py="2" px={{ base: 5, md: '2rem' }} align={'center'} flex={1}>
         <Flex
           flex={{ base: 1, md: 'auto' }}
           ml={{ base: -2 }}
@@ -63,7 +63,8 @@ function Header() {
           flex={{ base: 1, md: 0 }}
           justify={'flex-end'}
           direction={'row'}
-          spacing={6}>
+          spacing={6}
+        >
           {status === 'authenticated' ? (
             <AvatarMenu user={session.user} />
           ) : (
@@ -71,13 +72,9 @@ function Header() {
           )}
         </Stack>
       </Flex>
-      <Collapse in={isOpen} animateOpacity >
+      <Collapse in={isOpen} animateOpacity>
         <MobileNav onClose={onToggle} />
       </Collapse>
-
     </Box>
-
   )
 }
-
-export default Header

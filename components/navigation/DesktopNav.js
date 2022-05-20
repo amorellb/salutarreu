@@ -10,7 +10,7 @@ function DesktopNav() {
         <Link key={navItem.label} href={navItem.href} passHref>
           <Box
             cursor={'pointer'}
-            fontSize={'md'}
+            fontSize={{ base: 'md', md: 'lg' }}
             fontWeight={500}
             _hover={{ textDecoration: 'none' }}
           >
