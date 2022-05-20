@@ -37,11 +37,7 @@ const SocialButton = ({ children, label, href }) => {
 
 export default function SmallCentered() {
   return (
-    <Box
-      as="footer"
-      bg={useColorModeValue('gray.50', 'gray.900')}
-      color={useColorModeValue('gray.700', 'gray.200')}
-    >
+    <Box as={'section'}>
       <Stack
         as={'section'}
         maxW={'6xl'}
@@ -49,7 +45,6 @@ export default function SmallCentered() {
         spacing={4}
         justify={'center'}
         align={'center'}
-        
         color={'brand.600'}
       >
         <Logo
@@ -64,12 +59,10 @@ export default function SmallCentered() {
         <Stack direction={'row'} spacing={6} fontSize={'1rem'}>
           <Link href={'#'}>Preguntas frecuentes</Link>
           <Link href={'#'}>Terminos de Servicio</Link>
-          
         </Stack>
         <Stack direction={'row'} spacing={6} fontSize={'1rem'}>
           <Link href={'#'}>Políticas de Privacidad</Link>
         </Stack>
-        
       </Stack>
 
       <Box

@@ -32,7 +32,7 @@ export default function AboutUs() {
             fontStyle="italic"
             lineHeight={1.1}
             fontSize={{ base: '5xl', lg: '7xl' }}
-            bgGradient="linear(to-r,brand.600, brand.500, brand.400, brand.300)"
+            bgGradient="linear(to-r,brand.700, brand.700, brand.400, brand.300)"
             bgClip="text"
           >
             Jaume Gelabert
