@@ -12,7 +12,7 @@ import {
 function PriceWrapper(props) {
   return (
     <Box
-      width={{ sm: '350px', md: '280px', lg: '300px' }}
+      width={{ base: '300px', sm: '400px', lg: '300px', xl: '350px' }}
       shadow="md"
       borderWidth="1px"
       borderRadius={'xl'}
@@ -25,7 +25,7 @@ function PriceWrapper(props) {
 
 export default function ThreeTierPricing() {
   return (
-    <Box as="main" py={'10rem'}>
+    <Box as="main" py={'10rem'} px="1rem">
       <VStack spacing={2} textAlign="center" pb={'5rem'}>
         <Heading
           as="h1"
@@ -38,25 +38,23 @@ export default function ThreeTierPricing() {
         >
           Abonos mensuales 2022
         </Heading>
-        <Text fontSize="xl" color={'gray.500'} >
+        <Text fontSize="xl" color={'gray.500'}>
           Elige el plan que más se adapte a ti.
         </Text>
       </VStack>
 
-      <Stack as={'section'} spacing={8} my="5rem">
+      <Stack as={'section'} spacing={8} my={{ base: 'md', md: '5rem' }}>
         <Container maxW={'7xl'}>
-          <Box>
-            <Heading
-              as="h2"
-              lineHeight={1.1}
-              fontSize={{ base: '4xl', md: '5xl', lg: '6xl' }}
-              bgGradient="linear(to-r,brand.600, brand.500, brand.400, brand.300)"
-              bgClip="text"
-            >
-              Sesiones individuales
-            </Heading>
-          </Box>
-          <VStack px={10}>
+          <Heading
+            as="h2"
+            lineHeight={1.1}
+            fontSize={{ base: '4xl', md: '5xl', lg: '6xl' }}
+            bgGradient="linear(to-r,brand.600, brand.500, brand.400, brand.300)"
+            bgClip="text"
+          >
+            Sesiones individuales
+          </Heading>
+          <VStack>
             <Stack
               direction={{ base: 'column', lg: 'row' }}
               textAlign="center"
@@ -66,7 +64,7 @@ export default function ThreeTierPricing() {
             >
               <PriceWrapper>
                 <Box py={4} px={12}>
-                  <Text fontWeight="500" fontSize="2xl">
+                  <Text fontSize="2xl" fontWeight="500">
                     1 entreno a la semana
                   </Text>
                   <HStack justifyContent="center">
@@ -85,7 +83,7 @@ export default function ThreeTierPricing() {
 
               <PriceWrapper>
                 <Box py={4} px={12}>
-                  <Text fontWeight="500" fontSize="2xl">
+                  <Text fontSize="2xl" fontWeight="500">
                     2 entrenos a la semana
                   </Text>
                   <HStack justifyContent="center">
@@ -104,7 +102,7 @@ export default function ThreeTierPricing() {
 
               <PriceWrapper>
                 <Box py={4} px={12}>
-                  <Text fontWeight="500" fontSize="2xl">
+                  <Text fontSize="2xl" fontWeight="500">
                     3 entrenos a la semana
                   </Text>
                   <HStack justifyContent="center">
@@ -125,7 +123,7 @@ export default function ThreeTierPricing() {
         </Container>
       </Stack>
 
-      <Stack as={'section'} spacing={8} my="5rem">
+      <Stack as={'section'} spacing={8} my={{ base: 'md', md: '5rem' }}>
         <Container maxW={'7xl'}>
           <Heading
             as="h2"
@@ -146,7 +144,7 @@ export default function ThreeTierPricing() {
             >
               <PriceWrapper>
                 <Box py={4} px={12}>
-                  <Text fontWeight="500" fontSize="2xl">
+                  <Text fontSize="2xl" fontWeight="500">
                     1 entreno a la semana
                   </Text>
                   <HStack justifyContent="center">
@@ -168,7 +166,7 @@ export default function ThreeTierPricing() {
 
               <PriceWrapper>
                 <Box py={4} px={12}>
-                  <Text fontWeight="500" fontSize="2xl">
+                  <Text fontSize="2xl" fontWeight="500">
                     2 entrenos a la semana
                   </Text>
                   <HStack justifyContent="center">
@@ -190,7 +188,7 @@ export default function ThreeTierPricing() {
 
               <PriceWrapper>
                 <Box py={4} px={12}>
-                  <Text fontWeight="500" fontSize="2xl">
+                  <Text fontSize="2xl" fontWeight="500">
                     3 entrenos a la semana
                   </Text>
                   <HStack justifyContent="center">
@@ -214,7 +212,7 @@ export default function ThreeTierPricing() {
         </Container>
       </Stack>
 
-      <Stack as={'section'} spacing={8} my="5rem">
+      <Stack as={'section'} spacing={8} my={{ base: 'md', md: '5rem' }}>
         <Container maxW={'7xl'}>
           <Heading
             as="h2"
@@ -235,7 +233,7 @@ export default function ThreeTierPricing() {
             >
               <PriceWrapper>
                 <Box py={4} px={12}>
-                  <Text fontWeight="500" fontSize="2xl">
+                  <Text fontSize="2xl" fontWeight="500">
                     1 entreno a la semana
                   </Text>
                   <HStack justifyContent="center">
@@ -257,7 +255,7 @@ export default function ThreeTierPricing() {
 
               <PriceWrapper>
                 <Box py={4} px={12}>
-                  <Text fontWeight="500" fontSize="2xl">
+                  <Text fontSize="2xl" fontWeight="500">
                     2 entrenos a la semana
                   </Text>
                   <HStack justifyContent="center">
@@ -279,7 +277,7 @@ export default function ThreeTierPricing() {
 
               <PriceWrapper>
                 <Box py={4} px={12}>
-                  <Text fontWeight="500" fontSize="2xl">
+                  <Text fontSize="2xl" fontWeight="500">
                     3 entrenos a la semana
                   </Text>
                   <HStack justifyContent="center">
@@ -303,7 +301,7 @@ export default function ThreeTierPricing() {
         </Container>
       </Stack>
 
-      <Stack as={'section'} spacing={8} my="5rem">
+      <Stack as={'section'} spacing={8} my={{ base: 'md', md: '5rem' }}>
         <Container maxW={'7xl'}>
           <Heading
             as="h2"
@@ -342,19 +340,31 @@ export default function ThreeTierPricing() {
         </Container>
       </Stack>
 
-      <Box as="section">
-        <Text fontWeight="200" fontSize="sm" mx="55px">
+      <Box as="section" maxW={'7xl'} mx={{ base: '1rem', md: '3rem' }}>
+        <Text
+          fontWeight="200"
+          fontSize="sm"
+          textAlign={{ base: 'justify', md: 'left' }}
+        >
           *Los abonos mensuales aseguran un mínimo de 4/8/12 sesiones en función
           de la modalidad 1/2/3 por semana respectivamente. En caso de que el
           entrenamiento no se pueda llevar a cabo dentro el horario habitual,
           siempre se buscará una alternativa para conseguir las citas propuestas
           inicialmente.
         </Text>
-        <Text fontWeight="200" fontSize="sm" mx="55px">
+        <Text
+          fontWeight="200"
+          fontSize="sm"
+          textAlign={{ base: 'justify', md: 'left' }}
+        >
           *El precio por persona será fijo a partir de 3 personas,
           indistintamente del número total de personas.
         </Text>
-        <Text fontWeight="200" fontSize="sm" mx="55px">
+        <Text
+          fontWeight="200"
+          fontSize="sm"
+          textAlign={{ base: 'justify', md: 'left' }}
+        >
           *Las sesiones podrán ser compartidas en formato dual con otros
           usuarios que también hagan uso de esta modalidad, restando la parte
           proporcional (1/2 sesión) a cada una de las partes.

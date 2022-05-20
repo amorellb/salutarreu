@@ -10,7 +10,11 @@ import {
 } from '@chakra-ui/react'
 
 const Testimonial = props => {
-  return <Box>{props.children}</Box>
+  return (
+    <Flex direction={'column'} justify="space-between">
+      {props.children}
+    </Flex>
+  )
 }
 
 const TestimonialContent = props => {
@@ -89,7 +93,7 @@ const TestimonialAvatar = props => {
 
 export default function WithSpeechBubbles() {
   return (
-    <Box as="section">
+    <Box as="section" px="1rem">
       <Container maxW={'7xl'} py={16} as={Stack} spacing={12}>
         <Stack spacing={0} align={'start'}>
           <Heading

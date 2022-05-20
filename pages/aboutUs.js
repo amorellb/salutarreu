@@ -17,8 +17,8 @@ import TrainerValues from '../components/about/TrainerValues'
 
 export default function AboutUs() {
   return (
-    <Box as={'main'}>
-      <Box as="section" textAlign={'center'} py={'10rem'}>
+    <Box as={'main'} px="1rem">
+      <Box as="section" textAlign={'center'} py={{ base: '5rem', md: '10rem' }}>
         <Image
           margin={'auto'}
           width="200px"
@@ -40,7 +40,11 @@ export default function AboutUs() {
           <Text fontWeight={'bold'} fontSize={{ base: '2xl', lg: '4xl' }}>
             Entrenador.
           </Text>
-          <Text fontSize={'1.5rem'} color={'gray.300'}>
+          <Text
+            fontSize={'1.5rem'}
+            color={'gray.300'}
+            px={{ base: '1rem', md: '3rem' }}
+          >
             Guapo, sexy y atlético. ¿Qué más necesitas en un entrenador? ¡Vente
             pacá a ponerte bien chuleta!
           </Text>
@@ -49,7 +53,12 @@ export default function AboutUs() {
       <Container as={'section'} maxW={'7xl'}>
         <AboutHero />
       </Container>
-      <Container as={'section'} mt={'5rem'} pb={'5rem'} maxW={'7xl'}>
+      <Container
+        as={'section'}
+        mt={{ base: 'md', md: '5rem' }}
+        pb={{ base: 'md', md: '5rem' }}
+        maxW={'7xl'}
+      >
         <Heading
           as="h2"
           lineHeight={1.1}

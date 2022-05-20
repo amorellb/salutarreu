@@ -58,6 +58,7 @@ export default function CaptionCarousel() {
       height={{ base: '700px', lg: '600px' }}
       width={'100%'}
       overflow={'hidden'}
+      px="1rem"
     >
       <link
         rel="stylesheet"
