@@ -55,7 +55,6 @@ function UserPage({ user, users }) {
       name: 'Crear test',
       icon: AiOutlinePlus,
       view: <TestsForm />,
-      modal: 'onOpen'
     }
   ]
   const { isOpen, onOpen, onClose } = useDisclosure()
