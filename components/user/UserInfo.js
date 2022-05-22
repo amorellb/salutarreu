@@ -48,6 +48,7 @@ export default function UserInfo(props) {
   return (
     <Container as={SimpleGrid} >
       <Formik
+        enableReinitialize
         initialValues={{
           name: user.name ? user.name : '',
           email: user.email ? user.email : '',
