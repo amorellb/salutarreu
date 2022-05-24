@@ -56,7 +56,6 @@ export default function UserPage({ user, users }) {
     {
       name: 'Crear test',
       icon: AiOutlinePlus,
-      form-tests-fetch
       view: <TestsForm user={user} />,
 
     },
