@@ -11,6 +11,15 @@ export default nextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET
     }),
     CredentialsProvider({
+      id: 'change_email_signin',
+      credentials: {},
+      async authorize({ email }, req) {
+        return {
+          email
+        }
+      }
+    }),
+    CredentialsProvider({
       credentials: {
         username: {
           label: 'Username',
@@ -25,6 +34,7 @@ export default nextAuth({
       },
       async authorize(credentials, req) {
         const { email, password } = credentials
+        console.log('en authorize', { email, password })
         const user = await prisma.user.findUnique({
           where: {
             email
@@ -55,11 +65,15 @@ export default nextAuth({
     },
     async session({ session }) {
       const { user } = session
+      console.log('en session antes de buscar', user)
+      const usuarios = await prisma.user.findMany()
+      console.log('en session usuarios', usuarios)
       const usuario = await prisma.user.findUnique({
         where: {
           email: user.email
         }
       })
+      console.log('en session despues de buscar', usuario)
       session.user = usuario
       return session
     }

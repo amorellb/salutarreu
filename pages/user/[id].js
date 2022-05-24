@@ -28,6 +28,7 @@ import TestsForm from '../../components/user/tests/TestsForm'
 import { URL } from '../../constants/URL'
 import UserCreateForm from '../../components/user/UserCreateForm'
 
+
 export default function UserPage({ user, users }) {
   const { data: session } = useSession()
   const linkItems = [
@@ -102,15 +103,15 @@ export default function UserPage({ user, users }) {
                 user?.id === session?.user?.id
               ) {
                 return (
-                  <TabPanel key={name} aria-labelledby={name} p={'0px'}>
-                    {view}
+                  <TabPanel key={name} aria-labelledby={name}>
+                    {view || <></>}
                   </TabPanel>
                 )
               }
             } else {
               return (
-                <TabPanel key={name} aria-labelledby={name} p={'0px'}>
-                  {view}
+                <TabPanel key={name} aria-labelledby={name}>
+                  {view || <></>}
                 </TabPanel>
               )
             }
@@ -155,7 +156,7 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
 export async function getServerSideProps(context) {
   const session = await getSession(context)
   const { id } = context.query
-
+  console.log('recuperando datos de servidor: ', session)
   const [userRes, usersRes] = await Promise.all([
     fetch(`${URL}/api/user/${id}`),
     fetch(`${URL}/api/user`)
