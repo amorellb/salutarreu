@@ -5,8 +5,8 @@ import { object, string } from 'yup'
 
 export const validateProfileData = () =>
   object().shape({
-    name: string().required(),
-    email: string().email('Introduce un correo válido').required(),
+    name: string().required('El nombre es obligatorio'),
+    email: string().email('Introduce un correo válido').required('El email es obligatorio'),
     password: string().min(8, 'Mínimo 8 caracteres')
     // FIXME: avatar file()
     // avatar: mixed()
@@ -28,19 +28,19 @@ export const validateUserData = () =>
         /^([0-9]{8})([A-Za-z]{1})$/,
         'Debe tener 8 caracteres numéricos seguidos de una letra'
       )
-      .required(),
+      .required('El dni es obligatorio'),
     phone: string()
       .matches(/^([0-9]{9})$/, 'Debe tener 9 caracteres numéricos')
       .required(),
-    address: string().required(),
+    address: string().required('El telefono es obligatorio'),
     zipCode: string()
       .matches(/^([0-9]{5})$/, 'Debe tener 5 caracteres numéricos')
-      .required(),
+      .required('El codigo postal es obligatorio'),
     birthDate: string()
       .matches(
         /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/,
         'El formato de la fecha debe ser (dd/mm/aaa)'
       )
-      .required()
+      .required('La fecha de nacimiento es obligatoria')
   })
 
