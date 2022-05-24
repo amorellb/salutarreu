@@ -1,9 +1,9 @@
-// import { useState } from 'react'
+import { useState } from 'react'
 import { Formik } from 'formik'
 
 import {
-  // Alert,
-  // AlertIcon,
+  Alert,
+  AlertIcon,
   Button,
   Container,
   FormControl,
@@ -20,51 +20,54 @@ import {
 
 import { validateTestData } from '../../../validations/validateTestData'
 
-
 export default function FormTests(props) {
-  // const [successUpdatePersonal, setSuccessUpdatePersonal] = useState(false)
-  // const [errorUpdatePersonal, setErrorUpdatePersonal] = useState(false)
+  const [successCreateTest, setSuccessCreateTest] = useState(false)
+  const [errorCreateTest, setErrorCreateTest] = useState(false)
 
   return (
     <Container as={SimpleGrid}>
       <Formik
         initialValues={{
-          name: '',
+          testName: '',
           result: '',
           type: '',
-          testDate: '',
+          testDate: ''
         }}
         validationSchema={validateTestData()}
-        // onSubmit={async ({ dni, phone, address, zipCode, birthDate }) => {
-        //   const birthDateArray = birthDate.split('/')
-        //   const month = birthDateArray[0]
-        //   birthDateArray[0] = birthDateArray[1]
-        //   birthDateArray[1] = month
-        // const birthDateUSFormatted = birthDateArray.join('/')
-        // try {
-        //   const res = await fetch(`/api/user/${user.id}`, {
-        //     method: 'PUT',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({
-        //       DNI: dni,
-        //       phone,
-        //       address,
-        //       zipCode,
-        //       birthDate: new Date(birthDateUSFormatted)
-        //     })
-        //   })
-        //   if (res.status === 200) {
-        //     setSuccessUpdatePersonal(
-        //       'Los datos personales se han actualizado correctamente'
-        //     )
-        //   } else {
-        //     setErrorUpdatePersonal('Ops! Algo ha ido mal 💀')
-        //   }
-        // } catch (error) {
-        //   console.error(error)
-        //   throw new Error(error)
-        // }
-        // }}
+        onSubmit={async (
+          { testName, type, result, testDate },
+          { resetForm }
+        ) => {
+          const birthDateArray = testDate.split('/')
+          const month = birthDateArray[0]
+          birthDateArray[0] = birthDateArray[1]
+          birthDateArray[1] = month
+          const birthDateUSFormatted = birthDateArray.join('/')
+
+          try {
+            const res = await fetch(`/api/tests`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                name: testName,
+                type: type,
+                result: result,
+                date: new Date(birthDateUSFormatted),
+                userId: props.id
+              })
+            })
+
+            if (res.status === 200) {
+              setSuccessCreateTest('El test se a creado correctamente')
+            } else {
+              setErrorCreateTest('Ops! Algo ha ido mal 💀')
+            }
+          } catch (error) {
+            console.error(error)
+            throw new Error(error)
+          }
+          resetForm()
+        }}
       >
         {({
           handleSubmit,
@@ -73,7 +76,8 @@ export default function FormTests(props) {
           values,
           errors,
           touched,
-          isSubmitting
+          isSubmitting,
+          handleReset
         }) => (
           <VStack marginTop={'3rem'}>
             <Heading
@@ -87,32 +91,33 @@ export default function FormTests(props) {
             </Heading>
 
             <VStack as="form" onSubmit={handleSubmit} py="4" w="full">
-              {/* {errorUpdatePersonal && (
+              {errorCreateTest && (
                 <Alert status="error">
                   <AlertIcon />
-                  {errorUpdatePersonal}
+                  {errorCreateTest}
                 </Alert>
-              )} */}
-              {/* {successUpdatePersonal && (
+              )}
+              {successCreateTest && (
                 <Alert status="success">
                   <AlertIcon />
-                  {successUpdatePersonal}
+                  {successCreateTest}
                 </Alert>
-              )} */}
+              )}
               <FormControl
-                isInvalid={errors.name && touched.name}
+                isInvalid={errors.testName && touched.testName}
                 paddingBottom={4}
               >
-                <FormLabel htmlFor="name">Nombre</FormLabel>
+                <FormLabel htmlFor="testName">Nombre</FormLabel>
                 <Input
-                  id="name"
+                  id="testName"
                   type="text"
-                  name="name"
+                  name="testName"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   backgroundColor={'white'}
+                  value={values.testName}
                 />
-                <FormErrorMessage>{errors.name}</FormErrorMessage>
+                <FormErrorMessage>{errors.testName}</FormErrorMessage>
               </FormControl>
 
               <FormControl
@@ -121,13 +126,13 @@ export default function FormTests(props) {
               >
                 <FormLabel htmlFor="result">Resultado</FormLabel>
                 <InputGroup>
-            
                   <Input
                     id="result"
                     type="number"
                     name="result"
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    value={values.result}
                   />
                 </InputGroup>
                 {errors.result && touched.result && (
@@ -146,6 +151,7 @@ export default function FormTests(props) {
                   name="testDate"
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  value={values.testDate}
                 />
                 <small>
                   <Text>Formato de fecha: dd/mm/aaaa</Text>
@@ -167,14 +173,13 @@ export default function FormTests(props) {
                   name="type"
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  value={values.type}
                 >
                   {' '}
                   backgroundColor={'white'}
                   <option value="MOBILITY">Movilidad</option>
                   <option value="STREGTH">Fuerza</option>
                   <option value="RESISTANCE">Resistencia</option>
-
- 
                 </Select>
                 <FormErrorMessage>{errors.type}</FormErrorMessage>
               </FormControl>
@@ -189,6 +194,7 @@ export default function FormTests(props) {
                   bgGradient: 'linear(to-r, brand.500,brand.300,brand.500)',
                   boxShadow: 'xl'
                 }}
+                onReset={handleReset}
               >
                 Crear test
               </Button>
