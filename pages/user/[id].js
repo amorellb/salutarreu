@@ -26,6 +26,7 @@ import UserInfo from '../../components/user/UserInfo'
 import UserTests from '../../components/user/UserTests'
 import TestsForm from '../../components/user/tests/TestsForm'
 import { URL } from '../../constants/URL'
+import UserCreateForm from '../../components/user/UserCreateForm'
 
 export default function UserPage({ user, users }) {
   const { data: session } = useSession()
@@ -37,14 +38,14 @@ export default function UserPage({ user, users }) {
       view: <UserList users={users} />
     },
     {
-      name: 'Calendario',
-      icon: FiCalendar,
-      view: <UserCalendar />
-    },
-    {
       name: 'Datos personales',
       icon: FiDatabase,
       view: <UserInfo user={user} />
+    },
+    {
+      name: 'Calendario',
+      icon: FiCalendar,
+      view: <UserCalendar />
     },
     {
       name: 'Mi progreso',
@@ -54,7 +55,13 @@ export default function UserPage({ user, users }) {
     {
       name: 'Crear test',
       icon: AiOutlinePlus,
-      view: <TestsForm />,
+      view: <TestsForm />
+    },
+    {
+      name: 'Crear usuario',
+      icon: AiOutlinePlus,
+      view: <UserCreateForm />,
+      viewForTrainer: true
     }
   ]
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -62,6 +69,7 @@ export default function UserPage({ user, users }) {
   return (
     <Box as="main">
       <Tabs
+       defaultIndex={0}
         display={'flex'}
         flexDirection={{ base: 'column', md: 'row' }}
         variant="unstyled"
@@ -83,7 +91,10 @@ export default function UserPage({ user, users }) {
           user={user}
           display={{ base: 'flex', md: 'none' }}
         />
-        <TabPanels minHeight="calc(100vh - var(--chakra-sizes-header))" py={{ base: '3rem', md: '10rem' }}>
+        <TabPanels
+          minHeight="calc(100vh - var(--chakra-sizes-header))"
+          py={{ base: '3rem', md: '10rem' }}
+        >
           {linkItems.map(({ name, view, viewForTrainer, modal }) => {
             if (viewForTrainer) {
               if (
