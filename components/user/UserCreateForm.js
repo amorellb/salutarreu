@@ -32,16 +32,16 @@ export default function UserCreateForm() {
     <Container>
       <Formik
         initialValues={{
-          name: 'NuevoUser',
-          email: 'nuevoser@gmail.com',
-          password: '123456789',
+          name: '',
+          email: '',
+          password: '',
           avatar:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU',
-          DNI: '41540552E',
-          phone: '677228392',
-          address: 'Prueba, 32',
-          zipCode: '07005',
-          birthDate: '11/02/2000'
+            '',
+          DNI: '',
+          phone: '',
+          address: '',
+          zipCode: '',
+          birthDate: ''
         }}
         validationSchema={validateUserData().concat(validateProfileData())}
         onSubmit={async (values, { resetForm }) => {
@@ -290,7 +290,7 @@ export default function UserCreateForm() {
                   boxShadow: 'xl'
                 }}
               >
-                Iniciar Sesión
+                Crear Usuario
               </Button>
             </VStack>
           </VStack>
