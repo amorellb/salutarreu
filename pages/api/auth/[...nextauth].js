@@ -11,6 +11,15 @@ export default nextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET
     }),
     CredentialsProvider({
+      id: 'change_email_signin',
+      credentials: {},
+      async authorize({ email }, req) {
+        return {
+          email
+        }
+      }
+    }),
+    CredentialsProvider({
       credentials: {
         username: {
           label: 'Username',
@@ -55,6 +64,7 @@ export default nextAuth({
     },
     async session({ session }) {
       const { user } = session
+      // const usuarios = await prisma.user.findMany()
       const usuario = await prisma.user.findUnique({
         where: {
           email: user.email

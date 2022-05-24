@@ -26,6 +26,7 @@ import UserInfo from '../../components/user/UserInfo'
 import UserTests from '../../components/user/UserTests'
 import TestsForm from '../../components/user/tests/TestsForm'
 import { URL } from '../../constants/URL'
+import UserCreateForm from '../../components/user/UserCreateForm'
 
 
 export default function UserPage({ user, users }) {
@@ -38,14 +39,14 @@ export default function UserPage({ user, users }) {
       view: <UserList users={users} />
     },
     {
-      name: 'Calendario',
-      icon: FiCalendar,
-      view: <UserCalendar />
-    },
-    {
       name: 'Datos personales',
       icon: FiDatabase,
       view: <UserInfo user={user} />
+    },
+    {
+      name: 'Calendario',
+      icon: FiCalendar,
+      view: <UserCalendar />
     },
     {
       name: 'Mi progreso',
@@ -55,7 +56,16 @@ export default function UserPage({ user, users }) {
     {
       name: 'Crear test',
       icon: AiOutlinePlus,
+      form-tests-fetch
       view: <TestsForm user={user} />,
+
+    },
+    {
+      name: 'Crear usuario',
+      icon: AiOutlinePlus,
+      view: <UserCreateForm />,
+      viewForTrainer: true
+
     }
   ]
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -63,6 +73,7 @@ export default function UserPage({ user, users }) {
   return (
     <Box as="main">
       <Tabs
+        defaultIndex={0}
         display={'flex'}
         flexDirection={{ base: 'column', md: 'row' }}
         variant="unstyled"
@@ -84,7 +95,10 @@ export default function UserPage({ user, users }) {
           user={user}
           display={{ base: 'flex', md: 'none' }}
         />
-        <TabPanels minHeight="calc(100vh - var(--chakra-sizes-header))" py={{ base: '3rem', md: '10rem' }}>
+        <TabPanels
+          minHeight="calc(100vh - var(--chakra-sizes-header))"
+          py={{ base: '3rem', md: '10rem' }}
+        >
           {linkItems.map(({ name, view, viewForTrainer, modal }) => {
             if (viewForTrainer) {
               if (
@@ -92,15 +106,15 @@ export default function UserPage({ user, users }) {
                 user?.id === session?.user?.id
               ) {
                 return (
-                  <TabPanel key={name} aria-labelledby={name} p={'0px'}>
-                    {view}
+                  <TabPanel key={name} aria-labelledby={name}>
+                    {view || <></>}
                   </TabPanel>
                 )
               }
             } else {
               return (
-                <TabPanel key={name} aria-labelledby={name} p={'0px'}>
-                  {view}
+                <TabPanel key={name} aria-labelledby={name}>
+                  {view || <></>}
                 </TabPanel>
               )
             }
@@ -145,7 +159,6 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
 export async function getServerSideProps(context) {
   const session = await getSession(context)
   const { id } = context.query
-
   const [userRes, usersRes] = await Promise.all([
     fetch(`${URL}/api/user/${id}`),
     fetch(`${URL}/api/user`)
