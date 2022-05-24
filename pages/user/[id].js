@@ -28,7 +28,6 @@ import TestsForm from '../../components/user/tests/TestsForm'
 import { URL } from '../../constants/URL'
 import UserCreateForm from '../../components/user/UserCreateForm'
 
-
 export default function UserPage({ user, users }) {
   const { data: session } = useSession()
   const linkItems = [
@@ -70,7 +69,7 @@ export default function UserPage({ user, users }) {
   return (
     <Box as="main">
       <Tabs
-       defaultIndex={0}
+        defaultIndex={0}
         display={'flex'}
         flexDirection={{ base: 'column', md: 'row' }}
         variant="unstyled"
@@ -156,7 +155,6 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
 export async function getServerSideProps(context) {
   const session = await getSession(context)
   const { id } = context.query
-  console.log('recuperando datos de servidor: ', session)
   const [userRes, usersRes] = await Promise.all([
     fetch(`${URL}/api/user/${id}`),
     fetch(`${URL}/api/user`)

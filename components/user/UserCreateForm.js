@@ -35,8 +35,7 @@ export default function UserCreateForm() {
           name: '',
           email: '',
           password: '',
-          avatar:
-            '',
+          avatar: '',
           DNI: '',
           phone: '',
           address: '',
@@ -45,7 +44,6 @@ export default function UserCreateForm() {
         }}
         validationSchema={validateUserData().concat(validateProfileData())}
         onSubmit={async (values, { resetForm }) => {
-          console.log('entro')
           const { error, user } = await fetch('/api/signup', {
             method: 'POST',
             headers: {
@@ -53,7 +51,6 @@ export default function UserCreateForm() {
             },
             body: JSON.stringify(values)
           }).then(res => res.json())
-          console.log(error)
           if (error) {
             toast({
               title: error,
@@ -95,7 +92,6 @@ export default function UserCreateForm() {
           isSubmitting
         }) => (
           <VStack>
-            {console.log(errors)}
             <Heading
               color={'brand.600'}
               lineHeight={1.1}
