@@ -28,6 +28,7 @@ import TestsForm from '../../components/user/tests/TestsForm'
 import { URL } from '../../constants/URL'
 import UserCreateForm from '../../components/user/UserCreateForm'
 
+
 export default function UserPage({ user, users }) {
   const { data: session } = useSession()
   const linkItems = [
@@ -55,13 +56,15 @@ export default function UserPage({ user, users }) {
     {
       name: 'Crear test',
       icon: AiOutlinePlus,
-      view: <TestsForm />
+      view: <TestsForm user={user} />,
+
     },
     {
       name: 'Crear usuario',
       icon: AiOutlinePlus,
       view: <UserCreateForm />,
       viewForTrainer: true
+
     }
   ]
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -159,6 +162,7 @@ export async function getServerSideProps(context) {
     fetch(`${URL}/api/user/${id}`),
     fetch(`${URL}/api/user`)
   ])
+
   const [{ user }, users] = await Promise.all([userRes.json(), usersRes.json()])
 
   if (
