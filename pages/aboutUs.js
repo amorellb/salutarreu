@@ -28,11 +28,10 @@ export default function AboutUs() {
         <Stack>
           <Heading
             as={'h1'}
-            pe={'15px'}
             fontStyle="italic"
             lineHeight={1.1}
             fontSize={{ base: '5xl', lg: '7xl' }}
-            bgGradient="linear(to-r,brand.700, brand.700, brand.400, brand.300)"
+            bgGradient="linear(to-r,brand.700, brand.600, brand.300, brand.300)"
             bgClip="text"
           >
             Jaume Gelabert
@@ -63,7 +62,7 @@ export default function AboutUs() {
           as="h2"
           lineHeight={1.1}
           fontSize={{ base: '4xl', md: '5xl', lg: '6xl' }}
-          bgGradient="linear(to-r,brand.600, brand.500, brand.400, brand.300)"
+          bgGradient="linear(to-r,brand.600, brand.400, brand.300, brand.300)"
           bgClip="text"
         >
           <Text>Valores</Text>
@@ -85,10 +84,10 @@ export default function AboutUs() {
           as="h2"
           lineHeight={1.1}
           fontSize={{ base: '4xl', md: '5xl', lg: '6xl' }}
-          bgGradient="linear(to-r,brand.600, brand.500, brand.400, brand.300)"
+          bgGradient="linear(to-r,brand.600, brand.400, brand.300, brand.300)"
           bgClip="text"
         >
-          <Text>Contáctanos</Text>
+          Contáctanos
         </Heading>
         <Box as={'form'} marginTop={10}>
           <Stack>
@@ -153,6 +152,7 @@ export default function AboutUs() {
                 bgGradient: 'linear(to-r, brand.500,brand.300,brand.500)',
                 boxShadow: 'xl'
               }}
+              fontSize={{ base: 'lg', md: 'xl' }}
               isFullWidth
             >
               Enviar

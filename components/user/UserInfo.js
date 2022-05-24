@@ -15,6 +15,7 @@ import {
   InputLeftAddon,
   InputRightElement,
   SimpleGrid,
+  Stack,
   Text,
   VStack
 } from '@chakra-ui/react'
@@ -46,7 +47,7 @@ export default function UserInfo(props) {
   const handleClick = () => setShow(!show)
 
   return (
-    <Container as={SimpleGrid} >
+    <Container as={SimpleGrid}>
       <Formik
         enableReinitialize
         initialValues={{
@@ -97,13 +98,15 @@ export default function UserInfo(props) {
           touched,
           isSubmitting
         }) => (
-          <VStack>
+          <Stack>
             <Heading
               as={'h1'}
+              fontStyle="italic"
               lineHeight={1.1}
               fontSize={{ base: '5xl', lg: '6xl' }}
-              bgGradient="linear(to-r,brand.600, brand.500, brand.400, brand.300)"
+              bgGradient="linear(to-r,brand.700, brand.600, brand.400, brand.300)"
               bgClip="text"
+              textAlign={'center'}
             >
               Datos del perfil
             </Heading>
@@ -208,11 +211,12 @@ export default function UserInfo(props) {
                   bgGradient: 'linear(to-r, brand.500,brand.300,brand.500)',
                   boxShadow: 'xl'
                 }}
+                fontSize={{ base: 'lg', md: 'xl' }}
               >
                 Modificar datos del perfil
               </Button>
             </VStack>
-          </VStack>
+          </Stack>
         )}
       </Formik>
 
@@ -266,13 +270,16 @@ export default function UserInfo(props) {
           touched,
           isSubmitting
         }) => (
-          <VStack marginTop={'8rem'}>
+          <Stack marginTop={'8rem'}>
             <Heading
               as={'h2'}
+              pe={'15px'}
+              fontStyle="italic"
               lineHeight={1.1}
               fontSize={{ base: '5xl', lg: '6xl' }}
-              bgGradient="linear(to-r,brand.600, brand.500, brand.400, brand.300)"
+              bgGradient="linear(to-r,brand.700, brand.600, brand.400, brand.300)"
               bgClip="text"
+              textAlign={'center'}
             >
               Datos personales
             </Heading>
@@ -396,11 +403,12 @@ export default function UserInfo(props) {
                   bgGradient: 'linear(to-r, brand.500,brand.300,brand.500)',
                   boxShadow: 'xl'
                 }}
+                fontSize={{ base: 'lg', md: 'xl' }}
               >
                 Modificar datos personales
               </Button>
             </VStack>
-          </VStack>
+          </Stack>
         )}
       </Formik>
     </Container>

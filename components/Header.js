@@ -1,5 +1,4 @@
 import {
-  Link,
   Flex,
   Stack,
   Box,
@@ -9,6 +8,7 @@ import {
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 
+import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 
 import Logo from './Logo'
@@ -50,10 +50,12 @@ export default function Header() {
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
           <Link href="/">
-            <Logo
-              imageFile="/images/logo/logotip/logotip_fonstransparent.png"
-              width="200px"
-            />
+            <a>
+              <Logo
+                imageFile="/images/logo/logotip/logotip_fonstransparent.png"
+                width="200px"
+              />
+            </a>
           </Link>
           <Flex display={{ base: 'none', md: 'flex' }} ml={10} align={'center'}>
             <DesktopNav />

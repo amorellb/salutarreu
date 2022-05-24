@@ -1,20 +1,20 @@
 import {
   Box,
   chakra,
-  Link,
   Stack,
   Text,
   VisuallyHidden,
   Input,
   IconButton,
-  useColorModeValue,
+  useColorModeValue
 } from '@chakra-ui/react'
-
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
 import { BiMailSend } from 'react-icons/bi'
 
-import Logo from '../Logo'
 import { Fragment } from 'react'
+import Link from 'next/link'
+
+import Logo from '../Logo'
 
 const SocialButton = ({ children, label, href }) => {
   return (
@@ -80,16 +80,25 @@ export default function LargeWithNewsletter() {
           </Stack>
         </Box>
       </Box>
-      <Box display={'flex'} flexDir={'row'} justifyContent='space-around' textColor={'brand.600'}>
+      <Box
+        display={'flex'}
+        flexDir={'row'}
+        justifyContent="space-around"
+        textColor={'brand.600'}
+      >
         <Link href={'/'}>Inicio</Link>
         <Link href={'/pricing'}>Sessiones</Link>
         <Link href={'aboutUs'}>Nosotros</Link>
         <Link href={'#'}>Preguntas frecuentes</Link>
         <Link href={'#'}>Terminos de servicio</Link>
-        <Link href={'#'} px={2}>Políticas de privacidad</Link>
+        <Link href={'#'} px={2}>
+          Políticas de privacidad
+        </Link>
       </Box>
       <Box display={'flex'} py={10} justifyContent={'space-between'}>
-        <Text fontSize={'sm'} ms={'1rem'}>© 2022 Salut Arreu. All rights reserved</Text>
+        <Text fontSize={'sm'} ms={'1rem'}>
+          © 2022 Salut Arreu. All rights reserved
+        </Text>
         <Stack direction={'row'} spacing={6}>
           <SocialButton label={'Twitter'} href={'#'}>
             <FaTwitter />

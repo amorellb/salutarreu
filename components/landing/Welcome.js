@@ -7,9 +7,10 @@ import {
   useBreakpointValue,
   Heading,
   SimpleGrid,
-  Container,
-  Link
+  Container
 } from '@chakra-ui/react'
+
+import Link from 'next/link'
 
 export default function WithBackgroundImage() {
   return (
@@ -67,8 +68,10 @@ export default function WithBackgroundImage() {
               href={'/aboutUs#contactar'}
               style={{ textDecoration: 'none' }}
               maxW={{ base: '5xl', lg: 'md' }}
+              passHref
             >
               <Button
+                as={'a'}
                 fontSize={{ base: 'lg', md: 'xl' }}
                 fontWeight={400}
                 variant={'solid'}
@@ -82,8 +85,10 @@ export default function WithBackgroundImage() {
               href={'/sign-in'}
               style={{ textDecoration: 'none' }}
               maxW={{ base: '5xl', lg: 'md' }}
+              passHref
             >
               <Button
+                as={'a'}
                 bg={'white'}
                 fontSize={{ base: 'lg', md: 'xl' }}
                 fontWeight={400}

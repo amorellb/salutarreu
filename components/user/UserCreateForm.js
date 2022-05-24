@@ -1,4 +1,3 @@
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import {
   Box,
   Button,
@@ -11,13 +10,17 @@ import {
   InputGroup,
   InputLeftAddon,
   InputRightElement,
+  Stack,
   Text,
   useToast,
   VStack
 } from '@chakra-ui/react'
-import { Formik } from 'formik'
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
+
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+
+import { Formik } from 'formik'
 import {
   validateUserData,
   validateProfileData
@@ -91,11 +94,14 @@ export default function UserCreateForm() {
           touched,
           isSubmitting
         }) => (
-          <VStack>
+          <Stack>
             <Heading
-              color={'brand.600'}
+              as={'h1'}
+              fontStyle="italic"
               lineHeight={1.1}
-              fontSize={{ base: '2xl', sm: '3xl', md: '4xl' }}
+              fontSize={{ base: '5xl', lg: '6xl' }}
+              bgGradient="linear(to-r,brand.700, brand.600, brand.400, brand.300)"
+              bgClip="text"
               textAlign={'center'}
             >
               Crear Usuario
@@ -289,7 +295,7 @@ export default function UserCreateForm() {
                 Crear Usuario
               </Button>
             </VStack>
-          </VStack>
+          </Stack>
         )}
       </Formik>
     </Container>
