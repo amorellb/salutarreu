@@ -1,6 +1,3 @@
-import { useState } from 'react'
-import { Formik } from 'formik'
-
 import {
   Alert,
   AlertIcon,
@@ -13,10 +10,14 @@ import {
   Input,
   InputGroup,
   SimpleGrid,
+  Stack,
   Text,
   VStack,
   Select
 } from '@chakra-ui/react'
+
+import { useState } from 'react'
+import { Formik } from 'formik'
 
 import { validateTestData } from '../../../validations/validateTestData'
 
@@ -79,13 +80,15 @@ export default function FormTests(props) {
           isSubmitting,
           handleReset
         }) => (
-          <VStack marginTop={'3rem'}>
+          <Stack marginTop={'3rem'}>
             <Heading
-              as={'h2'}
+              as={'h1'}
+              fontStyle="italic"
               lineHeight={1.1}
               fontSize={{ base: '5xl', lg: '6xl' }}
-              bgGradient="linear(to-r,brand.600, brand.500, brand.400, brand.300)"
+              bgGradient="linear(to-r,brand.700, brand.600, brand.400, brand.300)"
               bgClip="text"
+              textAlign={'center'}
             >
               Crear test
             </Heading>
@@ -199,7 +202,7 @@ export default function FormTests(props) {
                 Crear test
               </Button>
             </VStack>
-          </VStack>
+          </Stack>
         )}
       </Formik>
     </Container>

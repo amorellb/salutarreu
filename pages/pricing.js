@@ -5,7 +5,6 @@ import {
   HStack,
   Stack,
   Text,
-  VStack,
   useColorModeValue
 } from '@chakra-ui/react'
 
@@ -26,22 +25,25 @@ function PriceWrapper(props) {
 export default function ThreeTierPricing() {
   return (
     <Box as="main" py={'10rem'} px="1rem">
-      <VStack spacing={2} textAlign="center" pb={'5rem'}>
+      <Stack textAlign="center" pb={'5rem'}>
         <Heading
           as="h1"
-          pe={'15px'}
           fontStyle="italic"
           lineHeight={1.1}
           fontSize={{ base: '5xl', lg: '7xl' }}
-          bgGradient="linear(to-r,brand.600, brand.500, brand.400, brand.300)"
+          bgGradient="linear(to-r,brand.700, brand.600, brand.400, brand.300)"
           bgClip="text"
         >
           Abonos mensuales 2022
         </Heading>
-        <Text fontSize="xl" color={'gray.500'}>
+        <Text
+          fontSize={'1.5rem'}
+          color={'gray.300'}
+          px={{ base: '1rem', md: '3rem' }}
+        >
           Elige el plan que más se adapte a ti.
         </Text>
-      </VStack>
+      </Stack>
 
       <Container
         as={'section'}
@@ -228,7 +230,7 @@ export default function ThreeTierPricing() {
           as="h2"
           lineHeight={1.1}
           fontSize={{ base: '4xl', md: '5xl', lg: '6xl' }}
-          bgGradient="linear(to-r,brand.600, brand.400, brand.400, brand.300)"
+          bgGradient="linear(to-r,brand.600, brand.400, brand.300, brand.300)"
           bgClip="text"
         >
           Sesiones 3+

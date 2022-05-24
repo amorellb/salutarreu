@@ -11,7 +11,9 @@ import {
   useMediaQuery
 } from '@chakra-ui/react'
 import { FiUser } from 'react-icons/fi'
+
 import Router from 'next/router'
+
 import TestsModal from './tests/TestsModal'
 
 export default function UserList({ users }) {
@@ -61,16 +63,16 @@ export default function UserList({ users }) {
     ),
     perfilButton: (
       <Box>
-<Button
-        colorScheme="gray"
-        onClick={() => goToUserProfile(user.id)}
-        size="sm"
-        marginRight={2}
-      >
-        <Icon as={FiUser} fontSize="20" />
-      </Button>
+        <Button
+          colorScheme="gray"
+          onClick={() => goToUserProfile(user.id)}
+          size="sm"
+          marginRight={2}
+        >
+          <Icon as={FiUser} fontSize="20" />
+        </Button>
+        <TestsModal user={user} />
       </Box>
-      
     )
   }))
 
@@ -106,6 +108,7 @@ export default function UserList({ users }) {
         display={'flex'}
         justifyContent={'center'}
         as={'h1'}
+        fontStyle="italic"
         lineHeight={1.1}
         fontSize={{ base: '5xl', lg: '6xl' }}
         bgGradient="linear(to-r,brand.700, brand.600, brand.400, brand.300)"
