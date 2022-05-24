@@ -15,8 +15,8 @@ import {
   useMediaQuery
 } from '@chakra-ui/react'
 
-import { FiDatabase, FiCalendar, FiUsers, FiMenu } from 'react-icons/fi'
-import { FaRunning } from 'react-icons/fa'
+import { FiDatabase, FiCalendar, FiUsers } from 'react-icons/fi'
+import { FaRunning, FaArrowRight } from 'react-icons/fa'
 import { AiOutlinePlus } from 'react-icons/ai'
 
 import SimpleSidebar, { SidebarContent } from '../../components/user/Sidebar'
@@ -26,21 +26,22 @@ import UserInfo from '../../components/user/UserInfo'
 import UserTests from '../../components/user/UserTests'
 import TestsForm from '../../components/user/tests/TestsForm'
 import { URL } from '../../constants/URL'
+import UserCreateForm from '../../components/user/UserCreateForm'
 
-function UserPage({ user, users }) {
-  console.log(user)
+
+export default function UserPage({ user, users }) {
   const { data: session } = useSession()
   const linkItems = [
-    {
-      name: 'Datos personales',
-      icon: FiDatabase,
-      view: <UserInfo user={user} />
-    },
     {
       name: 'Usuarios',
       icon: FiUsers,
       viewForTrainer: true,
       view: <UserList users={users} />
+    },
+    {
+      name: 'Datos personales',
+      icon: FiDatabase,
+      view: <UserInfo user={user} />
     },
     {
       name: 'Calendario',
@@ -55,8 +56,13 @@ function UserPage({ user, users }) {
     {
       name: 'Crear test',
       icon: AiOutlinePlus,
-      view: <TestsForm />,
-      modal: 'onOpen'
+      view: <TestsForm />
+    },
+    {
+      name: 'Crear usuario',
+      icon: AiOutlinePlus,
+      view: <UserCreateForm />,
+      viewForTrainer: true
     }
   ]
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -64,11 +70,12 @@ function UserPage({ user, users }) {
   return (
     <Box as="main">
       <Tabs
+       defaultIndex={0}
         display={'flex'}
         flexDirection={{ base: 'column', md: 'row' }}
         variant="unstyled"
       >
-        <TabList>
+        <TabList marginTop={'100px'}>
           {isLessThan768px ? (
             <SidebarContent linkItems={linkItems} user={user}></SidebarContent>
           ) : (
@@ -85,9 +92,11 @@ function UserPage({ user, users }) {
           user={user}
           display={{ base: 'flex', md: 'none' }}
         />
-        <TabPanels minHeight="calc(100vh - var(--chakra-sizes-header))">
+        <TabPanels
+          minHeight="calc(100vh - var(--chakra-sizes-header))"
+          py={{ base: '3rem', md: '10rem' }}
+        >
           {linkItems.map(({ name, view, viewForTrainer, modal }) => {
-            // hay un problema si se usa ternarias por el indice de la posición de las tabs.
             if (viewForTrainer) {
               if (
                 session?.user?.role === 'TRAINER' &&
@@ -126,10 +135,10 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
       {...rest}
     >
       <IconButton
-        variant="outline"
+        variant="ghost"
         onClick={onOpen}
         aria-label="open menu"
-        icon={<FiMenu />}
+        icon={<FaArrowRight />}
       />
 
       <Text
@@ -170,4 +179,3 @@ export async function getServerSideProps(context) {
     }
   }
 }
-export default UserPage

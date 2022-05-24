@@ -23,7 +23,7 @@ export const validateProfileData = () =>
 
 export const validateUserData = () =>
   object().shape({
-    dni: string()
+    DNI: string()
       .matches(
         /^([0-9]{8})([A-Za-z]{1})$/,
         'Debe tener 8 caracteres numéricos seguidos de una letra'
@@ -43,3 +43,4 @@ export const validateUserData = () =>
       )
       .required("La fecha de nacimiento es obligatoria"),
   })
+

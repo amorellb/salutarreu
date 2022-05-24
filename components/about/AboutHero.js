@@ -12,7 +12,7 @@ export default function AboutHero() {
         <Heading
           as={'h2'}
           lineHeight={1.1}
-          fontSize={{ base: '3xl', sm: '4xl', lg: '6xl' }}
+          fontSize={{ base: '4xl', md: '5xl', lg: '6xl' }}
         >
           <Text
             as={'span'}
@@ -28,11 +28,11 @@ export default function AboutHero() {
               zIndex: -1
             }}
           >
-            Título bonito,
+            ¿Por qué?
           </Text>
           <br />
           <Text as={'span'} color={'brand.400'}>
-            subtítulo bonito!
+            Salut Arreu
           </Text>
         </Heading>
         <Text fontSize={'1.2rem'} color={'gray.300'}>

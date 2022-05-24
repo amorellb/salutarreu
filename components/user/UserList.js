@@ -10,7 +10,7 @@ import {
   Heading,
   useMediaQuery
 } from "@chakra-ui/react";
-import { FiTrash2, FiUser } from "react-icons/fi";
+import { FiUser } from "react-icons/fi";
 import Router from "next/router";
 
 export default function UserList({ users }) {
@@ -20,10 +20,6 @@ export default function UserList({ users }) {
   const goToUserProfile = (id) => {
     Router.push(`/user/${id}`)
   }
-
-  /* const deleteUser = (id) => {
-
-  } */
 
   const tableData = users.map((user) => ({
     name: (
@@ -43,49 +39,31 @@ export default function UserList({ users }) {
           colorScheme="gray"
           onClick={() => goToUserProfile(user.id)}
           size="sm"
-          marginRight={2}
-        >
+          marginRight={2}>
           <Icon as={FiUser} fontSize="20" />
         </Button>
-        {/* <Button
-          backgroundColor={'red'}
-          onClick={() => deleteUser(user.id)}
-          size="sm"
-          _hover={{ bgColor: 'red.800' }}
-        >
-          <Icon as={FiTrash2} fontSize="20" />
-        </Button> */}
       </Flex>
     ),
   }));
 
   const tableDataSmall = users.map((user) => ({
     name: (
-      <Box align="center">
+      <Box align="center" p={0}>
         <Avatar name={user.name} src={user.avatar} size="md" mb={2} />
         <Text fontSize={'small'}>{(user.name).toUpperCase()}</Text>
         <Text fontSize={'small'}>{user.email}</Text>
       </Box>
     ),
     perfilButton: (
-      <Flex>
-        <Button
-          colorScheme="gray"
-          onClick={() => console.log("perfil user!")}
-          size="sm"
-          marginRight={2}
-        >
-          <Icon as={FiUser} fontSize="20" />
-        </Button>
-        <Button
-          backgroundColor={'red'}
-          onClick={() => console.log("delete user!")}
-          size="sm"
-          _hover={{ bgColor: 'red.800' }}
-        >
-          <Icon as={FiTrash2} fontSize="20" />
-        </Button>
-      </Flex>
+      <Button
+        colorScheme="gray"
+        onClick={() => goToUserProfile(user.id)}
+        size="sm"
+        marginRight={2}
+      >
+        <Icon as={FiUser} fontSize="20" />
+      </Button>
+
     ),
   }));
 
@@ -100,29 +78,37 @@ export default function UserList({ users }) {
     },
     {
       Header: "",
-      accessor: "perfilButton",
-    },
-
+      accessor: "perfilButton"
+    }
   ];
 
+  const tableColumnsMobile = [
+    {
+      Header: "",
+      accessor: "name"
+    },
+    {
+      Header: "",
+      accessor: "perfilButton"
+    }
+  ]
+
   return (
-    <Box py="10" overflow={'auto'}>
+    <Box as={'main'} overflow={'auto'}>
       <Heading
-        fontSize={'2xl'}
-        as="h2"
-        bgGradient="linear(to-r, black, brand.400,brand.600, brand.300, brand.500,brand.300,brand.400, brand.600, brand.500, brand.400, brand.300,brand.600, black)"
-        bgClip="text" fontWeight="900"
-        lineHeight={1.2}
-        paddingStart={'50px'}
-        fontStyle={'italic'}
-      >
+        display={'flex'}
+        justifyContent={'center'}
+        as={'h1'}
+        lineHeight={1.1}
+        fontSize={{ base: '5xl', lg: '6xl' }}
+        bgGradient="linear(to-r,brand.700, brand.600, brand.400, brand.300)"
+        bgClip="text">
         Lista de usuarios
       </Heading>
 
       {isLessThan900px ? (
-        <Box mt="6">
+        <Box>
           <Table
-            colorScheme="blue"
             emptyData={{
               icon: FiUser,
               text: "Nobody is registered here."
@@ -131,13 +117,11 @@ export default function UserList({ users }) {
             page={page}
             onPageChange={(page) => setPage(page)}
             columns={tableColumns}
-            data={tableData}
-          />
+            data={tableData} />
         </Box>
       ) : (
-        <Box mt="6">
+        <Box p={'0px'}>
           <Table
-            colorScheme="blue"
             emptyData={{
               icon: FiUser,
               text: "Nobody is registered here."
@@ -145,7 +129,7 @@ export default function UserList({ users }) {
             totalRegisters={users.length}
             page={page}
             onPageChange={(page) => setPage(page)}
-            columns={tableColumns}
+            columns={tableColumnsMobile}
             data={tableDataSmall}
           />
         </Box>

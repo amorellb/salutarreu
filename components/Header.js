@@ -17,21 +17,23 @@ import AvatarMenu from './navigation/AvatarMenu'
 import DesktopNav from './navigation/DesktopNav'
 import MobileNav from './navigation/MobileNav'
 
-function Header() {
+export default function Header() {
   const { isOpen, onToggle } = useDisclosure()
   const { data: session, status } = useSession()
 
   return (
     <Box
       as="header"
-      height={'header'}
-      borderColor={'gray.200'}
-      borderBottom={1}
-      borderStyle={'solid'}
-      display="flex"
+      height={'content-fit'}
+      boxShadow={'md'}
       alignItems="center"
+      justifyContent={'space-between'}
+      position={'fixed'}
+      w={'100%'}
+      backgroundColor={'white'}
+      zIndex={3}
     >
-      <Flex py={{ base: 2 }} px={{ base: 4 }} align={'center'} flex={1}>
+      <Flex py="2" px={{ base: 5, md: '2rem' }} align={'center'} flex={1}>
         <Flex
           flex={{ base: 1, md: 'auto' }}
           ml={{ base: -2 }}
@@ -57,7 +59,6 @@ function Header() {
             <DesktopNav />
           </Flex>
         </Flex>
-
         <Stack
           flex={{ base: 1, md: 0 }}
           justify={'flex-end'}
@@ -71,12 +72,9 @@ function Header() {
           )}
         </Stack>
       </Flex>
-
       <Collapse in={isOpen} animateOpacity>
-        <MobileNav />
+        <MobileNav onClose={onToggle} />
       </Collapse>
     </Box>
   )
 }
-
-export default Header

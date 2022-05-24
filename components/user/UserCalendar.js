@@ -1,3 +1,17 @@
+import { Container, Heading } from '@chakra-ui/react'
+
 export default function UserCalendar() {
-  return <h1>Esto será la vista del calendario (si da tiempo a hacerlo.)</h1>
+  return (
+    <Container as={'main'}>
+      <Heading
+        as="h1"
+        lineHeight={1.1}
+        fontSize={{ base: '5xl', lg: '6xl' }}
+        bgGradient="linear(to-r,brand.600, brand.500, brand.400, brand.300)"
+        bgClip="text"
+      >
+        Próximamente!
+      </Heading>
+    </Container>
+  )
 }

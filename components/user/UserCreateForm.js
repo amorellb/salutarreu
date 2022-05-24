@@ -1,8 +1,5 @@
-import { useState } from 'react'
-import { Formik } from 'formik'
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import {
-  Alert,
-  AlertIcon,
   Box,
   Button,
   Container,
@@ -14,78 +11,78 @@ import {
   InputGroup,
   InputLeftAddon,
   InputRightElement,
-  SimpleGrid,
   Text,
+  useToast,
   VStack
 } from '@chakra-ui/react'
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
-
+import { Formik } from 'formik'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 import {
-  validateProfileData,
-  validateUserData
+  validateUserData,
+  validateProfileData
 } from '../../validations/validateUserInfo'
-import { signIn } from 'next-auth/react'
 
-export default function UserInfo(props) {
-  const { user } = props
-  const options = {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric'
-  }
-  const birthDateESFormatted = user.birthDate
-    ? new Intl.DateTimeFormat('es-ES', options).format(new Date(user.birthDate))
-    : ''
-
-  const [successUpdateProfile, setSuccessUpdateProfile] = useState(false)
-  const [successUpdatePersonal, setSuccessUpdatePersonal] = useState(false)
-  const [errorUpdateProfile, setErrorUpdateProfile] = useState(false)
-  const [errorUpdatePersonal, setErrorUpdatePersonal] = useState(false)
-
+export default function UserCreateForm() {
+  const toast = useToast()
   const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
-
+  const router = useRouter()
   return (
-    <Container as={SimpleGrid} >
+    <Container>
       <Formik
-        enableReinitialize
         initialValues={{
-          name: user.name ? user.name : '',
-          email: user.email ? user.email : '',
-          password: '',
-          avatar: user.avatar ? user.avatar : ''
+          name: 'NuevoUser',
+          email: 'nuevoser@gmail.com',
+          password: '123456789',
+          avatar:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU',
+          DNI: '41540552E',
+          phone: '677228392',
+          address: 'Prueba, 32',
+          zipCode: '07005',
+          birthDate: '11/02/2000'
         }}
-        validationSchema={validateProfileData()}
-        onSubmit={async ({ name, email, password, avatar }) => {
-          setSuccessUpdateProfile(false)
-          setErrorUpdateProfile(false)
-          password = password || user.password
-          try {
-            const res = await fetch(`/api/user/${user.id}`, {
-              method: 'PUT',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                name,
-                email,
-                password,
-                avatar
-              })
-            }).then(res => res.json())
-            if (res.code === 'P2002') {
-              setErrorUpdateProfile('Parece que el correo ya está en uso')
-              return
-            }
-            setSuccessUpdateProfile(
-              'Los datos del perfil se han actualizado correctamente'
-            )
-            if (user.email !== email) {
-              signIn('change_email_signin', {
-                email
-              })
-            }
-          } catch (error) {
-            throw new Error(error)
+        validationSchema={validateUserData().concat(validateProfileData())}
+        onSubmit={async (values, { resetForm }) => {
+          console.log('entro')
+          const { error, user } = await fetch('/api/signup', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(values)
+          }).then(res => res.json())
+          console.log(error)
+          if (error) {
+            toast({
+              title: error,
+              status: 'error',
+              duration: 3000,
+              isClosable: true
+            })
+            return
           }
+          toast({
+            title: 'Usuario creado con éxito',
+            status: 'success',
+            duration: 3000,
+            isClosable: true
+          })
+          router.push(`/user/${user.id}`)
+          resetForm({
+            values: {
+              name: '',
+              email: '',
+              password: '',
+              avatar: '',
+              DNI: '',
+              phone: '',
+              address: '',
+              zipCode: '',
+              birthDate: ''
+            }
+          })
         }}
       >
         {({
@@ -98,29 +95,17 @@ export default function UserInfo(props) {
           isSubmitting
         }) => (
           <VStack>
+            {console.log(errors)}
             <Heading
-              as={'h1'}
+              color={'brand.600'}
               lineHeight={1.1}
-              fontSize={{ base: '5xl', lg: '6xl' }}
-              bgGradient="linear(to-r,brand.600, brand.500, brand.400, brand.300)"
-              bgClip="text"
+              fontSize={{ base: '2xl', sm: '3xl', md: '4xl' }}
+              textAlign={'center'}
             >
-              Datos del perfil
+              Crear Usuario
             </Heading>
 
             <VStack as="form" onSubmit={handleSubmit} py="4" w="full">
-              {errorUpdateProfile && (
-                <Alert status="error">
-                  <AlertIcon />
-                  {errorUpdateProfile}
-                </Alert>
-              )}
-              {successUpdateProfile && (
-                <Alert status="success">
-                  <AlertIcon />
-                  {successUpdateProfile}
-                </Alert>
-              )}
               <FormControl
                 isInvalid={errors.name && touched.name}
                 paddingBottom={4}
@@ -198,113 +183,21 @@ export default function UserInfo(props) {
                   <FormErrorMessage>{errors.avatar}</FormErrorMessage>
                 )}
               </FormControl>
-              <Button
-                type="submit"
-                isLoading={isSubmitting}
-                w="full"
-                bgGradient="linear(to-r, brand.300,brand.500,brand.300)"
-                color="white"
-                _hover={{
-                  bgGradient: 'linear(to-r, brand.500,brand.300,brand.500)',
-                  boxShadow: 'xl'
-                }}
-              >
-                Modificar datos del perfil
-              </Button>
-            </VStack>
-          </VStack>
-        )}
-      </Formik>
-
-      <Formik
-        initialValues={{
-          dni: user.DNI ? user.DNI : '',
-          phone: user.phone ? user.phone : '',
-          address: user.address ? user.address : '',
-          zipCode: user.zipCode ? user.zipCode : '',
-          birthDate: birthDateESFormatted || ''
-        }}
-        validationSchema={validateUserData()}
-        onSubmit={async ({ dni, phone, address, zipCode, birthDate }) => {
-          setErrorUpdatePersonal(false)
-          setSuccessUpdatePersonal(false)
-          const birthDateArray = birthDate.split('/')
-          const month = birthDateArray[0]
-          birthDateArray[0] = birthDateArray[1]
-          birthDateArray[1] = month
-          const birthDateUSFormatted = birthDateArray.join('/')
-          try {
-            const res = await fetch(`/api/user/${user.id}`, {
-              method: 'PUT',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                DNI: dni,
-                phone,
-                address,
-                zipCode,
-                birthDate: new Date(birthDateUSFormatted)
-              })
-            }).then(res => res.json())
-            if (res.code === 'P2002') {
-              setErrorUpdatePersonal('Parece que el DNI ya está en uso')
-              return
-            }
-            setSuccessUpdatePersonal(
-              'Los datos personales se han actualizado correctamente'
-            )
-          } catch (error) {
-            throw new Error(error)
-          }
-        }}
-      >
-        {({
-          handleSubmit,
-          handleChange,
-          handleBlur,
-          values,
-          errors,
-          touched,
-          isSubmitting
-        }) => (
-          <VStack marginTop={'8rem'}>
-            <Heading
-              as={'h2'}
-              lineHeight={1.1}
-              fontSize={{ base: '5xl', lg: '6xl' }}
-              bgGradient="linear(to-r,brand.600, brand.500, brand.400, brand.300)"
-              bgClip="text"
-            >
-              Datos personales
-            </Heading>
-
-            <VStack as="form" onSubmit={handleSubmit} py="4" w="full">
-              {errorUpdatePersonal && (
-                <Alert status="error">
-                  <AlertIcon />
-                  {errorUpdatePersonal}
-                </Alert>
-              )}
-              {successUpdatePersonal && (
-                <Alert status="success">
-                  <AlertIcon />
-                  {successUpdatePersonal}
-                </Alert>
-              )}
               <FormControl
-                isInvalid={errors.dni && touched.dni}
+                isInvalid={errors.DNI && touched.DNI}
                 paddingBottom={4}
               >
-                <FormLabel htmlFor="dni">DNI</FormLabel>
+                <FormLabel htmlFor="DNI">DNI</FormLabel>
                 <Input
-                  id="dni"
+                  id="DNI"
                   type="text"
-                  name="dni"
-                  value={values.dni}
+                  name="DNI"
+                  value={values.DNI}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   backgroundColor={'white'}
                 />
-                <FormErrorMessage>{errors.dni}</FormErrorMessage>
+                <FormErrorMessage>{errors.DNI}</FormErrorMessage>
               </FormControl>
               <FormControl
                 isInvalid={errors.phone && touched.phone}
@@ -397,7 +290,7 @@ export default function UserInfo(props) {
                   boxShadow: 'xl'
                 }}
               >
-                Modificar datos personales
+                Iniciar Sesión
               </Button>
             </VStack>
           </VStack>

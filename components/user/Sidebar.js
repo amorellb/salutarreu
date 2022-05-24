@@ -41,23 +41,7 @@ export const SidebarContent = ({ onClose, linkItems, user, ...rest }) => {
       {...rest}
     >
       <VStack alignItems="center" justifyContent="center">
-        <Avatar
-          size="xl"
-          name={user?.name}
-          src={user?.avatar}
-          /* _before={{ NOTA: veo que es un efecto por la parte de arriba del avatar, pero no se ve en ciertas ocaciones, lo comento por si alguien quiere hacerlo
-            content: '""',
-            width: 'full',
-            height: 'full',
-            rounded: 'full',
-            transform: 'scale(1.125)',
-            bgGradient: 'linear(to-bl, brand.300,brand.600)',
-            position: 'absolute',
-            zIndex: -1,
-            top: 0,
-            left: 0
-          }} */
-        />
+        <Avatar size="xl" name={user?.name} src={user?.avatar} />
         <Text fontSize="xl" fontWeight="bold" mt={4} w="max-content">
           {user?.name}
         </Text>
@@ -66,12 +50,12 @@ export const SidebarContent = ({ onClose, linkItems, user, ...rest }) => {
         {linkItems.map(({ name, icon, viewForTrainer }) => {
           return viewForTrainer ? (
             user?.role === 'TRAINER' && (
-              <NavItem key={name} id={name} icon={icon}>
+              <NavItem key={name} id={name} icon={icon} onClose={onClose}>
                 {name}
               </NavItem>
             )
           ) : (
-            <NavItem key={name} id={name} icon={icon}>
+            <NavItem key={name} id={name} icon={icon} onClose={onClose}>
               {name}
             </NavItem>
           )
@@ -81,9 +65,10 @@ export const SidebarContent = ({ onClose, linkItems, user, ...rest }) => {
   )
 }
 
-const NavItem = ({ icon, children, name, ...rest }) => {
+const NavItem = ({ onClose, icon, children, name, ...rest }) => {
   return (
     <Tab
+      onClick={onClose}
       role="tab"
       display={'flex'}
       align="center"
