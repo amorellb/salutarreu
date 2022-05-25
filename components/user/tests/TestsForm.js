@@ -48,6 +48,7 @@ export default function FormTests(props) {
           try {
             const res = await fetch(`/api/tests`, {
               method: 'POST',
+              type:'testsGraph',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
                 name: testName,

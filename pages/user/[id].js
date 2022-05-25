@@ -23,7 +23,7 @@ import SimpleSidebar, { SidebarContent } from '../../components/user/Sidebar'
 import UserList from '../../components/user/UserList'
 import UserCalendar from '../../components/user/UserCalendar'
 import UserInfo from '../../components/user/UserInfo'
-import UserTests from '../../components/user/UserTests'
+import UserProgress from '../../components/user/UserProgress'
 import TestsForm from '../../components/user/tests/TestsForm'
 import { URL } from '../../constants/URL'
 import UserCreateForm from '../../components/user/UserCreateForm'
@@ -51,11 +51,12 @@ export default function UserPage({ user, users }) {
     {
       name: 'Mi progreso',
       icon: FaRunning,
-      view: <UserTests />
+      view: <UserProgress />
     },
     {
       name: 'Crear test',
       icon: AiOutlinePlus,
+      viewForTrainer: true,
       view: <TestsForm user={user} />,
 
     },
