@@ -33,6 +33,7 @@ export default function ThreeTierPricing() {
           fontSize={{ base: '5xl', lg: '7xl' }}
           bgGradient="linear(to-r,brand.700, brand.600, brand.400, brand.300)"
           bgClip="text"
+          pe={'5px'}
         >
           Abonos mensuales 2022
         </Heading>
