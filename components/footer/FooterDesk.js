@@ -88,7 +88,7 @@ export default function LargeWithNewsletter() {
       >
         <Link href={'/'}>Inicio</Link>
         <Link href={'/pricing'}>Sessiones</Link>
-        <Link href={'aboutUs'}>Nosotros</Link>
+        <Link href={'/aboutUs'}>Nosotros</Link>
         <Link href={'#'}>Preguntas frecuentes</Link>
         <Link href={'#'}>Terminos de servicio</Link>
         <Link href={'#'} px={2}>

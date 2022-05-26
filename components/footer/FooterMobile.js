@@ -55,7 +55,7 @@ export default function SmallCentered() {
         <Stack direction={'row'} spacing={6} fontSize={'1rem'}>
           <Link href={'/'}>Inicio</Link>
           <Link href={'/pricing'}>Sessiones</Link>
-          <Link href={'aboutUs'}>Nosotros</Link>
+          <Link href={'/aboutUs'}>Nosotros</Link>
         </Stack>
         <Stack direction={'row'} spacing={6} fontSize={'1rem'}>
           <Link href={'#'}>Preguntas frecuentes</Link>
