@@ -104,7 +104,7 @@ export default function WithSpeechBubbles() {
           >
             Testimonios
           </Heading>
-          <Text color={'brand.600'}>
+          <Text color={'brand.600'} fontSize={{base:'md', md:'2xl'}}>
             Nuestros clientes te cuentan su experiencia
           </Text>
         </Stack>
