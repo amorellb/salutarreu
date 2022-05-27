@@ -1,10 +1,42 @@
+import {
+  Box,
+  Container,
+  Heading,
+  Image,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  Stack,
+  Text,
+  useDisclosure
+} from '@chakra-ui/react'
+
 import Head from 'next/head'
+import { getSession } from 'next-auth/react'
+import { useEffect } from 'react'
+
 import Welcome from '../components/landing/Welcome'
 import Carrusel from '../components/landing/Carrusel'
 import Testimonials from '../components/landing/Testimonials'
-import { Box, Container, Heading, Image, Stack, Text } from '@chakra-ui/react'
 
-export default function Home() {
+export default function Home(props) {
+  const user = props ? props.user : null
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  // const [isModalFired, setModalFired] = useState()
+
+  // Cookies usage
+  useEffect(() => {
+    if (!user) {
+      // if (!isModalFired) {
+      onOpen()
+      // setModalFired(true)
+      // }
+    }
+  }, [])
+
   return (
     <div>
       <Head>
@@ -44,7 +76,44 @@ export default function Home() {
         </Container>
         <Carrusel />
         <Testimonials />
+
+        {/* Cookies modal */}
+        <CookiesModal isOpen={isOpen} onClose={onClose} />
       </Box>
     </div>
   )
+}
+
+function CookiesModal({ isOpen, onClose }) {
+  return (
+    <Modal
+      blockScrollOnMount={false}
+      isOpen={isOpen}
+      onClose={onClose}
+      isCentered
+    >
+      <ModalOverlay />
+      <ModalContent>
+        <ModalCloseButton />
+        <ModalBody pb={6}>
+          <ModalHeader>Esta página utiliza cookies</ModalHeader>
+          <Text>
+            Las cookies de este sitio web son puramente técnicas y necesarias
+            para el correcto funcionamiento del mismo.
+          </Text>
+        </ModalBody>
+      </ModalContent>
+    </Modal>
+  )
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context)
+  const user = session ? session.user : null
+
+  return {
+    props: {
+      user: user
+    }
+  }
 }
