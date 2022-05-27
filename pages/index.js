@@ -16,18 +16,29 @@ export default function Home() {
         <Welcome />
         <Container maxW={'7xl'} pt={16} as={Stack} spacing={12}>
           <Image
-            src="https://github.com/amorellb/salutarreu/blob/main/public/images/lines/3.png?raw=true"
+            src="https://github.com/amorellb/salutarreu/blob/main/public/images/landing/3.png?raw=true"
+            alt="imagen lineas"
+            position={'absolute'}
+            zIndex={-1}
+            left={0}
+            top={-1100}
+            w={'100%'}
+            h={'95%'}
+            opacity={'15%'}
+          />
+          <Image
+            src="https://github.com/amorellb/salutarreu/blob/main/public/images/landing/3.png?raw=true"
             alt="imagen lineas"
             position={'absolute'}
             zIndex={-1}
             left={0}
             top={0}
             w={'100%'}
-            h={'100%'}
+            h={'95%'}
             opacity={'15%'}
           />
 
-          <Stack spacing={0} align={'start'} px="1rem">
+          <Stack spacing={0} align={'start'} px="1rem" pb={'2rem'}>
             <Heading
               as={'h2'}
               lineHeight={1.1}
@@ -37,7 +48,7 @@ export default function Home() {
             >
               Servicios
             </Heading>
-            <Text color={'brand.600'}>
+            <Text color={'brand.600'} fontSize={{ base: 'md', md: '2xl' }}>
               Disponemos de múltiples servicios para ofrecerte
             </Text>
           </Stack>

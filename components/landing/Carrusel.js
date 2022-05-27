@@ -34,19 +34,19 @@ export default function CaptionCarousel() {
       title: 'Entrenamiento de fuerza',
       text: 'Los ejercicios de fuerza mejoran la densidad ósea, disminuyendo así el posible riesgo de osteoporosis o fracturas y protegiendo a la vez nuestras articulaciones. Además, logramos prevenir lesiones, ya que músculos, tendones y ligamentos tienen menos riesgo de dañarse, pudiendo resistir trabajos con mayor intensidad.',
       image:
-        'https://github.com/amorellb/salutarreu/blob/main/public/images/18.jpg?raw=true'
+        'https://github.com/amorellb/salutarreu/blob/main/public/images/landing/18.jpg?raw=true'
     },
     {
       title: 'Entrenamiento funcional',
       text: 'Este tipo de entrenamiento se basa en la realización de ejercicios que tienen como fin mejorar nuestro bienestar general de manera que se mejore nuestra capacidad para realizar cualquier tarea que implique movimiento de manera mucho más efectiva, menos dolorosa, con mayor resistencia y más flexibilidad, entre otras.',
       image:
-        'https://github.com/amorellb/salutarreu/blob/main/public/images/10.png?raw=true'
+        'https://github.com/amorellb/salutarreu/blob/main/public/images/landing/10.png?raw=true'
     },
     {
       title: 'Entrenamiento cardiovascular',
       text: 'Los ejercicios de entrenamiento cardio, son los que aumentan nuestro ritmo cardíaco, incrementan nuestra capacidad de resistencia, y mejoran nuestra condición física. Ayuda a controlar la presión arterial y fortalece el sistema inmunológico. Baja la presión arterial y la frecuencia cardiaca en reposo. ',
       image:
-        'https://raw.githubusercontent.com/amorellb/salutarreu/main/images/27.jpg'
+        'https://raw.githubusercontent.com/amorellb/salutarreu/main/public/images/landing/27.jpg'
     }
   ]
 
@@ -56,7 +56,8 @@ export default function CaptionCarousel() {
       position={'relative'}
       height={{ base: '600px', lg: '800px' }}
       width={'full'}
-      overflow={'hidden'}>
+      overflow={'hidden'}
+      mb={{ base: '2rem', md: '8rem' }}>
       <link
         rel="stylesheet"
         type="text/css"
