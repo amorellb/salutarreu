@@ -113,8 +113,7 @@ export default function CaptionCarousel() {
                 position="absolute"
                 top={{ base: "40%", md: '25%', lg: "33%" }}
                 left="0%"
-                backdropFilter='auto'
-                backdropBrightness='65%'
+                style={{ backgroundColor: 'rgb( 34, 20, 43,0.4)' }}
                 px={{ base: '2%', md: '20%' }}
                 textAlign={{ base: 'center', md: 'right' }}>
                 <Heading
