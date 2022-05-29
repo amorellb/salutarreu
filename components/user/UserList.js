@@ -71,7 +71,7 @@ export default function UserList({ users }) {
         >
           <Icon as={FiUser} fontSize="20" />
         </Button>
-        <TestsModal user={user} />
+        <TestsModal id={user.id} />
       </Box>
     )
   }))

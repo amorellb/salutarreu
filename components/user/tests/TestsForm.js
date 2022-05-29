@@ -48,7 +48,6 @@ export default function FormTests(props) {
           try {
             const res = await fetch(`/api/tests`, {
               method: 'POST',
-              type:'testsGraph',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
                 name: testName,
@@ -59,6 +58,7 @@ export default function FormTests(props) {
               })
             })
 
+    
             if (res.status === 200) {
               setSuccessCreateTest('El test se a creado correctamente')
             } else {
