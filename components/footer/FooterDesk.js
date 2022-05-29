@@ -87,7 +87,7 @@ export default function LargeWithNewsletter() {
         textColor={'brand.600'}
       >
         <Link href={'/'}>Inicio</Link>
-        <Link href={'/pricing'}>Sessiones</Link>
+        <Link href={'/pricing'}>Sesiones</Link>
         <Link href={'/aboutUs'}>Nosotros</Link>
         <Link href={'#'}>Preguntas frecuentes</Link>
         <Link href={'#'}>Terminos de servicio</Link>
