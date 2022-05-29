@@ -6,15 +6,15 @@ import {
   SimpleGrid,
   useBreakpointValue,
   Stack,
-  chakra,
-} from '@chakra-ui/react';
-import { isValidMotionProp, motion } from 'framer-motion';
+  chakra
+} from '@chakra-ui/react'
+import { isValidMotionProp, motion } from 'framer-motion'
 import Link from 'next/link'
 
 const ArticleList = () => {
   const ChakraBox = chakra(motion.div, {
-    shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === 'children',
-  });
+    shouldForwardProp: prop => isValidMotionProp(prop) || prop === 'children'
+  })
 
   return (
     <Container
@@ -24,25 +24,26 @@ const ArticleList = () => {
       mb={{ base: '0rem', md: '8rem' }}
       w={'100vw'}
       display={'flex'}
-      flexDirection={'column'}>
-      <Container
-        mt={{ base: '3rem', md: '5rem' }} >
+      flexDirection={'column'}
+    >
+      <Container mt={{ base: '3rem', md: '5rem' }}>
         <ChakraBox
           animate={{
             x: [-1000, 10]
           }}
           transition={{
             duration: 1,
-            ease: "easeInOut",
-            repeat: 0,
+            ease: 'easeInOut',
+            repeat: 0
           }}
           backgroundImage={'/images/logo/imagotip/imagotip_fonstransparent.png'}
           justifyContent="center"
-          backgroundSize={'cover'}
           bgRepeat={'no-repeat'}
-          width="100%"
-          height={{ base: "40vh", md: '50vh' }}>
-        </ChakraBox>
+          backgroundSize={'contain'}
+          width={{ base: '55%', md: '70%' }}
+          mx={'auto'}
+          height={{ base: '30vh', md: '40vh' }}
+        ></ChakraBox>
       </Container>
       <Heading
         as="h1"
@@ -51,7 +52,7 @@ const ArticleList = () => {
         fontWeight="900"
         lineHeight={1.2}
         textAlign="center"
-        fontSize={useBreakpointValue({ base: '5xl', md: '8xl' })}
+        fontSize={useBreakpointValue({ base: '4xl', sm: '6xl', lg: '8xl' })}
         fontStyle={'italic'}
         mb="3"
         pe={'10px'}
@@ -63,12 +64,11 @@ const ArticleList = () => {
         fontWeight={700}
         lineHeight={1.2}
         textAlign="center"
-        fontSize={useBreakpointValue({ base: 'xl', md: '4xl' })}
-        mb="10">
+        fontSize={useBreakpointValue({ base: 'xl', sm: '2xl', lg: '4xl' })}
+        mb="10"
+      >
         <Text>No solo es ponerse en forma, es un estilo de vida.</Text>
-        <Text
-          as="h2"
-          fontStyle={'italic'}>
+        <Text as="h2" fontStyle={'italic'}>
           Un estilo de vida saludable.
         </Text>
         <Text>
@@ -79,19 +79,22 @@ const ArticleList = () => {
         as={SimpleGrid}
         maxW={'5xl'}
         columns={{ base: 1, md: 2 }}
-        gap={{ base: 5, lg: 20 }}>
+        gap={{ base: 5, lg: 20 }}
+      >
         <Link
           href={'/aboutUs#contactar'}
           style={{ textDecoration: 'none' }}
           maxW={{ base: '5xl', lg: 'md' }}
-          passHref>
+          passHref
+        >
           <Button
             as={'a'}
             fontSize={{ base: 'lg', md: 'xl' }}
             fontWeight={400}
             variant={'solid'}
             colorScheme={'brand.400'}
-            isFullWidth>
+            isFullWidth
+          >
             Contactar
           </Button>
         </Link>
@@ -99,7 +102,8 @@ const ArticleList = () => {
           href={'/sign-in'}
           style={{ textDecoration: 'none' }}
           maxW={{ base: '5xl', lg: 'md' }}
-          passHref>
+          passHref
+        >
           <Button
             as={'a'}
             bg={'white'}
@@ -107,13 +111,14 @@ const ArticleList = () => {
             fontWeight={400}
             variant={'outline'}
             colorScheme={'brand'}
-            isFullWidth>
+            isFullWidth
+          >
             Iniciar sesión
           </Button>
         </Link>
       </Container>
     </Container>
-  );
-};
+  )
+}
 
-export default ArticleList;
+export default ArticleList
