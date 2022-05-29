@@ -184,10 +184,9 @@ const brandValues = [
 ]
 
 export async function getStaticProps() {
-  const user = await fetch(`${URL}/api/user/62814f7a1d49cce9c8952016`).then(
+  const { user } = await fetch(`${URL}/api/user/62814f7a1d49cce9c8952016`).then(
     res => res.json()
   )
-  console.log(user)
 
   return {
     props: {
