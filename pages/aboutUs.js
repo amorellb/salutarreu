@@ -1,8 +1,8 @@
 import {
+  Avatar,
   Container,
   Box,
   Heading,
-  Image,
   Stack,
   Text,
   Flex,
@@ -12,19 +12,17 @@ import {
   FormControl
 } from '@chakra-ui/react'
 
+import { URL } from '../constants/URL'
 import AboutHero from '../components/about/AboutHero'
 import TrainerValues from '../components/about/TrainerValues'
 
-export default function AboutUs() {
+export default function AboutUs(props) {
+  const { user } = props
+
   return (
     <Box as={'main'} px="1rem">
       <Box as="section" textAlign={'center'} py={{ base: '5rem', md: '10rem' }}>
-        <Image
-          margin={'auto'}
-          width="200px"
-          src="/images/logo/imagotip/imagotip_fonstransparent.png"
-          alt="Corporative logo image"
-        />
+        <Avatar src={user?.avatar} alt="Trainer avatar" size={'2xl'} mb="10" />
         <Stack>
           <Heading
             as={'h1'}
@@ -184,3 +182,16 @@ const brandValues = [
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt officia, dolore eveniet vel ducimus laborum facere voluptas, quod...'
   }
 ]
+
+export async function getStaticProps() {
+  const user = await fetch(`${URL}/api/user/62814f7a1d49cce9c8952016`).then(
+    res => res.json()
+  )
+  console.log(user)
+
+  return {
+    props: {
+      user: user
+    }
+  }
+}
