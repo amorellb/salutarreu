@@ -1,8 +1,8 @@
+import { Box, Container, Heading, Image, Stack, Text } from '@chakra-ui/react'
 import Head from 'next/head'
 import Welcome from '../components/landing/Welcome'
 import Carrusel from '../components/landing/Carrusel'
 import Testimonials from '../components/landing/Testimonials'
-import { Box, Container, Heading, Image, Stack, Text } from '@chakra-ui/react'
 
 export default function Home() {
   return (
