@@ -7,10 +7,11 @@ import {
   Avatar,
   Tab,
   VStack,
-  DrawerCloseButton
+  DrawerCloseButton,
+  Button
 } from '@chakra-ui/react'
-
-export default function SimpleSidebar({ isOpen, onClose, linkItems, user }) {
+import { AiFillDelete } from 'react-icons/ai'
+export default function SimpleSidebar({ isOpen, onClose, linkItems, user, removeUser }) {
   return (
     <Drawer
       autoFocus={false}
@@ -23,13 +24,19 @@ export default function SimpleSidebar({ isOpen, onClose, linkItems, user }) {
     >
       <DrawerContent>
         <DrawerCloseButton />
-        <SidebarContent onClose={onClose} linkItems={linkItems} user={user} />
+        <SidebarContent onClose={onClose} linkItems={linkItems} user={user} removeUser={removeUser}/>
       </DrawerContent>
     </Drawer>
   )
 }
 
-export const SidebarContent = ({ onClose, linkItems, user, ...rest }) => {
+export const SidebarContent = ({
+  onClose,
+  linkItems,
+  user,
+  removeUser,
+  ...rest
+}) => {
   return (
     <VStack
       flexDirection="column"
@@ -60,6 +67,30 @@ export const SidebarContent = ({ onClose, linkItems, user, ...rest }) => {
             </NavItem>
           )
         })}
+        <Button
+          display={'flex'}
+          align="center"
+          borderRadius="lg"
+          wordBreak={'revert'}
+          cursor="pointer"
+          px="1.5rem"
+          bg={'red.400'}
+          color={'white'}
+          my="0.25rem"
+          onClick={() => {
+            removeUser(user.id)
+          }}
+        >
+          <Icon
+            mr="4"
+            fontSize="16"
+            _groupHover={{
+              color: 'white'
+            }}
+            as={AiFillDelete}
+          />
+          Borrar Usuario
+        </Button>
       </VStack>
     </VStack>
   )

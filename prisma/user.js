@@ -3,9 +3,7 @@ import { ObjectId } from 'mongodb'
 
 export const getAllUsers = async () => {
   return await prisma.user.findMany({
-    orderBy: [
-      { name: 'asc' }
-    ]
+    orderBy: [{ name: 'asc' }]
   })
 }
 
@@ -27,5 +25,14 @@ export const updateUserData = async (id, data) => {
   return await prisma.user.update({
     where: { id: id },
     data: { ...data }
+  })
+}
+
+export const deleteUser = async id => {
+  if (!ObjectId.isValid(id)) {
+    return null
+  }
+  return await prisma.user.delete({
+    where: { id: id }
   })
 }
