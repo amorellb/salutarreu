@@ -107,6 +107,7 @@ export default function UserPage({ user, users }) {
               linkItems={linkItems}
               user={user}
               removeUser={removeUser}
+              userSession={session?.user}
             ></SidebarContent>
           ) : (
             <SimpleSidebar
@@ -114,6 +115,7 @@ export default function UserPage({ user, users }) {
               onClose={onClose}
               linkItems={linkItems}
               removeUser={removeUser}
+              userSession={session?.user}
               user={user}
             />
           )}
