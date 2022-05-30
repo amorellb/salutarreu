@@ -9,7 +9,7 @@ export default function UserTests(props) {
   `
 
   const colors = ['#FF8C94', '#FFAAA6', '#FFD3B5', '#DCEDC2', '#A8E6CE']
-
+  // console.log(props.tests)
   const ScatterPoint = ({ x, y, datum, min, max }) => {
     const i = React.useMemo(() => {
       return Math.floor(((datum.y - min) / (max - min)) * (colors.length - 1))
@@ -27,25 +27,24 @@ export default function UserTests(props) {
     { x: 'Jun', y: 62 }
   ]
 
+  
+
   const temperatures = data.map(({ y }) => y)
   const min = Math.min(...temperatures)
   const max = Math.max(...temperatures)
-  
-
 
   return (
-<>
-
-    <Container maxW='xl'>
-      {' '}
-      <VictoryChart>
-        <VictoryLine data={data} />
-        <VictoryScatter
-          data={data}
-          dataComponent={<ScatterPoint min={min} max={max} />}
-        />
-      </VictoryChart>
-    </Container>
+    <>
+      <Container maxW="xl">
+        {' '}
+        <VictoryChart>
+          <VictoryLine data={data} />
+          <VictoryScatter
+            data={data}
+            dataComponent={<ScatterPoint min={min} max={max} />}
+          />
+        </VictoryChart>
+      </Container>
     </>
   )
 }

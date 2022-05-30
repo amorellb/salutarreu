@@ -29,7 +29,7 @@ import { URL } from '../../constants/URL'
 import UserCreateForm from '../../components/user/UserCreateForm'
 
 
-export default function UserPage({ user, users }) {
+export default function UserPage({ user, users, testsUser }) {
   const { data: session } = useSession()
   const linkItems = [
     {
@@ -51,7 +51,7 @@ export default function UserPage({ user, users }) {
     {
       name: 'Mi progreso',
       icon: FaRunning,
-      view: <UserProgress />
+      view: <UserProgress tests={testsUser}/>
     },
     {
       name: 'Crear test',
@@ -164,7 +164,17 @@ export async function getServerSideProps(context) {
     fetch(`${URL}/api/user`)
   ])
 
+  const [testUserRes, testRes] = await Promise.all([
+    fetch(`${URL}/api/tests/user/${id}`),
+    fetch(`${URL}/api/tests`)
+  ])
+
+
+  
+  const [{ tests }, testsUser] = await Promise.all([testRes.json(), testUserRes.json()])
   const [{ user }, users] = await Promise.all([userRes.json(), usersRes.json()])
+
+  
 
   if (
     !user ||
@@ -178,7 +188,9 @@ export async function getServerSideProps(context) {
   return {
     props: {
       user: user,
-      users: users
+      users: users,
+      tests: tests,
+      testsUser: testsUser
     }
   }
 }
