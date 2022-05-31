@@ -79,21 +79,19 @@ export default function UserList({ users, userSession }) {
   const tableDataSmall = users.map(user => ({
     name: (
       <Box align="center" p={0}>
-        <Avatar name={user.name} src={user.avatar} size="md" mb={2} />
+        <Avatar name={user.name} src={user.avatar} size="md" mb={3} />
         <Text fontSize={'small'}>{user.name.toUpperCase()}</Text>
-        <Text fontSize={'small'}>{user.email}</Text>
+        <Text fontSize={'small'} mb={3}>{user.email}</Text>
+        <ButtonGroup mb={1}>
+          <Button size={'sm'} onClick={() => goToUserProfile(user.id)}>
+            <Icon as={FiUser} />
+          </Button>
+          <TestsModal user={user} />
+          <Button bg="red.400" size={'sm'} onClick={() => removeUser(user.id)}>
+            <AiFillDelete />
+          </Button>
+        </ButtonGroup>
       </Box>
-    ),
-    perfilButton: (
-      <ButtonGroup size="sm">
-        <Button colorScheme="gray" onClick={() => goToUserProfile(user.id)}>
-          <Icon as={FiUser} fontSize="20" />
-        </Button>
-        <TestsModal user={user} />
-        <Button bg="red.400" onClick={() => removeUser(user.id)}>
-          <AiFillDelete />
-        </Button>
-      </ButtonGroup>
     )
   }))
 
@@ -116,10 +114,6 @@ export default function UserList({ users, userSession }) {
     {
       Header: '',
       accessor: 'name'
-    },
-    {
-      Header: '',
-      accessor: 'perfilButton'
     }
   ]
 

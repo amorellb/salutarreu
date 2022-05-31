@@ -29,8 +29,9 @@ import TestsForm from '../../components/user/tests/TestsForm'
 import { URL } from '../../constants/URL'
 import UserCreateForm from '../../components/user/UserCreateForm'
 import { useRouter } from 'next/router'
+import UserTestsList from '../../components/user/UserTestsList'
 
-export default function UserPage({ user, users }) {
+export default function UserPage({ user, users, tests }) {
   const { data: session } = useSession()
   const toast = useToast()
   const router = useRouter()
@@ -52,8 +53,13 @@ export default function UserPage({ user, users }) {
       view: <UserCalendar />
     },
     {
-      name: 'Mi progreso',
+      name: 'Mis tests',
       icon: FaRunning,
+      view: <UserTestsList tests={tests} userSession={session?.user} />
+    },
+    {
+      name: 'Mi progreso',
+      icon: FaRunning, /* cambiar por icono de graficos, no se porque a mi no me dejaba porner el GoGraph */
       view: <UserTests />
     },
     {
@@ -192,6 +198,10 @@ export async function getServerSideProps(context) {
     fetch(`${URL}/api/user`)
   ])
 
+  const testsResp = await fetch(
+    `${URL}/api/tests`)
+
+  const tests = await testsResp.json()
   const [{ user }, users] = await Promise.all([userRes.json(), usersRes.json()])
 
   if (
@@ -206,7 +216,10 @@ export async function getServerSideProps(context) {
   return {
     props: {
       user: user,
-      users: users
+      users: users,
+      tests: tests,
+
+
     }
   }
 }
