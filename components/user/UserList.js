@@ -89,11 +89,13 @@ export default function UserList({ users, userSession }) {
         <Button colorScheme="gray" onClick={() => goToUserProfile(user.id)}>
           <Icon as={FiUser} fontSize="20" />
         </Button>
-        <TestsModal user={user} />
+
+        <TestsModal id={user.id} />
         <Button bg="red.400" onClick={() => removeUser(user.id)}>
           <AiFillDelete />
         </Button>
       </ButtonGroup>
+
     )
   }))
 

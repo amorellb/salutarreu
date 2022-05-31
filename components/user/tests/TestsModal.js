@@ -28,7 +28,7 @@ export default function TestsModal(props) {
           <ModalCloseButton />
           <ModalBody pb={6}>
             {' '}
-            <FormTests id={props.user.id} />{' '}
+            <FormTests id={props.id} />{' '}
           </ModalBody>
         </ModalContent>
       </Modal>

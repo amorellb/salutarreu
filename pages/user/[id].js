@@ -24,13 +24,13 @@ import SimpleSidebar, { SidebarContent } from '../../components/user/Sidebar'
 import UserList from '../../components/user/UserList'
 import UserCalendar from '../../components/user/UserCalendar'
 import UserInfo from '../../components/user/UserInfo'
-import UserTests from '../../components/user/UserTests'
+import UserProgress from '../../components/user/UserProgress'
 import TestsForm from '../../components/user/tests/TestsForm'
 import { URL } from '../../constants/URL'
 import UserCreateForm from '../../components/user/UserCreateForm'
 import { useRouter } from 'next/router'
 
-export default function UserPage({ user, users }) {
+export default function UserPage({ user, users, testsUser }) {
   const { data: session } = useSession()
   const toast = useToast()
   const router = useRouter()
@@ -54,12 +54,17 @@ export default function UserPage({ user, users }) {
     {
       name: 'Mi progreso',
       icon: FaRunning,
-      view: <UserTests />
+      view: <UserProgress tests={testsUser}/>
     },
     {
       name: 'Crear test',
       icon: AiOutlinePlus,
-      view: <TestsForm user={user} />
+
+      viewForTrainer: true,
+      view: <TestsForm id={user.id} />,
+
+
+
     },
     {
       name: 'Crear usuario',
@@ -189,12 +194,21 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
 export async function getServerSideProps(context) {
   const session = await getSession(context)
   const { id } = context.query
-  const [userRes, usersRes] = await Promise.all([
+
+  const [userRes, usersRes, testUserRes, testRes] = await Promise.all([
     fetch(`${URL}/api/user/${id}`),
-    fetch(`${URL}/api/user`)
+    fetch(`${URL}/api/user`),
+    fetch(`${URL}/api/tests/user/${id}`),
+    fetch(`${URL}/api/tests`)
   ])
 
-  const [{ user }, users] = await Promise.all([userRes.json(), usersRes.json()])
+
+
+  
+  
+  const [{ user }, users,  tests,  testsUser] = await Promise.all([userRes.json(), usersRes.json(), testRes.json(), testUserRes.json() ])
+
+  console.log(testsUser)
 
   if (
     !user ||
@@ -208,7 +222,9 @@ export async function getServerSideProps(context) {
   return {
     props: {
       user: user,
-      users: users
+      users: users,
+      tests: tests,
+      testsUser: testsUser
     }
   }
 }
