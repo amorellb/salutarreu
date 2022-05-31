@@ -29,6 +29,7 @@ import TestsForm from '../../components/user/tests/TestsForm'
 import { URL } from '../../constants/URL'
 import UserCreateForm from '../../components/user/UserCreateForm'
 import { useRouter } from 'next/router'
+import UserTestsList from '../../components/user/UserTestsList'
 
 export default function UserPage({ user, users, testsUser }) {
   const { data: session } = useSession()
@@ -52,19 +53,20 @@ export default function UserPage({ user, users, testsUser }) {
       view: <UserCalendar />
     },
     {
-      name: 'Mi progreso',
+      name: 'Mis tests',
       icon: FaRunning,
+      view: <UserTestsList tests={tests} userSession={session?.user} />
+    },
+    {
+      name: 'Mi progreso',
+      icon: FaRunning, /* cambiar por icono de graficos, no se porque a mi no me dejaba porner el GoGraph */
       view: <UserProgress tests={testsUser}/>
     },
     {
       name: 'Crear test',
       icon: AiOutlinePlus,
-
       viewForTrainer: true,
       view: <TestsForm id={user.id} />,
-
-
-
     },
     {
       name: 'Crear usuario',
@@ -202,13 +204,7 @@ export async function getServerSideProps(context) {
     fetch(`${URL}/api/tests`)
   ])
 
-
-
-  
-  
   const [{ user }, users,  tests,  testsUser] = await Promise.all([userRes.json(), usersRes.json(), testRes.json(), testUserRes.json() ])
-
-  console.log(testsUser)
 
   if (
     !user ||
