@@ -2,6 +2,8 @@ import { VictoryChart, VictoryLine, VictoryScatter } from 'victory'
 import styled from '@emotion/styled'
 import React from 'react'
 import { Container } from '@chakra-ui/react'
+import Moment from 'moment';
+
 
 export default function UserTests(props) {
   const StyledPoint = styled.circle`
@@ -9,7 +11,7 @@ export default function UserTests(props) {
   `
 
   const colors = ['#FF8C94', '#FFAAA6', '#FFD3B5', '#DCEDC2', '#A8E6CE']
-  // console.log(props.tests)
+
   const ScatterPoint = ({ x, y, datum, min, max }) => {
     const i = React.useMemo(() => {
       return Math.floor(((datum.y - min) / (max - min)) * (colors.length - 1))
@@ -18,29 +20,53 @@ export default function UserTests(props) {
     return <StyledPoint color={colors[i]} cx={x} cy={y} r={6} />
   }
 
-  const data = [
-    { x: 'Jan', y: 60 },
-    { x: 'Feb', y: 60 },
-    { x: 'Mar', y: 47 },
-    { x: 'Apr', y: 51 },
-    { x: 'May', y: 57 },
-    { x: 'Jun', y: 62 }
-  ]
+
+
+  const testsFuerza = []
+  const testsVelocidad = []
+  const testsResistencia = []
+
+  props.tests.map(({ date, result, type }) => {
+    if (type === 'STREGTH') {
+      testsFuerza.push({ x:   Moment(date).format('MMM'), y: result })
+    } else if (type === 'RESISTANCE') {
+      testsResistencia.push({ x:   Moment(date).format('MMM'), y: result })
+    } else {
+      testsVelocidad.push({ x:  Moment(date).format('MMM') , y: result })
+    }
+  })
+
 
   
 
-  const temperatures = data.map(({ y }) => y)
-  const min = Math.min(...temperatures)
-  const max = Math.max(...temperatures)
+ 
+  const min = 0
+  const max = 10
 
   return (
     <>
-      <Container maxW="xl">
+      <Container maxW="5xl">
         {' '}
         <VictoryChart>
-          <VictoryLine data={data} />
+          <VictoryLine data={testsFuerza} />
           <VictoryScatter
-            data={data}
+            data={testsFuerza}
+            dataComponent={<ScatterPoint min={min} max={max} />}
+          />
+        </VictoryChart>
+        {' '}
+        <VictoryChart>
+          <VictoryLine data={testsVelocidad} />
+          <VictoryScatter
+            data={testsVelocidad}
+            dataComponent={<ScatterPoint min={min} max={max} />}
+          />
+        </VictoryChart>
+        {' '}
+        <VictoryChart>
+          <VictoryLine data={testsResistencia} />
+          <VictoryScatter
+            data={testsResistencia}
             dataComponent={<ScatterPoint min={min} max={max} />}
           />
         </VictoryChart>

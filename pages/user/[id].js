@@ -159,22 +159,21 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
 export async function getServerSideProps(context) {
   const session = await getSession(context)
   const { id } = context.query
-  const [userRes, usersRes] = await Promise.all([
-    fetch(`${URL}/api/user/${id}`),
-    fetch(`${URL}/api/user`)
-  ])
 
-  const [testUserRes, testRes] = await Promise.all([
+  const [userRes, usersRes, testUserRes, testRes] = await Promise.all([
+    fetch(`${URL}/api/user/${id}`),
+    fetch(`${URL}/api/user`),
     fetch(`${URL}/api/tests/user/${id}`),
     fetch(`${URL}/api/tests`)
   ])
 
 
-  
-  const [{ tests }, testsUser] = await Promise.all([testRes.json(), testUserRes.json()])
-  const [{ user }, users] = await Promise.all([userRes.json(), usersRes.json()])
 
   
+  
+  const [{ user }, users,  tests,  testsUser] = await Promise.all([userRes.json(), usersRes.json(), testRes.json(), testUserRes.json() ])
+
+  console.log(testsUser)
 
   if (
     !user ||
