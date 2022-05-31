@@ -38,7 +38,6 @@ export default function UserTests(props) {
 
   return (
     <>
-
       <VictoryChart
         containerComponent={<VictoryContainer responsive={false} />}
         theme={VictoryTheme.material}
