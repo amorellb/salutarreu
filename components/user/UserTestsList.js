@@ -14,9 +14,7 @@ import { useRouter } from 'next/router';
 import { AiFillDelete } from 'react-icons/ai';
 import Moment from 'moment';
 
-export default function UserTestsList({ userSession, tests }) {
-  console.log(userSession);
-  console.log(tests);
+export default function UserTestsList({ tests, userSession }) {
   const [page, setPage] = React.useState(1)
   const router = useRouter()
   const toast = useToast()
@@ -46,54 +44,62 @@ export default function UserTestsList({ userSession, tests }) {
   }
 
   const tableData = tests
-    .filter(test => test.userId === userSession.id)
     .map(test => ({
       name: (
-        <Flex align="center">
+        <Flex align="center" key={test.id} >
           <Text fontSize={'small'}>{test.name.toUpperCase()}</Text>
         </Flex>
       ),
       type: (
-        <Flex>
+        <Flex key={test.id}>
           <Text fontSize={'small'}>{test.type.toUpperCase()}</Text>
         </Flex>
       ),
       date: (
-        <Flex>
+        <Flex key={test.id}>
           <Text>{Moment(test.date).format('DD-MM-YYYY')}</Text>
         </Flex>
       ),
       result: (
-        <Flex>
+        <Flex key={test.id}>
           <Text>{test.result}</Text>
         </Flex>
       ),
       button: (
-        <Button bg="red.400" onClick={() => removeTest(test.id)}>
-          <AiFillDelete />
-        </Button>
+        <Box>
+          {userSession?.role === 'TRAINER' ? (
+            <Button key={test.id} bg="red.400" onClick={() => removeTest(test.id)}>
+              <AiFillDelete />
+            </Button>
+          ) : (null)}
+
+        </Box>
       )
     }))
 
   const tableDataSmall = tests
-    .filter(test => test.userId === userSession.id)
     .map(test => ({
       data: (
-        <Box align="center" p={0}>
+        <Box textalign="center" p={0} key={test.id}>
           <Text fontSize={'small'}>{test.name.toUpperCase()}</Text>
           <Text fontSize={'small'}>{test.type.toUpperCase()}</Text>
           <Text fontSize={'small'}>{Moment(test.date).format('DD-MM-YYYY')}</Text>
         </Box>
       ),
       result: (
-        <Box align="center" p={0}>
+        <Box align="center" p={0} key={test.id}>
           <Text fontSize={'small'}>{test.result}</Text>
         </Box>
       ),
+
       button: (
-        <Button bg="red.400" size={'sm'} onClick={() => removeTest(test.id)}>
-          <AiFillDelete />
-        </Button>
+        <Box>
+          {userSession?.role === 'TRAINER' ? (
+            <Button key={test.id} bg="red.400" size={'sm'} onClick={() => removeTest(test.id)}>
+              <AiFillDelete />
+            </Button>
+          ) : (null)}
+        </Box>
       )
     }))
 
