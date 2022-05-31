@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   Box,
   IconButton,
@@ -6,12 +6,11 @@ import {
   Stack,
   Heading,
   Text,
-  Container
-} from '@chakra-ui/react'
-import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi'
-import Slider from 'react-slick'
+  Container,
+} from '@chakra-ui/react';
+import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
+import Slider from 'react-slick';
 
-// Settings for the slider
 const settings = {
   dots: true,
   arrows: false,
@@ -21,33 +20,33 @@ const settings = {
   speed: 500,
   autoplaySpeed: 5000,
   slidesToShow: 1,
-  slidesToScroll: 1
-}
+  slidesToScroll: 1,
+};
 
 export default function CaptionCarousel() {
-  const [slider, setSlider] = React.useState('')
-
-  const top = useBreakpointValue({ base: '85%', md: '50%', xl: '80%' })
-  const side = useBreakpointValue({ base: '20%', md: '40px', xl: '20%' })
+  /* const [isLessThan768px] = useMediaQuery('(min-width: 768px)') */
+  const [slider, setSlider] = React.useState(null);
+  const top = useBreakpointValue({ base: '90%', md: '50%' });
+  const side = useBreakpointValue({ base: '30%', md: '40px' });
 
   const cards = [
     {
       title: 'Entrenamiento de fuerza',
       text: 'Los ejercicios de fuerza mejoran la densidad ósea, disminuyendo así el posible riesgo de osteoporosis o fracturas y protegiendo a la vez nuestras articulaciones. Además, logramos prevenir lesiones, ya que músculos, tendones y ligamentos tienen menos riesgo de dañarse, pudiendo resistir trabajos con mayor intensidad.',
       image:
-        'https://github.com/amorellb/salutarreu/blob/main/public/images/landing/10.png?raw=true'
+        'https://github.com/amorellb/salutarreu/blob/main/public/images/landing/18.jpg?raw=true'
     },
     {
       title: 'Entrenamiento funcional',
       text: 'Este tipo de entrenamiento se basa en la realización de ejercicios que tienen como fin mejorar nuestro bienestar general de manera que se mejore nuestra capacidad para realizar cualquier tarea que implique movimiento de manera mucho más efectiva, menos dolorosa, con mayor resistencia y más flexibilidad, entre otras.',
       image:
-        'https://github.com/amorellb/salutarreu/blob/main/public/images/landing/11.png?raw=true'
+        'https://github.com/amorellb/salutarreu/blob/main/public/images/landing/10.png?raw=true'
     },
     {
       title: 'Entrenamiento cardiovascular',
       text: 'Los ejercicios de entrenamiento cardio, son los que aumentan nuestro ritmo cardíaco, incrementan nuestra capacidad de resistencia, y mejoran nuestra condición física. Ayuda a controlar la presión arterial y fortalece el sistema inmunológico. Baja la presión arterial y la frecuencia cardiaca en reposo. ',
       image:
-        'https://github.com/amorellb/salutarreu/blob/main/public/images/landing/13.png?raw=true'
+        'https://raw.githubusercontent.com/amorellb/salutarreu/main/public/images/landing/27.jpg'
     }
   ]
 
@@ -55,11 +54,10 @@ export default function CaptionCarousel() {
     <Box
       as="section"
       position={'relative'}
-      height={{ base: '700px', lg: '600px' }}
-      width={'100%'}
+      height={{ base: '600px', lg: '800px' }}
+      width={'full'}
       overflow={'hidden'}
-      px="1rem"
-    >
+      mb={{ base: '2rem', md: '8rem' }}>
       <link
         rel="stylesheet"
         type="text/css"
@@ -80,9 +78,8 @@ export default function CaptionCarousel() {
         transform={'translate(0%, -50%)'}
         zIndex={2}
         onClick={() => slider?.slickPrev()}
-        color={'brand.300'}
-        backgroundColor={'brand.600'}
-      >
+        color={'brand.600'}
+        backgroundColor={'brand.600'}>
         <BiLeftArrowAlt size="40px" />
       </IconButton>
       <IconButton
@@ -94,77 +91,47 @@ export default function CaptionCarousel() {
         transform={'translate(0%, -50%)'}
         zIndex={2}
         onClick={() => slider?.slickNext()}
-        color={'brand.300'}
-        backgroundColor={'brand.600'}
-      >
+        color={'brand.600'}
+        backgroundColor={'brand.600'}>
         <BiRightArrowAlt size="40px" />
       </IconButton>
-      <Slider {...settings} ref={slider => setSlider(slider)}>
+
+      <Slider {...settings} ref={(slider) => setSlider(slider)}>
         {cards.map((card, index) => (
           <Box
             key={index}
-            height={{ base: 'xl', xl: 'md' }}
+            height={{ base: '4xl', xs: 'xl', sm: 'xl', md: 'xl', lg: 'xl' }}
             position="relative"
-            backgroundPosition={{ base: 'right', md: 'left' }}
+            backgroundPosition="bottom"
             backgroundRepeat="no-repeat"
-            backgroundSize={{
-              base: 'contain',
-              sm: 'cover',
-              md: 'cover',
-              lg: 'contain'
-            }}
-            backgroundImage={`url(${card.image})`}
-          >
-            <Container size="container.xl" height="600px" position="relative">
+            backgroundSize="cover"
+            backgroundImage={`url(${card.image})`}>
+            <Container
+              height={{ base: "600px", md: '800px' }}>
               <Stack
-                spacing={5}
-                w={'800px'}
-                maxWidth={'100%'}
+                w={'100%'}
                 position="absolute"
-                top={{ base: '70%', md: '50%', lg: '60%' }}
-                transform={{
-                  base: 'translate(0, -70%)',
-                  md: 'translate(5%, 20%)',
-                  lg: 'translate(-10%, -10%)',
-                  xl: 'translate(25%, -80%)'
-                }}
-              >
+                top={{ base: "40%", md: '25%', lg: "33%" }}
+                left="0%"
+                style={{ backgroundColor: 'rgb( 34, 20, 43,0.4)' }}
+                px={{ base: '2%', md: '20%' }}
+                textAlign={{ base: 'center', md: 'right' }}>
                 <Heading
                   as={'h2'}
                   lineHeight={1.1}
-                  fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '6xl' }}
-                >
-                  <Text
-                    as={'span'}
-                    position={'relative'}
-                    _after={{
-                      content: "''",
-                      width: 'full',
-                      height: '30%',
-                      position: 'absolute',
-                      bottom: 1,
-                      left: 0,
-                      bg: 'brand.400',
-                      zIndex: -1
-                    }}
-                  >
-                    {card.title}
-                  </Text>
+                  fontSize={{ base: '2xl', lg: '5xl' }}
+                  color={'whiteAlpha.700'}
+                  letterSpacing={'1px'}
+                  pt={4}>
+                  {card.title}
                 </Heading>
                 <Text
-                  width={{
-                    base: '250px',
-                    sm: '400px',
-                    md: '480px',
-                    lg: '650px',
-                    xl: '750px'
-                  }}
-                  fontSize={{ base: 'xs', sm: 'sm', md: 'md', lg: 'lg' }}
-                  color="brand.700"
-                  borderRadius={'10px'}
-                  backgroundColor={'whiteAlpha.600'}
+                  fontSize={{ base: 'xs', lg: 'xl', xl: '2xl' }}
+                  color="brand.300"
                   textAlign={'justify'}
-                >
+                  px={'5px'}
+                  pb={4}
+                  letterSpacing={'1px'}>
                   {card.text}
                 </Text>
               </Stack>
@@ -173,5 +140,5 @@ export default function CaptionCarousel() {
         ))}
       </Slider>
     </Box>
-  )
+  );
 }

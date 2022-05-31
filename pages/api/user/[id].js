@@ -1,4 +1,4 @@
-import { getUserById, updateUserData } from '../../../prisma/user'
+import { getUserById, updateUserData, deleteUser } from '../../../prisma/user'
 
 export default async function handler(req, res) {
   try {
@@ -13,6 +13,13 @@ export default async function handler(req, res) {
       case 'PUT': {
         const userData = await updateUserData(req.query.id, req.body)
         return res.json(userData)
+      }
+      case 'DELETE': {
+        const { id } = req.query
+        const user = await deleteUser(id)
+        return user
+          ? res.json({ user: user })
+          : res.status(201).json({ user: null })
       }
       default:
         break

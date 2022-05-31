@@ -8,50 +8,73 @@ import {
   Icon,
   Button,
   Heading,
-  useMediaQuery
+  useMediaQuery,
+  ButtonGroup,
+  useToast
 } from '@chakra-ui/react'
 import { FiUser } from 'react-icons/fi'
-
-import Router from 'next/router'
+import { AiFillDelete } from 'react-icons/ai'
+import Router, { useRouter } from 'next/router'
 
 import TestsModal from './tests/TestsModal'
 
-export default function UserList({ users }) {
+export default function UserList({ users, userSession }) {
   const [page, setPage] = React.useState(1)
   const [isLessThan900px] = useMediaQuery('(min-width: 900px)')
-
+  const toast = useToast()
+  const router = useRouter()
   const goToUserProfile = id => {
     Router.push(`/user/${id}`)
   }
+  const removeUser = async id => {
+    const response = await fetch(`/api/user/${id}`, {
+      method: 'DELETE'
+    }).then(res => res.json())
+    if (response.code === 'P2025') {
+      toast({
+        title: 'Error',
+        description: 'Hubo un error, contacta con un administrador',
+        status: 'error',
+        duration: 4000,
+        isClosable: true
+      })
+      return
+    }
+    router.replace(router.asPath)
+    toast({
+      title: 'Usuario eliminado',
+      status: 'success',
+      duration: 4000,
+      isClosable: true
+    })
+  }
 
-  const tableData = users.map(user => ({
-    name: (
-      <Flex align="center">
-        <Avatar name={user.name} src={user.avatar} size="md" mr="4" />
-        <Text fontSize={'small'}>{user.name.toUpperCase()}</Text>
-      </Flex>
-    ),
-    email: (
-      <Flex>
-        <Text>{user.email}</Text>
-      </Flex>
-    ),
-    perfilButton: (
-      <Flex>
-        <Box>
-          <Button
-            colorScheme="gray"
-            onClick={() => goToUserProfile(user.id)}
-            size="sm"
-            marginRight={2}
-          >
+  const tableData = users
+    .filter(user => user.id !== userSession.id)
+    .map(user => ({
+      name: (
+        <Flex align="center">
+          <Avatar name={user.name} src={user.avatar} size="md" mr="4" />
+          <Text fontSize={'small'}>{user.name.toUpperCase()}</Text>
+        </Flex>
+      ),
+      email: (
+        <Flex>
+          <Text>{user.email}</Text>
+        </Flex>
+      ),
+      perfilButton: (
+        <ButtonGroup size="sm">
+          <Button colorScheme="gray" onClick={() => goToUserProfile(user.id)}>
             <Icon as={FiUser} fontSize="20" />
           </Button>
           <TestsModal user={user} />
-        </Box>
-      </Flex>
-    )
-  }))
+          <Button bg="red.400" onClick={() => removeUser(user.id)}>
+            <AiFillDelete />
+          </Button>
+        </ButtonGroup>
+      )
+    }))
 
   const tableDataSmall = users.map(user => ({
     name: (
@@ -62,17 +85,17 @@ export default function UserList({ users }) {
       </Box>
     ),
     perfilButton: (
-      <Box>
-        <Button
-          colorScheme="gray"
-          onClick={() => goToUserProfile(user.id)}
-          size="sm"
-          marginRight={2}
-        >
+      <ButtonGroup size="sm">
+        <Button colorScheme="gray" onClick={() => goToUserProfile(user.id)}>
           <Icon as={FiUser} fontSize="20" />
         </Button>
+
         <TestsModal id={user.id} />
-      </Box>
+        <Button bg="red.400" onClick={() => removeUser(user.id)}>
+          <AiFillDelete />
+        </Button>
+      </ButtonGroup>
+
     )
   }))
 
