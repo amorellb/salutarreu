@@ -12,7 +12,8 @@ import {
   Text,
   useColorModeValue,
   useDisclosure,
-  useMediaQuery
+  useMediaQuery,
+  useToast
 } from '@chakra-ui/react'
 
 import { FiDatabase, FiCalendar, FiUsers } from 'react-icons/fi'
@@ -27,16 +28,18 @@ import UserProgress from '../../components/user/UserProgress'
 import TestsForm from '../../components/user/tests/TestsForm'
 import { URL } from '../../constants/URL'
 import UserCreateForm from '../../components/user/UserCreateForm'
-
+import { useRouter } from 'next/router'
 
 export default function UserPage({ user, users, testsUser }) {
   const { data: session } = useSession()
+  const toast = useToast()
+  const router = useRouter()
   const linkItems = [
     {
       name: 'Usuarios',
       icon: FiUsers,
       viewForTrainer: true,
-      view: <UserList users={users} />
+      view: <UserList users={users} userSession={session?.user} />
     },
     {
       name: 'Datos personales',
@@ -56,8 +59,11 @@ export default function UserPage({ user, users, testsUser }) {
     {
       name: 'Crear test',
       icon: AiOutlinePlus,
+
       viewForTrainer: true,
       view: <TestsForm id={user.id} />,
+
+
 
     },
     {
@@ -65,9 +71,31 @@ export default function UserPage({ user, users, testsUser }) {
       icon: AiOutlinePlus,
       view: <UserCreateForm />,
       viewForTrainer: true
-
     }
   ]
+  const removeUser = async id => {
+    const response = await fetch(`/api/user/${id}`, {
+      method: 'DELETE'
+    }).then(res => res.json())
+
+    if (response.code === 'P2025') {
+      toast({
+        title: 'Error',
+        description: 'Hubo un error, contacta con un administrador',
+        status: 'error',
+        duration: 4000,
+        isClosable: true
+      })
+      return
+    }
+    toast({
+      title: 'Usuario eliminado',
+      status: 'success',
+      duration: 4000,
+      isClosable: true
+    })
+    router.push(`/user/${session?.user?.id}`)
+  }
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [isLessThan768px] = useMediaQuery('(min-width: 768px)')
   return (
@@ -80,12 +108,19 @@ export default function UserPage({ user, users, testsUser }) {
       >
         <TabList marginTop={'100px'}>
           {isLessThan768px ? (
-            <SidebarContent linkItems={linkItems} user={user}></SidebarContent>
+            <SidebarContent
+              linkItems={linkItems}
+              user={user}
+              removeUser={removeUser}
+              userSession={session?.user}
+            ></SidebarContent>
           ) : (
             <SimpleSidebar
               isOpen={isOpen}
               onClose={onClose}
               linkItems={linkItems}
+              removeUser={removeUser}
+              userSession={session?.user}
               user={user}
             />
           )}

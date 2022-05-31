@@ -30,6 +30,5 @@ export default async function handler(req, res) {
       zipCode: Number(req.body.zipCode)
     }
   })
-  console.log(nuevousuario)
   res.status(200).json({ user: nuevousuario })
 }

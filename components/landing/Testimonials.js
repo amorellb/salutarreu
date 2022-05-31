@@ -93,7 +93,7 @@ const TestimonialAvatar = props => {
 
 export default function WithSpeechBubbles() {
   return (
-    <Box as="section" px="1rem">
+    <Box as="section" px="1rem" mb={{ base: '2rem', md: '8rem' }}>
       <Container maxW={'7xl'} py={16} as={Stack} spacing={12}>
         <Stack spacing={0} align={'start'}>
           <Heading
@@ -104,7 +104,7 @@ export default function WithSpeechBubbles() {
           >
             Testimonios
           </Heading>
-          <Text color={'brand.600'}>
+          <Text color={'brand.600'} fontSize={{ base: 'md', md: '2xl' }}>
             Nuestros clientes te cuentan su experiencia
           </Text>
         </Stack>

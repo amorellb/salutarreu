@@ -49,7 +49,7 @@ function AvatarMenu(props) {
           <br />
           <MenuDivider />
           <MenuItem onClick={enterUserPage}>Account Settings</MenuItem>
-          <MenuItem onClick={() => signOut()}>Logout</MenuItem>
+          <MenuItem onClick={() => signOut({ callbackUrl: `${window.location.origin}` })}>Logout</MenuItem>
         </MenuList>
       </Menu>
     </>
