@@ -46,6 +46,7 @@ export default function FormTests(props) {
           const birthDateUSFormatted = birthDateArray.join('/')
 
           try {
+            
             const res = await fetch(`/api/tests`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -58,6 +59,7 @@ export default function FormTests(props) {
               })
             })
 
+    
             if (res.status === 200) {
               setSuccessCreateTest('El test se a creado correctamente')
             } else {

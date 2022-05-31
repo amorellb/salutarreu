@@ -15,6 +15,16 @@ export const getTest = async id => {
   })
 }
 
+export const getTestByUser = async userId => {
+  const id = ObjectId(userId);
+  if (!ObjectId.isValid(id)) {
+    return null
+  }
+  return await prisma.test.findMany({
+    where: { userId: id }
+  })
+}
+
 // CREATE
 export const createTest = async ({ userId, date, name, result, type }) => {
   if (!ObjectId.isValid(userId)) {

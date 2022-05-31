@@ -24,14 +24,14 @@ import SimpleSidebar, { SidebarContent } from '../../components/user/Sidebar'
 import UserList from '../../components/user/UserList'
 import UserCalendar from '../../components/user/UserCalendar'
 import UserInfo from '../../components/user/UserInfo'
-import UserTests from '../../components/user/UserTests'
+import UserProgress from '../../components/user/UserProgress'
 import TestsForm from '../../components/user/tests/TestsForm'
 import { URL } from '../../constants/URL'
 import UserCreateForm from '../../components/user/UserCreateForm'
 import { useRouter } from 'next/router'
 import UserTestsList from '../../components/user/UserTestsList'
 
-export default function UserPage({ user, users, tests }) {
+export default function UserPage({ user, users, testsUser }) {
   const { data: session } = useSession()
   const toast = useToast()
   const router = useRouter()
@@ -60,12 +60,13 @@ export default function UserPage({ user, users, tests }) {
     {
       name: 'Mi progreso',
       icon: FaRunning, /* cambiar por icono de graficos, no se porque a mi no me dejaba porner el GoGraph */
-      view: <UserTests />
+      view: <UserProgress tests={testsUser}/>
     },
     {
       name: 'Crear test',
       icon: AiOutlinePlus,
-      view: <TestsForm user={user} />
+      viewForTrainer: true,
+      view: <TestsForm id={user.id} />,
     },
     {
       name: 'Crear usuario',
@@ -113,6 +114,7 @@ export default function UserPage({ user, users, tests }) {
               linkItems={linkItems}
               user={user}
               removeUser={removeUser}
+              userSession={session?.user}
             ></SidebarContent>
           ) : (
             <SimpleSidebar
@@ -120,6 +122,7 @@ export default function UserPage({ user, users, tests }) {
               onClose={onClose}
               linkItems={linkItems}
               removeUser={removeUser}
+              userSession={session?.user}
               user={user}
             />
           )}
@@ -193,16 +196,15 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
 export async function getServerSideProps(context) {
   const session = await getSession(context)
   const { id } = context.query
-  const [userRes, usersRes] = await Promise.all([
+
+  const [userRes, usersRes, testUserRes, testRes] = await Promise.all([
     fetch(`${URL}/api/user/${id}`),
-    fetch(`${URL}/api/user`)
+    fetch(`${URL}/api/user`),
+    fetch(`${URL}/api/tests/user/${id}`),
+    fetch(`${URL}/api/tests`)
   ])
 
-  const testsResp = await fetch(
-    `${URL}/api/tests`)
-
-  const tests = await testsResp.json()
-  const [{ user }, users] = await Promise.all([userRes.json(), usersRes.json()])
+  const [{ user }, users,  tests,  testsUser] = await Promise.all([userRes.json(), usersRes.json(), testRes.json(), testUserRes.json() ])
 
   if (
     !user ||
@@ -218,8 +220,7 @@ export async function getServerSideProps(context) {
       user: user,
       users: users,
       tests: tests,
-
-
+      testsUser: testsUser
     }
   }
 }
