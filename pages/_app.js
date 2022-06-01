@@ -8,6 +8,8 @@ import Header from '../components/Header'
 import Fonts from '../components/Fonts'
 import { useEffect } from 'react'
 import { CookiesModal } from '../components/CookiesModal'
+import ScrollToTop from '../components/ScrollToTop'
+import '../styles/globals.css'
 
 export default function SalutArreuApp({
   Component,
@@ -30,6 +32,7 @@ export default function SalutArreuApp({
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Header />
+        <ScrollToTop />
         <Component {...pageProps} />
         <Footer />
         <CookiesModal isOpen={isOpen} onClose={onClose} />
