@@ -183,8 +183,8 @@ const brandValues = [
   }
 ]
 
-export async function getStaticProps() {
-  const { user } = await fetch(`${URL}/api/user/62814f7a1d49cce9c8952016`).then(
+export async function getServerSideProps() {
+  const { user } = await fetch(`${URL}/api/user/62974b3ee81767927aa3f7f8`).then(
     res => res.json()
   )
 
