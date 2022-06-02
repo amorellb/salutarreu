@@ -73,6 +73,7 @@ export default function UserPage({ user, users, testsUser }) {
       viewForTrainer: true
     }
   ]
+  
   const removeUser = async id => {
     const response = await fetch(`/api/user/${id}`, {
       method: 'DELETE'
@@ -124,7 +125,7 @@ export default function UserPage({ user, users, testsUser }) {
               user={user}
             />
           )}
-        </TabList>
+        </TabList>  
         <MobileNav
           onOpen={onOpen}
           user={user}
@@ -208,7 +209,6 @@ export async function getServerSideProps(context) {
   
   const [{ user }, users,  tests,  testsUser] = await Promise.all([userRes.json(), usersRes.json(), testRes.json(), testUserRes.json() ])
 
-  console.log(testsUser)
 
   if (
     !user ||
