@@ -16,15 +16,12 @@ export const getTest = async id => {
 }
 
 export const getTestByUser = async id => {
-
   if (!ObjectId.isValid(id)) {
     return null
   }
- 
+
   return await prisma.test.findMany({
-    orderBy: [
-      { date: 'asc' },
-    ],
+    orderBy: [{ date: 'asc' }],
     where: { userId: id }
   })
 }
