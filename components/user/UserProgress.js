@@ -35,11 +35,13 @@ export default function UserTests(props) {
 
   props.tests.forEach(({ date, result, type }) => {
     if (type === 'STREGTH') {
+
       testsFuerza.push({ x: moment(date).format('D-M-Y'), y: result })
     } else if (type === 'RESISTANCE') {
       testsResistencia.push({ x: moment(date).format('D-M-Y'), y: result })
     } else {
       testsVelocidad.push({ x: moment(date).format('D-M-Y'), y: result })
+
     }
   })
 
@@ -77,6 +79,7 @@ const GraphicStateMobility = () =>{
 }
   return (
 
+
     <>
     <Box textAlign="center">
 
@@ -97,10 +100,13 @@ const GraphicStateMobility = () =>{
       <VictoryChart theme={VictoryTheme.material} height={500} width={1500}>
         <VictoryAxis tickFormat={y => y} />
 
+
         <VictoryAxis
           dependentAxis
           tickFormat={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
         />
+            
+
         <VictoryLine data={data} />
         <VictoryScatter
           data={data}
@@ -121,6 +127,7 @@ const GraphicStateMobility = () =>{
         </Button>
       </ButtonGroup>
       </Box>
+
     </>
   )
 }

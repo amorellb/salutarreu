@@ -16,7 +16,9 @@ import {
   useToast
 } from '@chakra-ui/react'
 
-import { FiDatabase, FiCalendar, FiUsers } from 'react-icons/fi'
+import { FiUserPlus, FiCalendar, FiUsers } from 'react-icons/fi'
+import { GoGraph } from 'react-icons/go'
+import { BsClipboard } from 'react-icons/bs'
 import { FaRunning, FaArrowRight } from 'react-icons/fa'
 import { AiOutlinePlus } from 'react-icons/ai'
 
@@ -29,8 +31,9 @@ import TestsForm from '../../components/user/tests/TestsForm'
 import { URL } from '../../constants/URL'
 import UserCreateForm from '../../components/user/UserCreateForm'
 import { useRouter } from 'next/router'
+import UserTestsList from '../../components/user/UserTestsList'
 
-export default function UserPage({ user, users, testsUser }) {
+export default function UserPage({ user, users, tests, testsUser }) {
   const { data: session } = useSession()
   const toast = useToast()
   const router = useRouter()
@@ -43,7 +46,7 @@ export default function UserPage({ user, users, testsUser }) {
     },
     {
       name: 'Datos personales',
-      icon: FiDatabase,
+      icon: BsClipboard,
       view: <UserInfo user={user} />
     },
     {
@@ -52,23 +55,24 @@ export default function UserPage({ user, users, testsUser }) {
       view: <UserCalendar />
     },
     {
-      name: 'Mi progreso',
+      name: 'Mis tests',
       icon: FaRunning,
-      view: <UserProgress tests={testsUser}/>
+      view: <UserTestsList tests={testsUser} userSession={session?.user} />
+    },
+    {
+      name: 'Mi progreso',
+      icon: GoGraph,
+      view: <UserProgress tests={testsUser} />
     },
     {
       name: 'Crear test',
       icon: AiOutlinePlus,
-
       viewForTrainer: true,
       view: <TestsForm id={user.id} />,
-
-
-
     },
     {
       name: 'Crear usuario',
-      icon: AiOutlinePlus,
+      icon: FiUserPlus,
       view: <UserCreateForm />,
       viewForTrainer: true
     }
@@ -202,10 +206,6 @@ export async function getServerSideProps(context) {
     fetch(`${URL}/api/tests/user/${id}`),
     fetch(`${URL}/api/tests`)
   ])
-
-
-
-  
   
   const [{ user }, users,  tests,  testsUser] = await Promise.all([userRes.json(), usersRes.json(), testRes.json(), testUserRes.json() ])
 
@@ -224,7 +224,7 @@ export async function getServerSideProps(context) {
       user: user,
       users: users,
       tests: tests,
-      testsUser: testsUser
+      testsUser: testsUser,
     }
   }
 }

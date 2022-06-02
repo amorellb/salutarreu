@@ -1,4 +1,4 @@
-import { getTestByUser} from '../../../../prisma/tests'
+import { getTestByUser } from '../../../../prisma/tests'
 export default async function handler(req, res) {
   try {
     switch (req.method) {
@@ -8,7 +8,6 @@ export default async function handler(req, res) {
         
         
       }
-     
     }
   } catch (error) {
     return res.status(400).json(null)

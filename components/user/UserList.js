@@ -53,18 +53,18 @@ export default function UserList({ users, userSession }) {
     .filter(user => user.id !== userSession.id)
     .map(user => ({
       name: (
-        <Flex align="center">
+        <Flex align="center" key={user.id}>
           <Avatar name={user.name} src={user.avatar} size="md" mr="4" />
           <Text fontSize={'small'}>{user.name.toUpperCase()}</Text>
         </Flex>
       ),
       email: (
-        <Flex>
+        <Flex key={user.id}>
           <Text>{user.email}</Text>
         </Flex>
       ),
       perfilButton: (
-        <ButtonGroup size="sm">
+        <ButtonGroup size="sm" key={user.id}>
           <Button colorScheme="gray" onClick={() => goToUserProfile(user.id)}>
             <Icon as={FiUser} fontSize="20" />
           </Button>
@@ -76,28 +76,26 @@ export default function UserList({ users, userSession }) {
       )
     }))
 
-  const tableDataSmall = users.map(user => ({
-    name: (
-      <Box align="center" p={0}>
-        <Avatar name={user.name} src={user.avatar} size="md" mb={2} />
-        <Text fontSize={'small'}>{user.name.toUpperCase()}</Text>
-        <Text fontSize={'small'}>{user.email}</Text>
-      </Box>
-    ),
-    perfilButton: (
-      <ButtonGroup size="sm">
-        <Button colorScheme="gray" onClick={() => goToUserProfile(user.id)}>
-          <Icon as={FiUser} fontSize="20" />
-        </Button>
-
-        <TestsModal id={user.id} />
-        <Button bg="red.400" onClick={() => removeUser(user.id)}>
-          <AiFillDelete />
-        </Button>
-      </ButtonGroup>
-
-    )
-  }))
+  const tableDataSmall = users
+    .filter(user => user.id !== userSession.id)
+    .map(user => ({
+      name: (
+        <Box align="center" p={0} key={user.id}>
+          <Avatar name={user.name} src={user.avatar} size="md" mb={3} />
+          <Text fontSize={'small'}>{user.name.toUpperCase()}</Text>
+          <Text fontSize={'small'} mb={3}>{user.email}</Text>
+          <ButtonGroup mb={1}>
+            <Button size={'sm'} onClick={() => goToUserProfile(user.id)}>
+              <Icon as={FiUser} />
+            </Button>
+            <TestsModal user={user} />
+            <Button bg="red.400" size={'sm'} onClick={() => removeUser(user.id)}>
+              <AiFillDelete />
+            </Button>
+          </ButtonGroup>
+        </Box>
+      )
+    }))
 
   const tableColumns = [
     {
@@ -118,10 +116,6 @@ export default function UserList({ users, userSession }) {
     {
       Header: '',
       accessor: 'name'
-    },
-    {
-      Header: '',
-      accessor: 'perfilButton'
     }
   ]
 

@@ -221,6 +221,7 @@ export default function UserInfo(props) {
       </Formik>
 
       <Formik
+        enableReinitialize
         initialValues={{
           dni: user.DNI ? user.DNI : '',
           phone: user.phone ? user.phone : '',
