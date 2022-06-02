@@ -12,7 +12,7 @@ import { AiOutlinePlus } from 'react-icons/ai'
 
 import FormTests from './TestsForm'
 
-export default function TestsModal(props) {
+export default function TestsModal({ user }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -28,7 +28,7 @@ export default function TestsModal(props) {
           <ModalCloseButton />
           <ModalBody pb={6}>
             {' '}
-            <FormTests id={props.id} />{' '}
+            <FormTests id={user.id} />{' '}
           </ModalBody>
         </ModalContent>
       </Modal>
