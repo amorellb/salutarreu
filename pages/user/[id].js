@@ -68,7 +68,7 @@ export default function UserPage({ user, users, tests, testsUser }) {
       name: 'Crear test',
       icon: AiOutlinePlus,
       viewForTrainer: true,
-      view: <TestsForm id={user.id} />,
+      view: <TestsForm id={user.id} />
     },
     {
       name: 'Crear usuario',
@@ -77,32 +77,36 @@ export default function UserPage({ user, users, tests, testsUser }) {
       viewForTrainer: true
     }
   ]
-  
-  const removeUser = async id => {
-    const response = await fetch(`/api/user/${id}`, {
-      method: 'DELETE'
-    }).then(res => res.json())
 
-    if (response.code === 'P2025') {
+  const removeUser = async id => {
+    if (window.confirm('Seguro que quieres borrar el usuario')) {
+      const response = await fetch(`/api/user/${id}`, {
+        method: 'DELETE'
+      }).then(res => res.json())
+
+      if (response.code === 'P2025') {
+        toast({
+          title: 'Error',
+          description: 'Hubo un error, contacta con un administrador',
+          status: 'error',
+          duration: 4000,
+          isClosable: true
+        })
+        return
+      }
       toast({
-        title: 'Error',
-        description: 'Hubo un error, contacta con un administrador',
-        status: 'error',
+        title: 'Usuario eliminado',
+        status: 'success',
         duration: 4000,
         isClosable: true
       })
-      return
+      router.push(`/user/${session?.user?.id}`)
     }
-    toast({
-      title: 'Usuario eliminado',
-      status: 'success',
-      duration: 4000,
-      isClosable: true
-    })
-    router.push(`/user/${session?.user?.id}`)
   }
+
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [isLessThan768px] = useMediaQuery('(min-width: 768px)')
+
   return (
     <Box as="main">
       <Tabs
@@ -129,7 +133,7 @@ export default function UserPage({ user, users, tests, testsUser }) {
               user={user}
             />
           )}
-        </TabList>  
+        </TabList>
         <MobileNav
           onOpen={onOpen}
           user={user}
@@ -206,9 +210,13 @@ export async function getServerSideProps(context) {
     fetch(`${URL}/api/tests/user/${id}`),
     fetch(`${URL}/api/tests`)
   ])
-  
-  const [{ user }, users,  tests,  testsUser] = await Promise.all([userRes.json(), usersRes.json(), testRes.json(), testUserRes.json() ])
 
+  const [{ user }, users, tests, testsUser] = await Promise.all([
+    userRes.json(),
+    usersRes.json(),
+    testRes.json(),
+    testUserRes.json()
+  ])
 
   if (
     !user ||
@@ -224,7 +232,7 @@ export async function getServerSideProps(context) {
       user: user,
       users: users,
       tests: tests,
-      testsUser: testsUser,
+      testsUser: testsUser
     }
   }
 }

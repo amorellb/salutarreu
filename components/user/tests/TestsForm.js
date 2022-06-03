@@ -28,7 +28,6 @@ export default function FormTests(props) {
   return (
     <Container as={SimpleGrid}>
       <Formik
-        enableReinitialize
         initialValues={{
           testName: '',
           result: '',

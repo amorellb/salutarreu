@@ -27,26 +27,28 @@ export default function UserList({ users, userSession }) {
     Router.push(`/user/${id}`)
   }
   const removeUser = async id => {
-    const response = await fetch(`/api/user/${id}`, {
-      method: 'DELETE'
-    }).then(res => res.json())
-    if (response.code === 'P2025') {
+    if (window.confirm('Seguro que quieres borrar el usuario')) {
+      const response = await fetch(`/api/user/${id}`, {
+        method: 'DELETE'
+      }).then(res => res.json())
+      if (response.code === 'P2025') {
+        toast({
+          title: 'Error',
+          description: 'Hubo un error, contacta con un administrador',
+          status: 'error',
+          duration: 4000,
+          isClosable: true
+        })
+        return
+      }
+      router.replace(router.asPath)
       toast({
-        title: 'Error',
-        description: 'Hubo un error, contacta con un administrador',
-        status: 'error',
+        title: 'Usuario eliminado',
+        status: 'success',
         duration: 4000,
         isClosable: true
       })
-      return
     }
-    router.replace(router.asPath)
-    toast({
-      title: 'Usuario eliminado',
-      status: 'success',
-      duration: 4000,
-      isClosable: true
-    })
   }
 
   const tableData = users
@@ -83,13 +85,19 @@ export default function UserList({ users, userSession }) {
         <Box align="center" p={0} key={user.id}>
           <Avatar name={user.name} src={user.avatar} size="md" mb={3} />
           <Text fontSize={'small'}>{user.name.toUpperCase()}</Text>
-          <Text fontSize={'small'} mb={3}>{user.email}</Text>
+          <Text fontSize={'small'} mb={3}>
+            {user.email}
+          </Text>
           <ButtonGroup mb={1}>
             <Button size={'sm'} onClick={() => goToUserProfile(user.id)}>
               <Icon as={FiUser} />
             </Button>
             <TestsModal user={user} />
-            <Button bg="red.400" size={'sm'} onClick={() => removeUser(user.id)}>
+            <Button
+              bg="red.400"
+              size={'sm'}
+              onClick={() => removeUser(user.id)}
+            >
               <AiFillDelete />
             </Button>
           </ButtonGroup>
