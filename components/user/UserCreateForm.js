@@ -47,12 +47,21 @@ export default function UserCreateForm() {
         }}
         validationSchema={validateUserData().concat(validateProfileData())}
         onSubmit={async (values, { resetForm }) => {
+          const birthDateArray = values.birthDate.split('/')
+          const month = birthDateArray[0]
+          birthDateArray[0] = birthDateArray[1]
+          birthDateArray[1] = month
+          const birthDateUSFormatted = birthDateArray.join('/')
+
           const { error, user } = await fetch('/api/signup', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(values)
+            body: JSON.stringify({
+              ...values,
+              birthDate: new Date(birthDateUSFormatted)
+            })
           }).then(res => res.json())
           if (error) {
             toast({
