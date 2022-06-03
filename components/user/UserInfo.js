@@ -256,7 +256,7 @@ export default function UserInfo(props) {
                 phone,
                 address,
                 zipCode,
-                birthDate: new Date(birthDateUSFormatted)
+                birthDate: new Date(birthDateUSFormatted || "")
               })
             }).then(res => res.json())
             if (error) {
