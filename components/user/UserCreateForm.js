@@ -52,7 +52,6 @@ export default function UserCreateForm() {
           birthDateArray[0] = birthDateArray[1]
           birthDateArray[1] = month
           const birthDateUSFormatted = birthDateArray.join('/')
-
           const { error, user } = await fetch('/api/signup', {
             method: 'POST',
             headers: {
@@ -60,7 +59,8 @@ export default function UserCreateForm() {
             },
             body: JSON.stringify({
               ...values,
-              birthDate: new Date(birthDateUSFormatted)
+              birthDate:
+                values.birthDate !== '' ? new Date(birthDateUSFormatted) : ''
             })
           }).then(res => res.json())
           if (error) {
