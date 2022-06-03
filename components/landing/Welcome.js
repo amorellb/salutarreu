@@ -9,12 +9,14 @@ import {
   chakra
 } from '@chakra-ui/react'
 import { isValidMotionProp, motion } from 'framer-motion'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 
 const ArticleList = () => {
   const ChakraBox = chakra(motion.div, {
     shouldForwardProp: prop => isValidMotionProp(prop) || prop === 'children'
   })
+  const { data: session } = useSession()
 
   return (
     <Container
@@ -98,24 +100,46 @@ const ArticleList = () => {
             Contactar
           </Button>
         </Link>
-        <Link
-          href={'/sign-in'}
-          style={{ textDecoration: 'none' }}
-          maxW={{ base: '5xl', lg: 'md' }}
-          passHref
-        >
-          <Button
-            as={'a'}
-            bg={'white'}
-            fontSize={{ base: 'lg', md: 'xl' }}
-            fontWeight={400}
-            variant={'outline'}
-            colorScheme={'brand'}
-            isFullWidth
+
+        {session?.user ? (
+          <Link
+            href={`user/${session?.user?.id}`}
+            style={{ textDecoration: 'none' }}
+            maxW={{ base: '5xl', lg: 'md' }}
+            passHref
           >
-            Iniciar sesión
-          </Button>
-        </Link>
+            <Button
+              as={'a'}
+              bg={'white'}
+              fontSize={{ base: 'lg', md: 'xl' }}
+              fontWeight={400}
+              variant={'outline'}
+              colorScheme={'brand'}
+              isFullWidth
+            >
+              Ir a mi perfil
+            </Button>
+          </Link>
+        ) : (
+          <Link
+            href={'/sign-in'}
+            style={{ textDecoration: 'none' }}
+            maxW={{ base: '5xl', lg: 'md' }}
+            passHref
+          >
+            <Button
+              as={'a'}
+              bg={'white'}
+              fontSize={{ base: 'lg', md: 'xl' }}
+              fontWeight={400}
+              variant={'outline'}
+              colorScheme={'brand'}
+              isFullWidth
+            >
+              Iniciar sesión
+            </Button>
+          </Link>
+        )}
       </Container>
     </Container>
   )
