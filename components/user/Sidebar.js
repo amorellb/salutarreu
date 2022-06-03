@@ -91,7 +91,6 @@ export const SidebarContent = ({
             px="1.5rem"
             bg={'red.400'}
             color={'white'}
-            my="0.25rem"
             onClick={() => {
               removeUser(user.id)
             }}
