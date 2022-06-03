@@ -10,14 +10,14 @@ import {
   useMediaQuery
 } from '@chakra-ui/react'
 import { signOut } from 'next-auth/react'
-import Router from 'next/router'
+import {useRouter} from 'next/router'
 
 function AvatarMenu(props) {
   const { user } = props
   const [isLessThan900px] = useMediaQuery('(min-width: 900px)')
-
+const router = useRouter()
   const enterUserPage = () => {
-    Router.push(`/user/${user?.id}`)
+    router.push(`/user/${user?.id}`)
   }
 
   return (
@@ -48,8 +48,8 @@ function AvatarMenu(props) {
           </Center>
           <br />
           <MenuDivider />
-          <MenuItem onClick={enterUserPage}>Account Settings</MenuItem>
-          <MenuItem onClick={() => signOut({ callbackUrl: `${window.location.origin}` })}>Logout</MenuItem>
+          <MenuItem onClick={enterUserPage}>Perfil</MenuItem>
+          <MenuItem onClick={() => signOut({ callbackUrl: `${window.location.origin}` })}>Cerrar sesión</MenuItem>
         </MenuList>
       </Menu>
     </>

@@ -139,7 +139,7 @@ export default function UserList({ users, userSession }) {
           <Table
             emptyData={{
               icon: FiUser,
-              text: 'Nobody is registered here.'
+              text: 'Nadie esta registrado aqui.'
             }}
             totalRegisters={users.length}
             page={page}
@@ -153,7 +153,7 @@ export default function UserList({ users, userSession }) {
           <Table
             emptyData={{
               icon: FiUser,
-              text: 'Nobody is registered here.'
+              text: 'Nadie esta registrado aqui.'
             }}
             totalRegisters={users.length}
             page={page}

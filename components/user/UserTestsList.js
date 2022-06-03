@@ -161,7 +161,7 @@ export default function UserTestsList({ tests, userSession }) {
           <Table
             emptyData={{
               icon: FiUser,
-              text: 'This user does not have any test.'
+              text: 'Este usuario no tiene tests.'
             }}
             totalRegisters={tests.length}
             page={page}
@@ -175,7 +175,7 @@ export default function UserTestsList({ tests, userSession }) {
           <Table
             emptyData={{
               icon: FiUser,
-              text: 'This user does not have any test.'
+              text: 'Este usuario no tiene tests.'
             }}
             totalRegisters={tests.length}
             page={page}

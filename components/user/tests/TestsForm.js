@@ -15,7 +15,7 @@ import {
   VStack,
   Select
 } from '@chakra-ui/react'
-
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { Formik } from 'formik'
 
@@ -24,7 +24,7 @@ import { validateTestData } from '../../../validations/validateTestData'
 export default function FormTests(props) {
   const [successCreateTest, setSuccessCreateTest] = useState(false)
   const [errorCreateTest, setErrorCreateTest] = useState(false)
-
+  const router = useRouter()
   return (
     <Container as={SimpleGrid}>
       <Formik
@@ -46,7 +46,6 @@ export default function FormTests(props) {
           const birthDateUSFormatted = birthDateArray.join('/')
 
           try {
-            
             const res = await fetch(`/api/tests`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -59,9 +58,9 @@ export default function FormTests(props) {
               })
             })
 
-    
             if (res.status === 200) {
               setSuccessCreateTest('El test se a creado correctamente')
+              router.replace(router.asPath)
             } else {
               setErrorCreateTest('Ops! Algo ha ido mal 💀')
             }
