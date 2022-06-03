@@ -1,8 +1,4 @@
-import { useState } from 'react'
-import { Formik } from 'formik'
 import {
-  Alert,
-  AlertIcon,
   Box,
   Button,
   Container,
@@ -17,16 +13,20 @@ import {
   SimpleGrid,
   Stack,
   Text,
+  useToast,
   VStack
 } from '@chakra-ui/react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
+
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { Formik } from 'formik'
 
 import {
   validateProfileData,
   validateUserData
 } from '../../validations/validateUserInfo'
-import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/router'
 
 export default function UserInfo(props) {
   const { user } = props
@@ -39,13 +39,11 @@ export default function UserInfo(props) {
     ? new Intl.DateTimeFormat('es-ES', options).format(new Date(user.birthDate))
     : ''
 
-  const [successUpdateProfile, setSuccessUpdateProfile] = useState(false)
-  const [successUpdatePersonal, setSuccessUpdatePersonal] = useState(false)
-  const [errorUpdateProfile, setErrorUpdateProfile] = useState(false)
-  const [errorUpdatePersonal, setErrorUpdatePersonal] = useState(false)
-  const router = useRouter()
-  const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
+  const [show, setShow] = useState(false)
+
+  const router = useRouter()
+  const toast = useToast()
 
   return (
     <Container as={SimpleGrid}>
@@ -59,8 +57,6 @@ export default function UserInfo(props) {
         }}
         validationSchema={validateProfileData()}
         onSubmit={async ({ name, email, password, avatar }) => {
-          setSuccessUpdateProfile(false)
-          setErrorUpdateProfile(false)
           password = password || user.password
           try {
             const { error } = await fetch(`/api/user/${user.id}`, {
@@ -74,12 +70,20 @@ export default function UserInfo(props) {
               })
             }).then(res => res.json())
             if (error) {
-              setErrorUpdateProfile('Parece que el correo ya está en uso')
+              toast({
+                title: 'Parece que el correo ya está en uso',
+                status: 'error',
+                duration: 3000,
+                isClosable: true
+              })
               return
             }
-            setSuccessUpdateProfile(
-              'Los datos del perfil se han actualizado correctamente'
-            )
+            toast({
+              title: 'Los datos del perfil se han actualizado correctamente',
+              status: 'success',
+              duration: 3000,
+              isClosable: true
+            })
             if (user.email !== email) {
               signIn('change_email_signin', {
                 email
@@ -116,18 +120,6 @@ export default function UserInfo(props) {
             </Heading>
 
             <VStack as="form" onSubmit={handleSubmit} py="4" w="full">
-              {errorUpdateProfile && (
-                <Alert status="error">
-                  <AlertIcon />
-                  {errorUpdateProfile}
-                </Alert>
-              )}
-              {successUpdateProfile && (
-                <Alert status="success">
-                  <AlertIcon />
-                  {successUpdateProfile}
-                </Alert>
-              )}
               <FormControl
                 isInvalid={errors.name && touched.name}
                 paddingBottom={4}
@@ -211,7 +203,8 @@ export default function UserInfo(props) {
                 disabled={
                   initialValues.name === values.name &&
                   initialValues.email === values.email &&
-                  initialValues.avatar === values.avatar
+                  initialValues.avatar === values.avatar &&
+                  initialValues.password === values.password
                 }
                 w="full"
                 bgGradient="linear(to-r, brand.300,brand.500,brand.300)"
@@ -240,8 +233,6 @@ export default function UserInfo(props) {
         }}
         validationSchema={validateUserData()}
         onSubmit={async ({ DNI, phone, address, zipCode, birthDate }) => {
-          setErrorUpdatePersonal(false)
-          setSuccessUpdatePersonal(false)
           const birthDateArray = birthDate.split('/')
           const month = birthDateArray[0]
           birthDateArray[0] = birthDateArray[1]
@@ -260,12 +251,20 @@ export default function UserInfo(props) {
               })
             }).then(res => res.json())
             if (error) {
-              setErrorUpdatePersonal(error)
+              toast({
+                title: error,
+                status: 'success',
+                duration: 3000,
+                isClosable: true
+              })
               return
             }
-            setSuccessUpdatePersonal(
-              'Los datos personales se han actualizado correctamente'
-            )
+            toast({
+              title: 'Los datos del perfil se han actualizado correctamente',
+              status: 'success',
+              duration: 3000,
+              isClosable: true
+            })
           } catch (error) {
             throw new Error(error)
           }
@@ -297,18 +296,6 @@ export default function UserInfo(props) {
             </Heading>
 
             <VStack as="form" onSubmit={handleSubmit} py="4" w="full">
-              {errorUpdatePersonal && (
-                <Alert status="error">
-                  <AlertIcon />
-                  {errorUpdatePersonal}
-                </Alert>
-              )}
-              {successUpdatePersonal && (
-                <Alert status="success">
-                  <AlertIcon />
-                  {successUpdatePersonal}
-                </Alert>
-              )}
               <FormControl
                 isInvalid={errors.DNI && touched.DNI}
                 paddingBottom={4}
