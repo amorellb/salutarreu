@@ -1,6 +1,4 @@
 import {
-  Alert,
-  AlertIcon,
   Button,
   Container,
   FormControl,
@@ -13,18 +11,18 @@ import {
   Stack,
   Text,
   VStack,
-  Select
+  Select,
+  useToast
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
 import { Formik } from 'formik'
 
 import { validateTestData } from '../../../validations/validateTestData'
 
 export default function FormTests(props) {
-  const [successCreateTest, setSuccessCreateTest] = useState(false)
-  const [errorCreateTest, setErrorCreateTest] = useState(false)
   const router = useRouter()
+  const toast = useToast()
+
   return (
     <Container as={SimpleGrid}>
       <Formik
@@ -59,10 +57,20 @@ export default function FormTests(props) {
             })
 
             if (res.status === 200) {
-              setSuccessCreateTest('El test se a creado correctamente')
+              toast({
+                title: 'El test se ha creado correctamente',
+                status: 'success',
+                duration: 3000,
+                isClosable: true
+              })
               router.replace(router.asPath)
             } else {
-              setErrorCreateTest('Ops! Algo ha ido mal 💀')
+              toast({
+                title: 'Ops! Algo ha ido mal 💀',
+                status: 'error',
+                duration: 3000,
+                isClosable: true
+              })
             }
           } catch (error) {
             console.error(error)
@@ -95,18 +103,6 @@ export default function FormTests(props) {
             </Heading>
 
             <VStack as="form" onSubmit={handleSubmit} py="4" w="full">
-              {errorCreateTest && (
-                <Alert status="error">
-                  <AlertIcon />
-                  {errorCreateTest}
-                </Alert>
-              )}
-              {successCreateTest && (
-                <Alert status="success">
-                  <AlertIcon />
-                  {successCreateTest}
-                </Alert>
-              )}
               <FormControl
                 isInvalid={errors.testName && touched.testName}
                 paddingBottom={4}
