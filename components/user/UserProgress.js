@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import {
@@ -14,7 +12,6 @@ import GraphicDesktop from './graphics/GraphicDesktop'
 import GraphicMobile from './graphics/GraphicMobile'
 
 export default function UserTests(props) {
-
   const [testGraphic, setTestGraphic] = useState('Test de Resistencia')
   const [buttonStrengthState, setButtonStrengthState] = useState('outline')
   const [buttonMobilityState, setButtonMobilityState] = useState('outline')
@@ -25,7 +22,6 @@ export default function UserTests(props) {
   useEffect(() => {
     setIsLargerThan1280px(isLargerThan1280)
   }, [isLargerThan1280])
-
 
   const testsFuerza = []
   const testsVelocidad = []
@@ -40,7 +36,6 @@ export default function UserTests(props) {
       testsVelocidad.push({ x: moment(date).format('D-M-Y'), y: result })
     }
   })
-
 
   let data = []
 
@@ -73,7 +68,6 @@ export default function UserTests(props) {
     setButtonStrengthState('outline')
   }
 
-
   return (
     <>
       <Box textAlign="center">
@@ -89,11 +83,16 @@ export default function UserTests(props) {
             {testGraphic}
           </Heading>
         </Container>
-     
-        {isLargerThan1280px ? <GraphicDesktop data={data}  /> : <GraphicMobile data={data}/>}
 
-        <ButtonGroup spacing="10">
+        {isLargerThan1280px ? (
+          <GraphicDesktop data={data} />
+        ) : (
+          <GraphicMobile data={data} />
+        )}
+
+        <ButtonGroup spacing={{ base: '3', sm: '10' }}>
           <Button
+            fontSize={{ base: 'sm', sm: 'lg' }}
             colorScheme="green"
             variant={buttonStrengthState}
             onClick={() => GraphicStateStrength()}
@@ -101,6 +100,7 @@ export default function UserTests(props) {
             Fuerza
           </Button>
           <Button
+            fontSize={{ base: 'sm', sm: 'lg' }}
             colorScheme="green"
             variant={buttonResistanceState}
             onClick={() => GraphicStateResistance()}
@@ -108,6 +108,7 @@ export default function UserTests(props) {
             Resistencia
           </Button>
           <Button
+            fontSize={{ base: 'sm', sm: 'lg' }}
             colorScheme="green"
             variant={buttonMobilityState}
             onClick={() => GraphicStateMobility()}
