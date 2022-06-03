@@ -161,6 +161,24 @@ export default function WithSpeechBubbles() {
               name={'Maria Victoria Peláez'}
             />
           </Testimonial>
+
+          <Testimonial>
+            <TestimonialContent>
+              <TestimonialHeading>Cambio físico</TestimonialHeading>
+              <TestimonialText>
+                Tenía unos hábitos de ejercicio muy irregulares, por eso decidí
+                empezar una vida más sana, pero como no tenía mucha idea de que
+                ejercicios hacer recurrí a Salutarreu para que me orientaran y
+                así empezar una nueva vida.{' '}
+              </TestimonialText>
+            </TestimonialContent>
+            <TestimonialAvatar
+              src={
+                'https://media.discordapp.net/attachments/770716465941970955/957441418585067570/desconocido.jpeg?width=301&height=669'
+              }
+              name={'Magí Payeras Andreu'}
+            />
+          </Testimonial>
         </Stack>
       </Container>
     </Box>
