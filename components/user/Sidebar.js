@@ -11,6 +11,7 @@ import {
   Button
 } from '@chakra-ui/react'
 import { AiFillDelete } from 'react-icons/ai'
+
 export default function SimpleSidebar({
   isOpen,
   onClose,
@@ -67,7 +68,7 @@ export const SidebarContent = ({
           {user?.name}
         </Text>
       </VStack>
-      <VStack alignItems={'flex-start'} flexDirection="column">
+      <VStack spacing={5} alignItems="center" flexDirection="column">
         {linkItems.map(({ name, icon, viewForTrainer }) => {
           return viewForTrainer ? (
             user?.role === 'TRAINER' && (
@@ -83,8 +84,9 @@ export const SidebarContent = ({
         })}
         {userSession?.role === 'TRAINER' && userSession?.id !== user.id && (
           <Button
-            display={'flex'}
-            align="center"
+            role="tab"
+            w={'100%'}
+            justifyContent="start"
             borderRadius="lg"
             wordBreak={'revert'}
             cursor="pointer"
@@ -115,9 +117,9 @@ const NavItem = ({ onClose, icon, children, name, ...rest }) => {
   return (
     <Tab
       onClick={onClose}
+      w={'100%'}
+      justifyContent="start"
       role="tab"
-      display={'flex'}
-      align="center"
       borderRadius="lg"
       wordBreak={'revert'}
       cursor="pointer"
