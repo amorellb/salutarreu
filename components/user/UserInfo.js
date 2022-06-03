@@ -26,6 +26,7 @@ import {
   validateUserData
 } from '../../validations/validateUserInfo'
 import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 export default function UserInfo(props) {
   const { user } = props
@@ -42,7 +43,7 @@ export default function UserInfo(props) {
   const [successUpdatePersonal, setSuccessUpdatePersonal] = useState(false)
   const [errorUpdateProfile, setErrorUpdateProfile] = useState(false)
   const [errorUpdatePersonal, setErrorUpdatePersonal] = useState(false)
-
+  const router = useRouter()
   const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
 
@@ -62,7 +63,7 @@ export default function UserInfo(props) {
           setErrorUpdateProfile(false)
           password = password || user.password
           try {
-            const res = await fetch(`/api/user/${user.id}`, {
+            const { error } = await fetch(`/api/user/${user.id}`, {
               method: 'PUT',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -72,7 +73,7 @@ export default function UserInfo(props) {
                 avatar
               })
             }).then(res => res.json())
-            if (res.code === 'P2002') {
+            if (error) {
               setErrorUpdateProfile('Parece que el correo ya está en uso')
               return
             }
@@ -83,6 +84,8 @@ export default function UserInfo(props) {
               signIn('change_email_signin', {
                 email
               })
+            } else {
+              router.replace(router.asPath)
             }
           } catch (error) {
             throw new Error(error)
@@ -96,7 +99,8 @@ export default function UserInfo(props) {
           values,
           errors,
           touched,
-          isSubmitting
+          isSubmitting,
+          initialValues
         }) => (
           <Stack>
             <Heading
@@ -204,6 +208,11 @@ export default function UserInfo(props) {
               <Button
                 type="submit"
                 isLoading={isSubmitting}
+                disabled={
+                  initialValues.name === values.name &&
+                  initialValues.email === values.email &&
+                  initialValues.avatar === values.avatar
+                }
                 w="full"
                 bgGradient="linear(to-r, brand.300,brand.500,brand.300)"
                 color="white"
@@ -223,14 +232,14 @@ export default function UserInfo(props) {
       <Formik
         enableReinitialize
         initialValues={{
-          dni: user.DNI ? user.DNI : '',
+          DNI: user.DNI ? user.DNI : '',
           phone: user.phone ? user.phone : '',
           address: user.address ? user.address : '',
           zipCode: user.zipCode ? user.zipCode : '',
           birthDate: birthDateESFormatted || ''
         }}
         validationSchema={validateUserData()}
-        onSubmit={async ({ dni, phone, address, zipCode, birthDate }) => {
+        onSubmit={async ({ DNI, phone, address, zipCode, birthDate }) => {
           setErrorUpdatePersonal(false)
           setSuccessUpdatePersonal(false)
           const birthDateArray = birthDate.split('/')
@@ -239,19 +248,19 @@ export default function UserInfo(props) {
           birthDateArray[1] = month
           const birthDateUSFormatted = birthDateArray.join('/')
           try {
-            const res = await fetch(`/api/user/${user.id}`, {
+            const { error } = await fetch(`/api/user/${user.id}`, {
               method: 'PUT',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
-                DNI: dni,
+                DNI,
                 phone,
                 address,
                 zipCode,
                 birthDate: new Date(birthDateUSFormatted)
               })
             }).then(res => res.json())
-            if (res.code === 'P2002') {
-              setErrorUpdatePersonal('Parece que el DNI ya está en uso')
+            if (error) {
+              setErrorUpdatePersonal(error)
               return
             }
             setSuccessUpdatePersonal(
@@ -260,6 +269,7 @@ export default function UserInfo(props) {
           } catch (error) {
             throw new Error(error)
           }
+          router.push(router.asPath)
         }}
       >
         {({
@@ -269,7 +279,8 @@ export default function UserInfo(props) {
           values,
           errors,
           touched,
-          isSubmitting
+          isSubmitting,
+          initialValues
         }) => (
           <Stack marginTop={'8rem'}>
             <Heading
@@ -299,20 +310,20 @@ export default function UserInfo(props) {
                 </Alert>
               )}
               <FormControl
-                isInvalid={errors.dni && touched.dni}
+                isInvalid={errors.DNI && touched.DNI}
                 paddingBottom={4}
               >
                 <FormLabel htmlFor="dni">DNI</FormLabel>
                 <Input
-                  id="dni"
+                  id="DNI"
                   type="text"
-                  name="dni"
-                  value={values.dni}
+                  name="DNI"
+                  value={values.DNI}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   backgroundColor={'white'}
                 />
-                <FormErrorMessage>{errors.dni}</FormErrorMessage>
+                <FormErrorMessage>{errors.DNI}</FormErrorMessage>
               </FormControl>
               <FormControl
                 isInvalid={errors.phone && touched.phone}
@@ -397,6 +408,13 @@ export default function UserInfo(props) {
               <Button
                 type="submit"
                 isLoading={isSubmitting}
+                disabled={
+                  initialValues.DNI === values.DNI &&
+                  initialValues.phone === values.phone &&
+                  initialValues.address === values.address &&
+                  initialValues.zipCode === values.zipCode &&
+                  initialValues.birthDate === values.birthDate
+                }
                 w="full"
                 bgGradient="linear(to-r, brand.300,brand.500,brand.300)"
                 color="white"
